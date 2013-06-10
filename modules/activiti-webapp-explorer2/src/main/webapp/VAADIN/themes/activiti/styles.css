@@ -460,7 +460,7 @@ input.login-field {
 }
 
 .toolbar .v-button-toolbar-count.link.v-button-link.active {
-	background:url(img/bg-number-active.gif) no-repeat;
+	background:url(img/bg-number-active-red.png) no-repeat;
 }
 
 .toolbar .toolbar-count .v-button-wrap  {
@@ -470,7 +470,7 @@ input.login-field {
 }
 
 .toolbar .v-button-toolbar-count.link.v-button-link.active .v-button-wrap  {
-	background:url(img/bg-number-active.gif) no-repeat 100% 0;
+	background:url(img/bg-number-active-red.png) no-repeat 100% 0;
 }
 
 .toolbar .v-button-toolbar-count.link.v-button-link.active .v-button-wrap .v-button-caption {

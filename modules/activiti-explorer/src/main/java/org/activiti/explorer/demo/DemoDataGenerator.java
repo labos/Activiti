@@ -106,7 +106,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
 
   protected void initDemoGroups() {
-    String[] assignmentGroups = new String[] {"management", "sales", "marketing", "engineering"};
+    String[] assignmentGroups = new String[] {"management", "sales", "marketing", "engineering", "sag", "agi", "app", "cds", "sir", "net","spf","pst","rea","stf","ric","cge","doc","dir" };
     for (String groupId : assignmentGroups) {
       createGroup(groupId, "assignment");
     }
@@ -141,6 +141,20 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
             "org/activiti/explorer/images/fozzie.jpg",
             Arrays.asList("marketing", "engineering", "user"),
             null);
+    // new  SR default users
+    createUser("sbaghino", "Sebastiano", "Baghino", "sbaghino", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("pst","user"),
+            null);
+    createUser("emulas", "Enrico", "Mulas", "emulas", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("spf", "user"),
+            null);
+    createUser("smaxia", "Susanna", "Maxia", "smaxia", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("agi", "user"),
+            null);
+    
   }
   
   protected void createUser(String userId, String firstName, String lastName, String password, 
