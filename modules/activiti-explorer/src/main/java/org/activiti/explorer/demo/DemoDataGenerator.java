@@ -129,7 +129,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   protected void initDemoUsers() {
     createUser("kermit", "Kermit", "The Frog", "kermit", "kermit@activiti.org", 
             "org/activiti/explorer/images/kermit.jpg",
-            Arrays.asList("management", "sales", "marketing", "engineering", "user", "admin"),
+            Arrays.asList("management", "sales", "marketing", "engineering","sag", "agi", "app", "cds", "sir", "net","spf","pst","rea","stt","ric","cge","doc","dir", "user", "admin"),
             Arrays.asList("birthDate", "10-10-1955", "jobTitle", "Muppet", "location", "Hollywoord",
                           "phone", "+123456789", "twitterName", "alfresco", "skype", "activiti_kermit_frog"));
     
@@ -148,11 +148,47 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
             null);
     createUser("emulas", "Enrico", "Mulas", "emulas", "labopensource@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("spf", "user"),
+            Arrays.asList("spf", "app", "user"),
             null);
     createUser("smaxia", "Susanna", "Maxia", "smaxia", "labopensource@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("agi", "user"),
+            null);
+    createUser("acorda", "Alessandra", "corda", "acorda", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("sag", "user"),
+            null);
+    createUser("vsongini", "Valter", "Songini", "vsongini", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("cds", "user"),
+            null);
+    createUser("lsagheddu", "Lucia", "Sagheddu", "lsagheddu", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("sir", "user"),
+            null);
+    createUser("cmou", "Cesare", "Mou", "cmou", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("net","rea", "user"),
+            null);
+    createUser("sennas", "Sandra", "Ennas", "sennas", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("stt", "user"),
+            null);
+    createUser("lcontini", "Luca", "Contini", "lcontini", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("ric", "user"),
+            null);
+    createUser("agugliotta", "Alessandra", "Gugliotta", "agugliotta", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("cge", "user"),
+            null);
+    createUser("eangioni", "Elena", "Angioni", "eangioni", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("doc", "user"),
+            null);
+    createUser("aatzeni", "Alessandra", "Atzeni", "aatzeni", "labopensource@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("dir", "user"),
             null);
     
   }
