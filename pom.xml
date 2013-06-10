@@ -437,7 +437,7 @@
         <groupId>postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <version>9.0-802.jdbc4</version>
-        <scope>test</scope>
+       <!--   <scope>test</scope> -->
       </dependency>
       <dependency>
         <groupId>wsdl4j</groupId>
