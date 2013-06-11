@@ -38,11 +38,12 @@
   </bean>
   
   <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-  	<property name="mailServerHost" value="smtp.fastwebnet.it" />
+  	<property name="mailServerHost" value="smtp.fastweb.it" />
 	<property name="mailServerPort" value="25" />
   	<property name="dataSource" ref="dataSource" />
   	<property name="transactionManager" ref="transactionManager" />
-  	<property name="databaseSchemaUpdate" value="true" />
+  	<!--  <property name="databaseSchemaUpdate" value="true" /> -->
+  	<property name="databaseSchemaUpdate" value="create-drop" />  	
   	<property name="jobExecutorActivate" value="true" />
     <property name="customFormTypes">
       <list>
