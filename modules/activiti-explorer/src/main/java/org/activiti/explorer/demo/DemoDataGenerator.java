@@ -146,6 +146,10 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("pst","user"),
             null);
+    createUser("gserra", "Giuseppe", "Serra", "serra", "labopensource+PST-responsabile@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("pst","user"),
+            null);
     createUser("emulas", "Enrico", "Mulas", "mulas", "labopensource+SPF-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("spf", "app", "user"),
@@ -249,6 +253,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
         .addClasspathResource("org/activiti/explorer/demo/process/Helpdesk.bpmn20.xml")
         .addClasspathResource("org/activiti/explorer/demo/process/Helpdesk.png")
         .addClasspathResource("org/activiti/explorer/demo/process/reviewSalesLead.bpmn20.xml")
+        .addClasspathResource("org/activiti/explorer/demo/process/processo-autorizzazione-spesa.bpmn20.xml")
         .deploy();
     }
     
