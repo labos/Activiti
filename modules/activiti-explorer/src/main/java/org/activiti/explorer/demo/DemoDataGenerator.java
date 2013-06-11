@@ -106,7 +106,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
 
   protected void initDemoGroups() {
-    String[] assignmentGroups = new String[] {"management", "sales", "marketing", "engineering", "sag", "agi", "app", "cds", "sir", "net","spf","pst","rea","ric","cge","doc","dir" };
+    String[] assignmentGroups = new String[] {"management", "sales", "marketing", "engineering", "sag", "agi", "app", "cds", "sir", "net","spf","pst","rea","stt","ric","cge","doc","dir" };
     for (String groupId : assignmentGroups) {
       createGroup(groupId, "assignment");
     }
@@ -142,51 +142,51 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
             Arrays.asList("marketing", "engineering", "user"),
             null);
     // new  SR default users
-    createUser("sbaghino", "Sebastiano", "Baghino", "sbaghino", "labopensource+PST-responsabile@gmail.com", 
+    createUser("sbaghino", "Sebastiano", "Baghino", "baghino", "labopensource+PST-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("pst","user"),
             null);
-    createUser("emulas", "Enrico", "Mulas", "emulas", "labopensource+SPF-responsabile@gmail.com", 
+    createUser("emulas", "Enrico", "Mulas", "mulas", "labopensource+SPF-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("spf", "app", "user"),
             null);
-    createUser("smaxia", "Susanna", "Maxia", "smaxia", "labopensource+AGI-responsabile@gmail.com", 
+    createUser("smaxia", "Susanna", "Maxia", "maxia", "labopensource+AGI-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("agi", "user"),
             null);
-    createUser("acorda", "Alessandra", "corda", "acorda", "labopensource+SAG-responsabile@gmail.com", 
+    createUser("acorda", "Alessandra", "corda", "corda", "labopensource+SAG-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("sag", "user"),
             null);
-    createUser("vsongini", "Valter", "Songini", "vsongini", "labopensource+CDS-responsabile@gmail.com", 
+    createUser("vsongini", "Valter", "Songini", "songini", "labopensource+CDS-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("cds", "user"),
             null);
-    createUser("lsagheddu", "Lucia", "Sagheddu", "lsagheddu", "labopensource+SIR-responsabile@gmail.com", 
+    createUser("lsagheddu", "Lucia", "Sagheddu", "sagheddu", "labopensource+SIR-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("sir", "user"),
             null);
-    createUser("cmou", "Cesare", "Mou", "cmou", "labopensource+REA-responsabile@gmail.com", 
+    createUser("cmou", "Cesare", "Mou", "mou", "labopensource+REA-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("net","rea", "user"),
             null);
-    createUser("sennas", "Sandra", "Ennas", "sennas", "labopensource+STT-responsabile@gmail.com", 
+    createUser("sennas", "Sandra", "Ennas", "ennas", "labopensource+STT-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("stt", "user"),
             null);
-    createUser("lcontini", "Luca", "Contini", "lcontini", "labopensource+RIC-responsabile@gmail.com", 
+    createUser("lcontini", "Luca", "Contini", "contini", "labopensource+RIC-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("ric", "user"),
             null);
-    createUser("agugliotta", "Alessandra", "Gugliotta", "agugliotta", "labopensource+CGE-responsabile@gmail.com", 
+    createUser("agugliotta", "Alessandra", "Gugliotta", "gugliotta", "labopensource+CGE-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("cge", "user"),
             null);
-    createUser("eangioni", "Elena", "Angioni", "eangioni", "labopensource+DOC-responsabile@gmail.com", 
+    createUser("eangioni", "Elena", "Angioni", "angioni", "labopensource+DOC-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("doc", "user"),
             null);
-    createUser("aatzeni", "Alessandra", "Atzeni", "aatzeni", "labopensource+DIR-responsabile@gmail.com", 
+    createUser("aatzeni", "Alessandra", "Atzeni", "atzeni", "labopensource+DIR-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("dir", "user"),
             null);
