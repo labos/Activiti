@@ -18,7 +18,7 @@
     </userTask>
     <userTask id="sid-49F646B0-DC0D-42E7-A823-80DC461519E3" name="Autorizzazione SPF" activiti:exclusive="false" activiti:assignee="emulas">
       <extensionElements>
-        <activiti:formProperty id="nome-progetto-spf" name="Nome Progetto" type="string" variable="nomeprogetto" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nome-progetto-spf" name="Nome Progetto" type="string" expression="#{nomeprogetto.getProjectName()}" variable="nome-progetto-spf" writable="false"></activiti:formProperty>
         <activiti:formProperty id="oggetto-progetto-spf" name="Oggetto Progetto" variable="oggettoprogetto" writable="false"></activiti:formProperty>
         <activiti:formProperty id="importoread" name="Importo" type="long" expression="#{importo}" variable="importo" writable="false"></activiti:formProperty>
         <activiti:formProperty id="autorizzazionespesa" name="Autorizza?" type="boolean" variable="autorizzazionespesa" required="true"></activiti:formProperty>
