@@ -40,7 +40,8 @@
         <bean class="org.activiti.explorer.ui.form.ProcessDefinitionFormPropertyRenderer" />
         <bean class="org.activiti.explorer.ui.form.MonthFormPropertyRenderer" />
         <bean class="org.activiti.explorer.ui.form.ProjectFormPropertyRenderer" />
-      </list>
+        <bean class="org.activiti.explorer.ui.form.TextAreaFormPropertyRenderer" />
+       </list>
     </property>
   </bean>
   

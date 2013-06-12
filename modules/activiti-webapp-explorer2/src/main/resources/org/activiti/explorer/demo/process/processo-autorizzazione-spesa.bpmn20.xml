@@ -3,16 +3,7 @@
   <process id="processo-autorizzazione-spesa" isExecutable="true">
     <userTask id="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" name="Inserimento dati progetto" activiti:exclusive="false" activiti:assignee="sbaghino">
       <extensionElements>
-        <activiti:formProperty id="nomeprogetto" name="nomeprogetto" type="enum" variable="nomeprogetto" required="true">
-          <activiti:value id="top-down" name="Azioni Cluster T.D. 2013"></activiti:value>
-          <activiti:value id="bottom-up" name="Bottom Up 2013"></activiti:value>
-          <activiti:value id="sardegna-nuova" name="Sardegna Nuova 2013"></activiti:value>
-          <activiti:value id="energia-rinnovabile" name="Energia Rinnovabile"></activiti:value>
-          <activiti:value id="bando-aiuti-reti-pmi2013" name="Bando Aiuti Innov. Reti PMI"></activiti:value>
-          <activiti:value id="innovazione-tt" name="Innovazione e T.T."></activiti:value>
-          <activiti:value id="1-call-bando-startup" name="1° call Bando Aiuti Start Up"></activiti:value>
-          <activiti:value id="acquis-servizi-smart-city" name="Acquisiz. Servizi Smart City"></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="nomeprogetto" name="Nome Progetto" type="project" variable="nomeprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="oggettoprogetto" name="Oggetto/Motivazione" type="string" variable="oggettoprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="importo" name="Spesa/Impegno" type="long" variable="importo" required="true"></activiti:formProperty>
         <activiti:formProperty id="destinazionefimaprogetto" name="Tipo di Determ." type="enum" variable="determTo" default="determ-to-direttore" required="true">
@@ -22,7 +13,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="notificaagi" name="Nofifica AGI" type="boolean" variable="notificaagi"></activiti:formProperty>
         <activiti:formProperty id="avvisoresponsabile" name="Notifica al Responsabile" type="boolean" variable="avvisoresponsabile"></activiti:formProperty>
-        <activiti:formProperty id="visto" name="VISTO" type="string" variable="visto"></activiti:formProperty>
+        <activiti:formProperty id="visto" name="VISTO" type="textarea" variable="visto"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <userTask id="sid-49F646B0-DC0D-42E7-A823-80DC461519E3" name="Autorizzazione SPF" activiti:exclusive="false" activiti:assignee="emulas">
@@ -102,7 +93,7 @@
           <activiti:string>dirigente@tiscali.it</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Determina firmata dal dirigente/direttore </activiti:string>
+          <activiti:string>Determina firmata dal dirigente/direttore</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:string>Complimenti, la determina è stata firmata dal dirigente.</activiti:string>

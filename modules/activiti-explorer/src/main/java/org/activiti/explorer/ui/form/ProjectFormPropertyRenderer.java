@@ -50,18 +50,22 @@ public class ProjectFormPropertyRenderer extends AbstractFormPropertyRenderer {
     aBudgetRow.setProjectName("progetto 1");
     budgetRows.add(aBudgetRow);
     
+    aBudgetRow = new BudgetRow();
     aBudgetRow.setId("progetto 2");
     aBudgetRow.setProjectName("progetto 2");
     budgetRows.add(aBudgetRow);
     
+    aBudgetRow = new BudgetRow();
     aBudgetRow.setId("progetto 3");
     aBudgetRow.setProjectName("progetto 3");
     budgetRows.add(aBudgetRow);
     
+    aBudgetRow = new BudgetRow();
     aBudgetRow.setId("progetto 4");
     aBudgetRow.setProjectName("progetto 4");
     budgetRows.add(aBudgetRow);
     
+    aBudgetRow = new BudgetRow();
     aBudgetRow.setId("progetto 5");
     aBudgetRow.setProjectName("progetto 5");
     budgetRows.add(aBudgetRow);
@@ -70,6 +74,7 @@ public class ProjectFormPropertyRenderer extends AbstractFormPropertyRenderer {
     aBudgetRow.setProjectName("progetto 6");
     budgetRows.add(aBudgetRow);
     
+    aBudgetRow = new BudgetRow();
     aBudgetRow.setId("progetto 7");
     aBudgetRow.setProjectName("progetto 7");
     budgetRows.add(aBudgetRow);
