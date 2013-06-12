@@ -49,7 +49,8 @@
       <list>
         <bean class="org.activiti.explorer.form.UserFormType"/>
         <bean class="org.activiti.explorer.form.ProcessDefinitionFormType"/> 
-        <bean class="org.activiti.explorer.form.MonthFormType"/>   
+        <bean class="org.activiti.explorer.form.MonthFormType"/>
+        <bean class="org.activiti.explorer.form.ProjectFormType"/>   
       </list>
     </property>
   </bean>
