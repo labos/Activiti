@@ -1,6 +1,13 @@
 package org.activiti.explorer.form;
 
-public class BudgetRow {
+import java.io.Serializable;
+
+public class BudgetRow implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String projectName;
 	private double projectAmount;
