@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="processo-autorizzazione-spesa" isExecutable="true">
-    <userTask id="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" name="Inserimento dati progetto" activiti:exclusive="false" activiti:assignee="sbaghino">
+    <userTask id="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" name="Inserimento dati progetto ${initiator}" activiti:exclusive="false" activiti:assignee="${initiator}">
       <extensionElements>
         <activiti:formProperty id="nomeprogetto" name="Nome Progetto" type="project" variable="nomeprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="oggettoprogetto" name="Oggetto/Motivazione" type="string" variable="oggettoprogetto" required="true"></activiti:formProperty>
@@ -18,7 +18,7 @@
     </userTask>
     <userTask id="sid-49F646B0-DC0D-42E7-A823-80DC461519E3" name="Autorizzazione SPF" activiti:exclusive="false" activiti:assignee="emulas">
       <extensionElements>
-        <activiti:formProperty id="nome-progetto-spf" name="Nome Progetto" type="string" expression="#{nomeprogetto.getProjectName()}" variable="nome-progetto-spf" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nome-progetto-spf" name="Nome Progetto" type="string" variable="nomeprogetto.projectName" default="${nomeprogetto.projectName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="oggetto-progetto-spf" name="Oggetto Progetto" variable="oggettoprogetto" writable="false"></activiti:formProperty>
         <activiti:formProperty id="importoread" name="Importo" type="long" expression="#{importo}" variable="importo" writable="false"></activiti:formProperty>
         <activiti:formProperty id="autorizzazionespesa" name="Autorizza?" type="boolean" variable="autorizzazionespesa" required="true"></activiti:formProperty>
@@ -41,10 +41,13 @@
           <activiti:string>responsabile@sardegnaricerche.it</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Rifiuto autorizzazione pfc</activiti:string>
+          <activiti:string>Rifiuto autorizzazione spf ${motivazioneriufiutoautorizzazione}</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:string>E' stato rifiutato da SPF</activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>Rifiuto: ${motivazioneriufiutoautorizzazione}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -58,10 +61,13 @@
           <activiti:string>sbaghino@tiscali.it</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Notifica a responsabile di Settore  - {oggettoprogetto}</activiti:string>
+          <activiti:string>Notifica a responsabile di Settore   ${oggettoprogetto}</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string>Sta partendo un nuovo processo di autorizzazione alla spesa</activiti:string>
+          <activiti:string>Sta partendo un nuovo processo di autorizzazione alla spesa ${oggettoprogetto}</activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:string>Sta partendo un nuovo processo di autorizzazione alla spesa ${oggettoprogetto}</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -142,16 +148,16 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!firmatodirigautorizzazionespesa}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-37193616-0462-47C9-9B62-29F530BD8E0C" sourceRef="sid-D19AF8EF-F216-4209-8CEF-423910AD052B" targetRef="sid-2413096E-CAE7-47F7-892A-BB9871125E38"></sequenceFlow>
-    <userTask id="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" name="Allega Determinazione" activiti:exclusive="false" activiti:assignee="sbaghino"></userTask>
+    <userTask id="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" name="Allega Determinazione" activiti:exclusive="false" activiti:assignee="${initiator}"></userTask>
     <sequenceFlow id="sid-55378F5D-1140-4137-B3A9-CE05A7C7BFB9" name="${autorizzazionespesa}" sourceRef="sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551" targetRef="sid-94C357BD-11C5-490B-A895-3F82CC25DD46">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${autorizzazionespesa}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-3196CBE5-75C8-4947-8988-A1F57FBAD7BF" name="${!autorizzazionespesa}" sourceRef="sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551" targetRef="sid-A66E7B23-37D1-43F4-A5C1-3B97326367B9">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!autorizzazionespesa}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="sid-F4A09FD3-8485-40D2-9EC6-309191123276" name="Lettura motivazione Rifiuto" activiti:exclusive="false" activiti:assignee="sbaghino">
+    <userTask id="sid-F4A09FD3-8485-40D2-9EC6-309191123276" name="Lettura motivazione Rifiuto" activiti:exclusive="false" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="showriufiutoautorizzazione" expression="${motivazioneriufiutoautorizzazione}"></activiti:formProperty>
+        <activiti:formProperty id="showriufiutoautorizzazione" name="Motivazione Rifiuto" default="${motivazioneriufiutoautorizzazione}" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="sid-EFF9472B-8D88-44CD-A6A4-2051D8E1FDA8" sourceRef="sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B" targetRef="sid-F4A09FD3-8485-40D2-9EC6-309191123276"></sequenceFlow>
