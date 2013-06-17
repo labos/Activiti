@@ -27,6 +27,7 @@ public interface ViewManager {
   static final String MAIN_NAVIGATION_PROCESS = "process";
   static final String MAIN_NAVIGATION_MANAGE = "manage";
   static final String MAIN_NAVIGATION_REPORT = "report";
+  static final String MAIN_NAVIGATION_BUDGET = "budget";
   
   // Generic
   

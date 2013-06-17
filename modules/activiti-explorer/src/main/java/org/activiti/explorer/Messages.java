@@ -55,6 +55,7 @@ public interface Messages {
   String MAIN_MENU_PROCESS = "main.menu.process";
   String MAIN_MENU_MANAGEMENT = "main.menu.management";
   String MAIN_MENU_REPORTS = "main.menu.reports";
+  String MAIN_MENU_BUDGET = "main.menu.budget";
   
   // Password
   String PASSWORD_CHANGE = "password.change";
