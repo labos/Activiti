@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="processo-autorizzazione-spesa-DG">
+    <userTask id="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" name="Inserimento dati progetto ${initiator}" activiti:exclusive="false" activiti:assignee="${initiator}">
+      <extensionElements>
+        <activiti:formProperty id="nomeprogetto" name="Nome Progetto" type="project" variable="nomeprogetto" required="true"></activiti:formProperty>
+        <activiti:formProperty id="oggettoprogetto" name="Oggetto/Motivazione" type="string" variable="oggettoprogetto" required="true"></activiti:formProperty>
+        <activiti:formProperty id="importo" name="Spesa/Impegno" type="long" variable="importo" required="true"></activiti:formProperty>
+        <activiti:formProperty id="notificaagi" name="Nofifica AGI" type="boolean" variable="notificaagi"></activiti:formProperty>
+        <activiti:formProperty id="avvisoresponsabile" name="Notifica al Responsabile" type="boolean" variable="avvisoresponsabile"></activiti:formProperty>
+        <activiti:formProperty id="visto" name="VISTO" type="textarea" variable="visto"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="sid-49F646B0-DC0D-42E7-A823-80DC461519E3" name="Autorizzazione SPF" activiti:exclusive="false" activiti:assignee="emulas">
+      <extensionElements>
+        <activiti:formProperty id="nome-progetto-spf" name="Nome Progetto" type="string" variable="nomeprogetto.projectName" default="${nomeprogetto.projectName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="oggetto-progetto-spf" name="Oggetto Progetto" variable="oggettoprogetto" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="importoread" name="Importo" type="long" expression="#{importo}" variable="importo" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="autorizzazionespesa" name="Autorizza?" type="boolean" variable="autorizzazionespesa" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="sid-B070A3C7-C89E-409B-979E-9301C76591BD" name="Firma determinaz Direttore" activiti:exclusive="false" activiti:assignee="aatzeni">
+      <extensionElements>
+        <activiti:formProperty id="firmatodirautorizzazioneimporto" name="Accettata" type="boolean" variable="firmatodirautorizzazioneimporto" required="true"></activiti:formProperty>
+        <activiti:formProperty id="motivazione-direttore" name="Motivazione" variable="motivazione-direttore"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551" name=""></exclusiveGateway>
+    <serviceTask id="sid-E8BF3436-8835-47DC-A5F3-12D2B2BC890B" name="Notifica email di Rifiuto al proponente" activiti:exclusive="false" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to" expression="labopensource+PST-responsabile@gmail.com"></activiti:field>
+        <activiti:field name="from" expression="responsabile@sardegnaricerche.it"></activiti:field>
+        <activiti:field name="subject" expression="Rifiuto autorizzazione spf ${motivazioneriufiutoautorizzazione}"></activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[Rifiuto: ${motivazioneriufiutoautorizzazione}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[E' stato rifiutato da SPF]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <startEvent id="sid-DCAB1BF0-AD0C-4E05-BA41-112AFCB84A85" activiti:initiator="initiator"></startEvent>
+    <userTask id="sid-A66E7B23-37D1-43F4-A5C1-3B97326367B9" name="Motivazione Rifiuto Autorizzazione SPF" activiti:exclusive="false" activiti:assignee="emulas">
+      <extensionElements>
+        <activiti:formProperty id="motivazioneriufiutoautorizzazione" name="Motivazione del Rifiuto" type="string" variable="motivazioneriufiutoautorizzazione" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <parallelGateway id="sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B"></parallelGateway>
+    <exclusiveGateway id="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9"></exclusiveGateway>
+    <userTask id="sid-5461C0AB-2B42-4333-A519-114CDF48EF2A" name="Aggiunta numero/data AGI" activiti:exclusive="false" activiti:assignee="smaxia">
+      <extensionElements>
+        <activiti:formProperty id="numero-determ" name="Numero Determinazione" type="long" variable="numero-determ" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data-determ" name="Data Determinazione" type="date" variable="data-determ" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <parallelGateway id="sid-DAD148B9-A0F5-4979-A9A4-D2B5251EDCAA" name=""></parallelGateway>
+    <serviceTask id="sid-43C91A10-DCF6-437E-BBD6-9DB9CBACA019" name="Notifica Determinazione firmata e datata al proponente" activiti:exclusive="false" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to" expression="labopensource+PST-responsabile@gmail.com"></activiti:field>
+        <activiti:field name="from" expression="dirigente@tiscali.it"></activiti:field>
+        <activiti:field name="subject" expression="Determinazione firmata dal direttore"></activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[Complimenti, la determinazione è stata firmata dal direttore.]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="sid-4455EA8E-4C34-4056-8C47-5F50AE2FACC9" name="Archiviazione Determinazione" activiti:exclusive="false"></serviceTask>
+    <endEvent id="sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120"></endEvent>
+    <serviceTask id="sid-2413096E-CAE7-47F7-892A-BB9871125E38" name="Notifica Determinazione non firmata" activiti:exclusive="false" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to" expression="labopensource+PST-responsabile@gmail.com"></activiti:field>
+        <activiti:field name="from" expression="dirigente@tiscali.it"></activiti:field>
+        <activiti:field name="subject" expression="Firma determinazione rifiutata dal direttore"></activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[La firma della determinazione è stata rifiutata dal direttore]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <parallelGateway id="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6"></parallelGateway>
+    <userTask id="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" name="Allega Determinazione" activiti:exclusive="false" activiti:assignee="${initiator}"></userTask>
+    <userTask id="sid-F4A09FD3-8485-40D2-9EC6-309191123276" name="Lettura motivazione Rifiuto" activiti:exclusive="false" activiti:assignee="${initiator}">
+      <extensionElements>
+        <activiti:formProperty id="showriufiutoautorizzazione" name="Motivazione Rifiuto" default="${motivazioneriufiutoautorizzazione}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" name="" sourceRef="sid-49F646B0-DC0D-42E7-A823-80DC461519E3" targetRef="sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551"></sequenceFlow>
+    <sequenceFlow id="flow5" name="" sourceRef="sid-DAD148B9-A0F5-4979-A9A4-D2B5251EDCAA" targetRef="sid-43C91A10-DCF6-437E-BBD6-9DB9CBACA019"></sequenceFlow>
+    <sequenceFlow id="flow12" name="" sourceRef="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6" targetRef="sid-2413096E-CAE7-47F7-892A-BB9871125E38"></sequenceFlow>
+    <sequenceFlow id="flow16" name="${autorizzazionespesa}" sourceRef="sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551" targetRef="sid-94C357BD-11C5-490B-A895-3F82CC25DD46">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${autorizzazionespesa}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow17" name="${!autorizzazionespesa}" sourceRef="sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551" targetRef="sid-A66E7B23-37D1-43F4-A5C1-3B97326367B9">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!autorizzazionespesa}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow18" name="" sourceRef="sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B" targetRef="sid-F4A09FD3-8485-40D2-9EC6-309191123276"></sequenceFlow>
+    <sequenceFlow id="flow19" name="" sourceRef="sid-F4A09FD3-8485-40D2-9EC6-309191123276" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA"></sequenceFlow>
+    <sequenceFlow id="flow23" name="${!firmatodirautorizzazioneimporto}" sourceRef="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9" targetRef="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!firmatodirautorizzazioneimporto}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow25" name="${firmatodirautorizzazioneimporto}" sourceRef="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9" targetRef="sid-5461C0AB-2B42-4333-A519-114CDF48EF2A">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firmatodirautorizzazioneimporto}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow6" name="" sourceRef="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA"></sequenceFlow>
+    <sequenceFlow id="flow26" name="" sourceRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" targetRef="sid-49F646B0-DC0D-42E7-A823-80DC461519E3"></sequenceFlow>
+    <sequenceFlow id="flow27" name="" sourceRef="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" targetRef="sid-B070A3C7-C89E-409B-979E-9301C76591BD"></sequenceFlow>
+    <sequenceFlow id="flow28" name="" sourceRef="sid-DCAB1BF0-AD0C-4E05-BA41-112AFCB84A85" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA"></sequenceFlow>
+    <sequenceFlow id="flow29" name="" sourceRef="sid-B070A3C7-C89E-409B-979E-9301C76591BD" targetRef="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9"></sequenceFlow>
+    <sequenceFlow id="flow30" name="" sourceRef="sid-5461C0AB-2B42-4333-A519-114CDF48EF2A" targetRef="sid-DAD148B9-A0F5-4979-A9A4-D2B5251EDCAA"></sequenceFlow>
+    <sequenceFlow id="flow31" name="" sourceRef="sid-DAD148B9-A0F5-4979-A9A4-D2B5251EDCAA" targetRef="sid-4455EA8E-4C34-4056-8C47-5F50AE2FACC9"></sequenceFlow>
+    <sequenceFlow id="flow33" name="" sourceRef="sid-4455EA8E-4C34-4056-8C47-5F50AE2FACC9" targetRef="sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120"></sequenceFlow>
+    <sequenceFlow id="flow34" name="" sourceRef="sid-A66E7B23-37D1-43F4-A5C1-3B97326367B9" targetRef="sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B"></sequenceFlow>
+    <sequenceFlow id="flow35" name="" sourceRef="sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B" targetRef="sid-E8BF3436-8835-47DC-A5F3-12D2B2BC890B"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_processo-autorizzazione-spesa-DG">
+    <bpmndi:BPMNPlane bpmnElement="processo-autorizzazione-spesa-DG" id="BPMNPlane_processo-autorizzazione-spesa-DG">
+      <bpmndi:BPMNShape bpmnElement="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" id="BPMNShape_sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA">
+        <omgdc:Bounds height="80" width="100" x="120" y="127"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-49F646B0-DC0D-42E7-A823-80DC461519E3" id="BPMNShape_sid-49F646B0-DC0D-42E7-A823-80DC461519E3">
+        <omgdc:Bounds height="80" width="100" x="260" y="127"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-B070A3C7-C89E-409B-979E-9301C76591BD" id="BPMNShape_sid-B070A3C7-C89E-409B-979E-9301C76591BD">
+        <omgdc:Bounds height="80" width="100" x="720" y="128"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551" id="BPMNShape_sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551">
+        <omgdc:Bounds height="40" width="40" x="415" y="146"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E8BF3436-8835-47DC-A5F3-12D2B2BC890B" id="BPMNShape_sid-E8BF3436-8835-47DC-A5F3-12D2B2BC890B">
+        <omgdc:Bounds height="80" width="100" x="588" y="390"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-DCAB1BF0-AD0C-4E05-BA41-112AFCB84A85" id="BPMNShape_sid-DCAB1BF0-AD0C-4E05-BA41-112AFCB84A85">
+        <omgdc:Bounds height="35" width="35" x="57" y="150"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A66E7B23-37D1-43F4-A5C1-3B97326367B9" id="BPMNShape_sid-A66E7B23-37D1-43F4-A5C1-3B97326367B9">
+        <omgdc:Bounds height="80" width="100" x="386" y="265"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B" id="BPMNShape_sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B">
+        <omgdc:Bounds height="40" width="40" x="415" y="409"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9" id="BPMNShape_sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9">
+        <omgdc:Bounds height="40" width="40" x="860" y="147"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-5461C0AB-2B42-4333-A519-114CDF48EF2A" id="BPMNShape_sid-5461C0AB-2B42-4333-A519-114CDF48EF2A">
+        <omgdc:Bounds height="80" width="100" x="1020" y="127"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-DAD148B9-A0F5-4979-A9A4-D2B5251EDCAA" id="BPMNShape_sid-DAD148B9-A0F5-4979-A9A4-D2B5251EDCAA">
+        <omgdc:Bounds height="40" width="40" x="1049" y="255"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-43C91A10-DCF6-437E-BBD6-9DB9CBACA019" id="BPMNShape_sid-43C91A10-DCF6-437E-BBD6-9DB9CBACA019">
+        <omgdc:Bounds height="80" width="100" x="1020" y="348"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-4455EA8E-4C34-4056-8C47-5F50AE2FACC9" id="BPMNShape_sid-4455EA8E-4C34-4056-8C47-5F50AE2FACC9">
+        <omgdc:Bounds height="80" width="100" x="1144" y="236"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120" id="BPMNShape_sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120">
+        <omgdc:Bounds height="35" width="35" x="1285" y="258"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-2413096E-CAE7-47F7-892A-BB9871125E38" id="BPMNShape_sid-2413096E-CAE7-47F7-892A-BB9871125E38">
+        <omgdc:Bounds height="82" width="110" x="826" y="400"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6" id="BPMNShape_sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6">
+        <omgdc:Bounds height="40" width="40" x="860" y="335"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" id="BPMNShape_sid-94C357BD-11C5-490B-A895-3F82CC25DD46">
+        <omgdc:Bounds height="80" width="100" x="580" y="127"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-F4A09FD3-8485-40D2-9EC6-309191123276" id="BPMNShape_sid-F4A09FD3-8485-40D2-9EC6-309191123276">
+        <omgdc:Bounds height="80" width="100" x="120" y="390"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="360" y="167"></omgdi:waypoint>
+        <omgdi:waypoint x="415" y="166"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="1069" y="295"></omgdi:waypoint>
+        <omgdi:waypoint x="1070" y="348"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="880" y="375"></omgdi:waypoint>
+        <omgdi:waypoint x="881" y="400"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="455" y="166"></omgdi:waypoint>
+        <omgdi:waypoint x="580" y="167"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="39" width="100" x="-45" y="-1"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="435" y="186"></omgdi:waypoint>
+        <omgdi:waypoint x="436" y="265"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="39" width="100" x="10" y="0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="415" y="429"></omgdi:waypoint>
+        <omgdi:waypoint x="220" y="430"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="170" y="390"></omgdi:waypoint>
+        <omgdi:waypoint x="170" y="207"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="880" y="187"></omgdi:waypoint>
+        <omgdi:waypoint x="880" y="335"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="39" width="100" x="10" y="0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="900" y="167"></omgdi:waypoint>
+        <omgdi:waypoint x="1020" y="167"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="39" width="100" x="-50" y="2"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="860" y="355"></omgdi:waypoint>
+        <omgdi:waypoint x="768" y="355"></omgdi:waypoint>
+        <omgdi:waypoint x="685" y="355"></omgdi:waypoint>
+        <omgdi:waypoint x="712" y="355"></omgdi:waypoint>
+        <omgdi:waypoint x="355" y="355"></omgdi:waypoint>
+        <omgdi:waypoint x="169" y="355"></omgdi:waypoint>
+        <omgdi:waypoint x="170" y="207"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="220" y="167"></omgdi:waypoint>
+        <omgdi:waypoint x="260" y="167"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="680" y="167"></omgdi:waypoint>
+        <omgdi:waypoint x="720" y="168"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="92" y="167"></omgdi:waypoint>
+        <omgdi:waypoint x="120" y="167"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="820" y="168"></omgdi:waypoint>
+        <omgdi:waypoint x="860" y="167"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="1070" y="207"></omgdi:waypoint>
+        <omgdi:waypoint x="1069" y="255"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="1089" y="275"></omgdi:waypoint>
+        <omgdi:waypoint x="1144" y="276"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="1244" y="276"></omgdi:waypoint>
+        <omgdi:waypoint x="1285" y="275"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="436" y="345"></omgdi:waypoint>
+        <omgdi:waypoint x="435" y="409"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="455" y="429"></omgdi:waypoint>
+        <omgdi:waypoint x="588" y="430"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
