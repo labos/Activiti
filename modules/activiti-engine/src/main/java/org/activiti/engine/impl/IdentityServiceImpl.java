@@ -30,6 +30,7 @@ import org.activiti.engine.impl.cmd.DeleteGroupCmd;
 import org.activiti.engine.impl.cmd.DeleteMembershipCmd;
 import org.activiti.engine.impl.cmd.DeleteUserCmd;
 import org.activiti.engine.impl.cmd.DeleteUserInfoCmd;
+import org.activiti.engine.impl.cmd.GetUserEmailByIdCmd;
 import org.activiti.engine.impl.cmd.GetUserInfoCmd;
 import org.activiti.engine.impl.cmd.GetUserInfoKeysCmd;
 import org.activiti.engine.impl.cmd.GetUserPictureCmd;
@@ -118,4 +119,9 @@ public class IdentityServiceImpl extends ServiceImpl implements IdentityService 
   public void deleteUserInfo(String userId, String key) {
     commandExecutor.execute(new DeleteUserInfoCmd(userId, key));
   }
+
+  public String getUserEmail(String userId) {
+	return commandExecutor.execute(new GetUserEmailByIdCmd(userId));
+	}
+  
 }
