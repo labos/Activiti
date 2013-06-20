@@ -94,7 +94,24 @@
       </extensionElements>
     </serviceTask>
     <parallelGateway id="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6"></parallelGateway>
-    <userTask id="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" name="Allega Determinazione" activiti:exclusive="false" activiti:assignee="${initiator}"></userTask>
+    <userTask id="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" name="Allega Determinazione" activiti:exclusive="false" activiti:assignee="${initiator}">
+      <extensionElements>
+        <activiti:taskListener event="create" class="org.activiti.engine.impl.bpmn.listener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string>def bar = "";  // local variable
+      taskIdAllegaDetResponsabile =  task.getId();// pushes variable to execution
+     bar = task.getId(); // test access to task instance
+      bar // implicit return value</activiti:string>
+          </activiti:field>
+          <activiti:field name="language">
+            <activiti:string>groovy</activiti:string>
+          </activiti:field>
+          <activiti:field name="resultVariable">
+            <activiti:string>myVar</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
     <userTask id="sid-F4A09FD3-8485-40D2-9EC6-309191123276" name="Lettura motivazione Rifiuto" activiti:exclusive="false" activiti:assignee="${initiator}">
       <extensionElements>
         <activiti:formProperty id="showriufiutoautorizzazione" name="Motivazione Rifiuto" default="${motivazioneriufiutoautorizzazione}" writable="false"></activiti:formProperty>
@@ -119,7 +136,6 @@
     </sequenceFlow>
     <sequenceFlow id="flow6" sourceRef="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA"></sequenceFlow>
     <sequenceFlow id="flow26" sourceRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" targetRef="sid-49F646B0-DC0D-42E7-A823-80DC461519E3"></sequenceFlow>
-    <sequenceFlow id="flow27" sourceRef="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" targetRef="sid-B070A3C7-C89E-409B-979E-9301C76591BD"></sequenceFlow>
     <sequenceFlow id="flow29" sourceRef="sid-B070A3C7-C89E-409B-979E-9301C76591BD" targetRef="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9"></sequenceFlow>
     <sequenceFlow id="flow30" sourceRef="sid-5461C0AB-2B42-4333-A519-114CDF48EF2A" targetRef="sid-DAD148B9-A0F5-4979-A9A4-D2B5251EDCAA"></sequenceFlow>
     <sequenceFlow id="flow34" sourceRef="sid-A66E7B23-37D1-43F4-A5C1-3B97326367B9" targetRef="sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B"></sequenceFlow>
@@ -134,6 +150,22 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow38" sourceRef="servicetask1" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA"></sequenceFlow>
+    <sequenceFlow id="flow39" sourceRef="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" targetRef="servicetask2"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Check Determinaz" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+      <extensionElements>
+        <activiti:field name="minAttachmentsNum">
+          <activiti:expression>1</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow40" sourceRef="servicetask2" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow41" sourceRef="exclusivegateway1" targetRef="sid-B070A3C7-C89E-409B-979E-9301C76591BD">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow42" sourceRef="exclusivegateway1" targetRef="sid-94C357BD-11C5-490B-A895-3F82CC25DD46">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_processo-autorizzazione-spesa-DG">
     <bpmndi:BPMNPlane bpmnElement="processo-autorizzazione-spesa-DG" id="BPMNPlane_processo-autorizzazione-spesa-DG">
@@ -144,7 +176,7 @@
         <omgdc:Bounds height="80.0" width="100.0" x="260.0" y="127.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-B070A3C7-C89E-409B-979E-9301C76591BD" id="BPMNShape_sid-B070A3C7-C89E-409B-979E-9301C76591BD">
-        <omgdc:Bounds height="80.0" width="100.0" x="720.0" y="128.0"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="731.0" y="128.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551" id="BPMNShape_sid-ED60EBD9-8FEC-42FC-8FD0-6EFBFD704551">
         <omgdc:Bounds height="40.0" width="40.0" x="415.0" y="146.0"></omgdc:Bounds>
@@ -190,6 +222,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="105.0" x="-28.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="577.0" y="277.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="760.0" y="284.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="360.0" y="167.0"></omgdi:waypoint>
@@ -252,12 +290,8 @@
         <omgdi:waypoint x="220.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="260.0" y="167.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
-        <omgdi:waypoint x="680.0" y="167.0"></omgdi:waypoint>
-        <omgdi:waypoint x="720.0" y="168.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
-        <omgdi:waypoint x="820.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="831.0" y="168.0"></omgdi:waypoint>
         <omgdi:waypoint x="860.0" y="167.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
@@ -283,6 +317,23 @@
       <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
         <omgdi:waypoint x="77.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="120.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="630.0" y="207.0"></omgdi:waypoint>
+        <omgdi:waypoint x="629.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="682.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="304.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="780.0" y="284.0"></omgdi:waypoint>
+        <omgdi:waypoint x="781.0" y="208.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="780.0" y="284.0"></omgdi:waypoint>
+        <omgdi:waypoint x="701.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="167.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
