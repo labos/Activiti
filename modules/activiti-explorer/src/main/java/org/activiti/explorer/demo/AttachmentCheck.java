@@ -19,6 +19,9 @@ import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.task.Attachment;
+import org.activiti.engine.task.Task;
+import org.activiti.explorer.ExplorerApp;
+import org.activiti.explorer.Messages;
 
 
 
@@ -33,14 +36,43 @@ public class AttachmentCheck implements JavaDelegate {
   public void execute(DelegateExecution execution) {
 	  Boolean isAttached = false;
 	  Integer numAttachments = 1;
+	  
 	  if( minAttachmentsNum.getValue(execution)!= null	){
 		  numAttachments = Integer.parseInt((String)minAttachmentsNum.getValue(execution));
 	  }
-	  List<Attachment> attachmentList =  execution.getEngineServices().getTaskService().getProcessInstanceAttachments( execution.getProcessInstanceId());
-	  if(attachmentList.size() >= numAttachments.intValue()){
-		  isAttached = true;
+  
+	  
+	  /*
+	   * TO BE USED IN CASE OF TASKID VALUE IN ATTACHMENT ENTITY
+	  List<Task> taskList =	  execution.getEngineServices().getTaskService().createTaskQuery().processInstanceId(execution.getProcessInstanceId()).orderByTaskCreateTime()
+	  .asc().list();
+	  System.out.println("Dimensione tasks: " +taskList.size());
+	  
+	  if(taskList.size() > 0 ){
+		  Task lastTask = taskList.get(taskList.size() -1);
+		  
+		  List<Attachment> attachmentList =  execution.getEngineServices().getTaskService().getTaskAttachments(lastTask.getId());
+		  System.out.println("ID del tasks: " + lastTask.getId() + " Dimension attachmentlist: " + attachmentList.size() + " -- "  + numAttachments.intValue());
+		  if(attachmentList.size() >= numAttachments.intValue()){
+			  isAttached = true;
+		  } 
 	  }
+	  */
+	
+		List<Attachment> attachmentList =  execution.getEngineServices().getTaskService().getProcessInstanceAttachments( execution.getProcessInstanceId());
+		  if(attachmentList.size() >= numAttachments.intValue()){
+			  isAttached = true;
+		  } 
+		  
+
     execution.setVariable("isAttached",isAttached);
+    
+	  if(!isAttached){
+		    ExplorerApp.get().getNotificationManager().showErrorNotification(
+		            "determinazione.required", 
+		            "Devi Allegare una determina in questo task");
+	  }
+    
   }
   
 }
