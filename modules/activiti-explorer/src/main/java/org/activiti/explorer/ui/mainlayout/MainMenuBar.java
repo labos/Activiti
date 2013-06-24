@@ -107,7 +107,7 @@ public class MainMenuBar extends HorizontalLayout {
     }
     
     Button budgetButton = addMenuButton(ViewManager.MAIN_NAVIGATION_BUDGET, i18nManager.getMessage(Messages.MAIN_MENU_BUDGET), Images.MAIN_MENU_REPORTS, false, 80);
-    budgetButton.addListener(new ShowReportsClickListener());
+    budgetButton.addListener(new ShowBudgetClickListener());
     menuItemButtons.put(ViewManager.MAIN_NAVIGATION_BUDGET, budgetButton);
   }
 
@@ -220,7 +220,7 @@ public class MainMenuBar extends HorizontalLayout {
   
   private class ShowBudgetClickListener implements ClickListener {
 	    public void buttonClick(ClickEvent event) {
-	      //ExplorerApp.get().getViewManager().showFontePage();
+	      ExplorerApp.get().getViewManager().showSourcePage();
 	    }
 	  }
 }

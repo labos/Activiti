@@ -10,31 +10,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.activiti.engine;
 
-import org.activiti.engine.budget.BudgetService;
+package org.activiti.engine.budget;
+
+import org.activiti.engine.query.Query;
+
 
 /**
- * Interface implemented by all classes that expose the Activiti services.
+ * Allows programmatic querying of Source
  * 
- * @author Joram Barrez 
+ * @author Lab Open Source
  */
-public interface EngineServices {
-
-  RepositoryService getRepositoryService();
+public interface SourceQuery extends Query<SourceQuery, Source> {
   
-  RuntimeService getRuntimeService();
-  
-  FormService getFormService();
-  
-  TaskService getTaskService();
-  
-  HistoryService getHistoryService();
-  
-  IdentityService getIdentityService();
-  
-  ManagementService getManagementService();
-  
-  BudgetService getBudgetService();
+  /** Only select Sources with the given id/ */
+  SourceQuery sourceId(String id);
   
 }

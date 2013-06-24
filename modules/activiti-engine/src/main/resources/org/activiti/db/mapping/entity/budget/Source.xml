@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="org.activiti.engine.impl.persistence.entity.budget.SourceEntity">
+
+  
+
+  <!-- SOURCE RESULTMAP -->
+
+  <resultMap id="sourceResultMap" type="org.activiti.engine.impl.persistence.entity.budget.SourceEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="revision" column="REV_" jdbcType="INTEGER" />
+    <result property="name" column="NAME_" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- SOURCE SELECT -->
+
+  <select id="selectSourceById" parameterType="string" resultMap="sourceResultMap">
+    select * from ${prefix}ACT_BUDGET_SOURCE where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+    
+  <select id="selectSourceByQueryCriteria" parameterType="org.activiti.engine.impl.budget.SourceQueryImpl" resultMap="sourceResultMap">
+  	${limitBefore}
+    select RES.* ${limitBetween}
+    <include refid="selectSourceByQueryCriteriaSql" />
+    ${orderBy}
+    ${limitAfter}
+  </select>
+  
+   <select id="selectSourceCountByQueryCriteria" parameterType="org.activiti.engine.impl.budget.SourceQueryImpl" resultType="long">
+    select count(RES.ID_)
+    <include refid="selectSourceByQueryCriteriaSql" />
+  </select>
+  
+  <sql id="selectSourceByQueryCriteriaSql">
+    from ${prefix}ACT_BUDGET_SOURCE RES 
+    <where>
+      <if test="id != null">
+        RES.ID_ = #{id}
+      </if>
+      <if test="name != null">
+        and RES.NAME_ = #{name}
+      </if>     
+    </where>
+  </sql>
+  
+</mapper>

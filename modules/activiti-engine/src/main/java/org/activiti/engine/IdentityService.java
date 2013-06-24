@@ -132,4 +132,5 @@ public interface IdentityService {
   
   /** Get email user */
   String getUserEmail(String userId);
+   
 }

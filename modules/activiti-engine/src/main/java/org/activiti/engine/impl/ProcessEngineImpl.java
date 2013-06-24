@@ -23,6 +23,7 @@ import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.budget.BudgetService;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.cfg.TransactionContextFactory;
 import org.activiti.engine.impl.db.DbSqlSession;
@@ -49,6 +50,8 @@ public class ProcessEngineImpl implements ProcessEngine {
   protected TaskService taskService;
   protected FormService formService;
   protected ManagementService managementService;
+  //Budget
+  protected BudgetService budgetService;
   protected String databaseSchemaUpdate;
   protected JobExecutor jobExecutor;
   protected CommandExecutor commandExecutor;
@@ -67,6 +70,8 @@ public class ProcessEngineImpl implements ProcessEngine {
     this.taskService = processEngineConfiguration.getTaskService();
     this.formService = processEngineConfiguration.getFormService();
     this.managementService = processEngineConfiguration.getManagementService();
+    //Budget
+    this.budgetService = processEngineConfiguration.getBudgetService();
     this.databaseSchemaUpdate = processEngineConfiguration.getDatabaseSchemaUpdate();
     this.jobExecutor = processEngineConfiguration.getJobExecutor();
     this.commandExecutor = processEngineConfiguration.getCommandExecutorTxRequired();
@@ -144,8 +149,18 @@ public class ProcessEngineImpl implements ProcessEngine {
   public FormService getFormService() {
     return formService;
   }
+  
+  //Budget
+  @Override
+  public BudgetService getBudgetService() {
+  	
+  	return budgetService;
+  }
 
   public ProcessEngineConfigurationImpl getProcessEngineConfiguration() {
     return processEngineConfiguration;
   }
+  
+  
+  
 }

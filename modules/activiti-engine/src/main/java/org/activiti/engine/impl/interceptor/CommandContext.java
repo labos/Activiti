@@ -50,6 +50,7 @@ import org.activiti.engine.impl.persistence.entity.TableDataManager;
 import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
 import org.activiti.engine.impl.persistence.entity.UserEntityManager;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
+import org.activiti.engine.impl.persistence.entity.budget.SourceEntityManager;
 import org.activiti.engine.impl.pvm.runtime.AtomicOperation;
 import org.activiti.engine.impl.pvm.runtime.InterpretableExecution;
 import org.slf4j.Logger;
@@ -273,7 +274,8 @@ public class CommandContext {
   public GroupEntityManager getGroupEntityManager() {
     return getSession(GroupEntityManager.class);
   }
-
+  
+ 
   public IdentityInfoEntityManager getIdentityInfoEntityManager() {
     return getSession(IdentityInfoEntityManager.class);
   }
@@ -293,6 +295,13 @@ public class CommandContext {
   public CommentEntityManager getCommentEntityManager() {
     return getSession(CommentEntityManager.class);
   }
+  
+  //Budget
+  public SourceEntityManager getSourceEntityManager(){
+	  return getSession(SourceEntityManager.class);
+  }
+  
+ 
   
   public PropertyEntityManager getPropertyEntityManager() {
     return getSession(PropertyEntityManager.class);

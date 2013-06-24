@@ -10,31 +10,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.activiti.engine;
+package org.activiti.explorer.ui.budget;
 
-import org.activiti.engine.budget.BudgetService;
+import org.activiti.explorer.ExplorerApp;
+import org.activiti.explorer.ui.AbstractTablePage;
+import org.activiti.explorer.ui.custom.ToolBar;
+
 
 /**
- * Interface implemented by all classes that expose the Activiti services.
- * 
- * @author Joram Barrez 
+ * @author Lab Open Source
  */
-public interface EngineServices {
-
-  RepositoryService getRepositoryService();
+public abstract class BudgetPage extends AbstractTablePage {
   
-  RuntimeService getRuntimeService();
+  private static final long serialVersionUID = 1L;
   
-  FormService getFormService();
-  
-  TaskService getTaskService();
-  
-  HistoryService getHistoryService();
-  
-  IdentityService getIdentityService();
-  
-  ManagementService getManagementService();
-  
-  BudgetService getBudgetService();
+  @Override
+  protected ToolBar createMenuBar() {
+    return new BudgetMenuBar();
+  }
   
 }

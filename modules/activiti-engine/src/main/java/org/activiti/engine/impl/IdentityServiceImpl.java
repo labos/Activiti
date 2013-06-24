@@ -71,7 +71,7 @@ public class IdentityServiceImpl extends ServiceImpl implements IdentityService 
   public GroupQuery createGroupQuery() {
     return commandExecutor.execute(new CreateGroupQueryCmd());
   }
-
+  
   public void createMembership(String userId, String groupId) {
     commandExecutor.execute(new CreateMembershipCmd(userId, groupId));
   }
@@ -122,6 +122,6 @@ public class IdentityServiceImpl extends ServiceImpl implements IdentityService 
 
   public String getUserEmail(String userId) {
 	return commandExecutor.execute(new GetUserEmailByIdCmd(userId));
-	}
+  }
   
 }

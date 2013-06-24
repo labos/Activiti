@@ -49,6 +49,7 @@ import org.activiti.engine.impl.ProcessDefinitionQueryImpl;
 import org.activiti.engine.impl.ProcessInstanceQueryImpl;
 import org.activiti.engine.impl.TaskQueryImpl;
 import org.activiti.engine.impl.UserQueryImpl;
+import org.activiti.engine.impl.budget.SourceQueryImpl;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.db.upgrade.DbUpgradeStep;
@@ -760,6 +761,8 @@ public class DbSqlSession implements Session {
     if (processEngineConfiguration.isDbIdentityUsed()) {
       dbSchemaCreateIdentity();
     }
+    
+    dbSchemaCreateBudget();
   }
 
   protected void dbSchemaCreateIdentity() {
@@ -773,6 +776,11 @@ public class DbSqlSession implements Session {
   protected void dbSchemaCreateEngine() {
     executeMandatorySchemaResource("create", "engine");
   }
+  
+  //Budget
+  protected void dbSchemaCreateBudget() {
+	 executeMandatorySchemaResource("create", "budget");
+  }
 
   public void dbSchemaDrop() {
     executeMandatorySchemaResource("drop", "engine");
@@ -782,6 +790,10 @@ public class DbSqlSession implements Session {
     if (dbSqlSessionFactory.isDbIdentityUsed()) {
       executeMandatorySchemaResource("drop", "identity");
     }
+    
+    executeMandatorySchemaResource("drop", "budget");
+    
+    
   }
 
   public void dbSchemaPrune() {
@@ -847,6 +859,8 @@ public class DbSqlSession implements Session {
     } else if (dbSqlSessionFactory.isDbIdentityUsed()) {
       dbSchemaCreateIdentity();
     }
+    
+    
     
     return feedback;
   }
@@ -1165,6 +1179,11 @@ public class DbSqlSession implements Session {
   }
   public GroupQueryImpl createGroupQuery() {
     return new GroupQueryImpl();
+  }
+  
+  //Budget
+  public SourceQueryImpl createSourceQuery(){
+	  return new SourceQueryImpl();
   }
 
   // getters and setters //////////////////////////////////////////////////////

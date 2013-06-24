@@ -479,5 +479,12 @@ public interface Messages {
   String TIME_UNIT_JUST_NOW = "time.unit.just.now";
   
   String MONTH_PREFIX = "month.";
+  
+  //Budget
+  
+  String BUDGET_MENU_SOURCES = "budget.menu.sources";
+  String BUDGET_MENU_PROGRAMS = "budget.menu.programs";
+  String BUDGET_MENU_PROJECTS = "budget.menu.projects";
+  
 
 }

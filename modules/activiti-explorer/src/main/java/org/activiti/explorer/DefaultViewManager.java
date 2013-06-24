@@ -28,6 +28,8 @@ import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 import org.activiti.explorer.ui.AbstractPage;
 import org.activiti.explorer.ui.MainWindow;
+import org.activiti.explorer.ui.budget.BudgetMenuBar;
+import org.activiti.explorer.ui.budget.SourcePage;
 import org.activiti.explorer.ui.management.ManagementMenuBar;
 import org.activiti.explorer.ui.management.admin.AdministrationPage;
 import org.activiti.explorer.ui.management.db.DatabasePage;
@@ -200,6 +202,7 @@ public class DefaultViewManager implements ViewManager, Serializable {
     switchView(new ArchivedPage(taskId), ViewManager.MAIN_NAVIGATION_TASK, TaskMenuBar.ENTRY_ARCHIVED);
   }
   
+    
   // Process
   
   public void showDeployedProcessDefinitionPage() {
@@ -252,6 +255,35 @@ public class DefaultViewManager implements ViewManager, Serializable {
   @Override
   public void showSavedReportPage(String reportId) {
     switchView(new SavedReportsPage(reportId), ViewManager.MAIN_NAVIGATION_REPORT, ReportsMenuBar.ENTRY_SAVED_REPORTS);
+  }
+  
+  //Budget
+  
+  public void showSourcePage(){
+	  switchView(new SourcePage(), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_SOURCES);	  
+	  
+  }
+  
+  public void showSourcePage(String sourceId){
+	  
+  }
+  
+  public void showProgramPage(){
+	 
+	  
+  }
+  
+  public void showProgramPage(String programId){
+	  
+  }
+  
+  public void showProjectPage(){
+	 
+	  
+  }
+  
+  public void showProjectPage(String projectId){
+	  
   }
   
   // Management

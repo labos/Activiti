@@ -66,6 +66,7 @@
   <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
   <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
   <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
+  <bean id="budgetService" factory-bean="processEngine" factory-method="getBudgetService" />
   
   <bean id="activitiLoginHandler" class="org.activiti.explorer.ui.login.DefaultLoginHandler">
     <property name="identityService" ref="identityService" />

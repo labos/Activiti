@@ -96,6 +96,20 @@ public interface ViewManager {
   
   void showSavedReportPage(String reportId);
   
+  //Budget
+  
+  void showSourcePage();
+  
+  void showSourcePage(String sourceId);
+  
+  void showProgramPage();
+  
+  void showProgramPage(String programId);
+  
+  void showProjectPage();
+  
+  void showProjectPage(String projectId);
+  
   // Management
   
   void showDatabasePage();

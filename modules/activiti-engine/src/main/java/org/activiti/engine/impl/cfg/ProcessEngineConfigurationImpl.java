@@ -39,6 +39,7 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.budget.BudgetService;
 import org.activiti.engine.form.AbstractFormType;
 import org.activiti.engine.impl.FormServiceImpl;
 import org.activiti.engine.impl.HistoryServiceImpl;
@@ -87,6 +88,7 @@ import org.activiti.engine.impl.bpmn.parser.handler.TimerEventDefinitionParseHan
 import org.activiti.engine.impl.bpmn.parser.handler.TransactionParseHandler;
 import org.activiti.engine.impl.bpmn.parser.handler.UserTaskParseHandler;
 import org.activiti.engine.impl.bpmn.webservice.MessageInstance;
+import org.activiti.engine.impl.budget.BudgetServiceImpl;
 import org.activiti.engine.impl.calendar.BusinessCalendarManager;
 import org.activiti.engine.impl.calendar.CycleBusinessCalendar;
 import org.activiti.engine.impl.calendar.DueDateBusinessCalendar;
@@ -165,6 +167,7 @@ import org.activiti.engine.impl.persistence.entity.TableDataManager;
 import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
 import org.activiti.engine.impl.persistence.entity.UserEntityManager;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
+import org.activiti.engine.impl.persistence.entity.budget.SourceEntityManager;
 import org.activiti.engine.impl.scripting.BeansResolverFactory;
 import org.activiti.engine.impl.scripting.ResolverFactory;
 import org.activiti.engine.impl.scripting.ScriptBindingsFactory;
@@ -227,6 +230,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected TaskService taskService = new TaskServiceImpl();
   protected FormService formService = new FormServiceImpl();
   protected ManagementService managementService = new ManagementServiceImpl();
+  //Budget
+  protected BudgetService budgetService = new BudgetServiceImpl();
   
   // COMMAND EXECUTORS ////////////////////////////////////////////////////////
   
@@ -489,6 +494,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     initService(taskService);
     initService(formService);
     initService(managementService);
+    //Budget
+    initService(budgetService);
   }
 
   protected void initService(Object service) {
@@ -698,6 +705,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       addSessionFactory(new GenericManagerFactory(VariableInstanceEntityManager.class));
       addSessionFactory(new GenericManagerFactory(EventSubscriptionEntityManager.class));
       addSessionFactory(new GenericManagerFactory(HistoryManager.class));
+      //Budget
+      addSessionFactory(new GenericManagerFactory(SourceEntityManager.class));
     }
     if (customSessionFactories!=null) {
       for (SessionFactory sessionFactory: customSessionFactories) {
@@ -1278,11 +1287,23 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     return this;
   }
   
+  //Budget
+  
+  public BudgetService getBudgetService() {
+		return budgetService;
+	}
+
+	public ProcessEngineConfigurationImpl setBudgetService(BudgetService budgetService) {
+		this.budgetService = budgetService;
+		return this;
+	}
+  
   public Map<Class< ? >, SessionFactory> getSessionFactories() {
     return sessionFactories;
   }
-  
-  public ProcessEngineConfigurationImpl setSessionFactories(Map<Class< ? >, SessionFactory> sessionFactories) {
+    
+
+public ProcessEngineConfigurationImpl setSessionFactories(Map<Class< ? >, SessionFactory> sessionFactories) {
     this.sessionFactories = sessionFactories;
     return this;
   }
