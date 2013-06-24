@@ -178,8 +178,8 @@
     </serviceTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow43" sourceRef="servicetask3" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow44" sourceRef="exclusivegateway2" targetRef="sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
+    <sequenceFlow id="flow44" sourceRef="servicetask5" targetRef="sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isArchived}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow45" sourceRef="exclusivegateway2" targetRef="sid-5461C0AB-2B42-4333-A519-114CDF48EF2A">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
@@ -199,6 +199,14 @@
     <sequenceFlow id="flow48" sourceRef="exclusivegateway3" targetRef="sid-B070A3C7-C89E-409B-979E-9301C76591BD">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
+    <sequenceFlow id="flow49" sourceRef="exclusivegateway2" targetRef="servicetask5"></sequenceFlow>
+    <serviceTask id="servicetask5" name="Archivia Determinazione" activiti:async="true" activiti:class="org.activiti.explorer.demo.CmisArchive">
+      <extensionElements>
+        <activiti:field name="suffixFolder">
+          <activiti:expression>${execution.getId()}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_processo-autorizzazione-spesa-DG">
     <bpmndi:BPMNPlane bpmnElement="processo-autorizzazione-spesa-DG" id="BPMNPlane_processo-autorizzazione-spesa-DG">
@@ -273,6 +281,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="1088.0" y="146.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="1311.0" y="45.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="360.0" y="167.0"></omgdi:waypoint>
@@ -385,8 +396,8 @@
         <omgdi:waypoint x="1325.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
-        <omgdi:waypoint x="1345.0" y="167.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1443.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1363.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1460.0" y="150.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
         <omgdi:waypoint x="1305.0" y="167.0"></omgdi:waypoint>
@@ -405,6 +416,10 @@
         <omgdi:waypoint x="1109.0" y="72.0"></omgdi:waypoint>
         <omgdi:waypoint x="779.0" y="72.0"></omgdi:waypoint>
         <omgdi:waypoint x="781.0" y="128.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
+        <omgdi:waypoint x="1325.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1363.0" y="100.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

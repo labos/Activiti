@@ -13,13 +13,21 @@
  */
 package org.activiti.explorer.demo;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.activiti.engine.ActivitiException;
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.impl.cmd.GetAttachmentContentCmd;
+import org.activiti.engine.impl.util.IoUtil;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
 import org.activiti.explorer.ExplorerApp;
@@ -48,51 +56,96 @@ import org.apache.chemistry.opencmis.commons.enums.BindingType;
 
 
 /**
- * @author Joram Barrez
+ * @author LabOpenSource
  */
 public class CmisArchive implements JavaDelegate {
   
  
-  private Expression minAttachmentsNum;
-  private static final String ALFRESCO_CMIS_URL =
-		  "http://localhost:9090/alfresco/service/cmis";
+  private Expression suffixFolder;
+  private Session session;
+  private static final String ALFRESCO_CMIS_URL ="http://alfrescotest.consorzio21.it:8080/alfresco/service/cmis";
+  private static final String ALFRESCO_ADMIN_PASSWORD = "tubonero.99";
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		// TODO Auto-generated method stub
-		retrieveFolder();
+		Boolean isArchived = false;
+		String suffix = "";
+		Folder archiveFolder;
+
+		  //create a new CMIS session
+		  this.createCmisSession();
+		  //set a new folder name for current process instance
+		  suffix = (String)suffixFolder.getValue(execution);
+		  archiveFolder = this.getFolder(suffix);
+		  //get all attachments
+		  List<Attachment> attachmentList =  execution.getEngineServices().getTaskService().getProcessInstanceAttachments( execution.getProcessInstanceId());
+		  //store each file in the new folder
+		  for (Attachment attachment : attachmentList) {
+			  InputStream aStream = execution.getEngineServices().getTaskService().getAttachmentContent(attachment.getId());
+			  Document aDocument = this.saveDocumentToFolder(IoUtil.readInputStream(aStream, "stream attachment"), archiveFolder.getId(), "determinazione", suffix, "application/pdf");
+			 if(aDocument == null){
+				 isArchived = false;
+				 break;
+			 }
+		}
+		  // set a boolean process variable to check for successful archive submission
+		  execution.setVariable("isArchived",isArchived);
+		
 		
 	}
-
-	  public void retrieveFolder() throws Exception {
-		  Session session = CmisUtil.createCmisSession(
-		  "admin", "admin", ALFRESCO_CMIS_URL);
-		  Folder folder = CmisUtil.getFolder(
-		  session, "Processi");
-		 // assertNotNull(folder);
-		 //assertEquals(1, folder.getChildren().getTotalNumItems());
-		  CmisObject cmisObject = folder.getChildren()
-		  .iterator().next();
-		  //assertTrue(cmisObject instanceof Document);
-		  Document document = (Document) cmisObject;
-		  System.out.println("document name " +
-		  document.getName());
-		  System.out.println("document type " +
-		  document.getType().getDisplayName());
-		  System.out.println("created by " +
-		  document.getCreatedBy());
-		  System.out.println("created date " +
-		  document.getCreationDate().getTime());
-		  FileOutputStream output = new FileOutputStream(
-		  document.getName());
-		  InputStream repoDocument = document.getContentStream().getStream();
-		  byte[] buffer = new byte[1024];
-		  while(repoDocument.read(buffer) != -1) {
-		  output.write(buffer);
+	
+	  public void createCmisSession() {
+		   session = CmisUtil.createCmisSession("admin", ALFRESCO_ADMIN_PASSWORD, ALFRESCO_CMIS_URL);
 		  }
-		  output.close();
-		  repoDocument.close();
 
-  }
+
+
+		  
+		  private Folder getFolder(String folderName) {
+			Folder parentFolder = CmisUtil.getFolder(session, "Processi");
+		    Folder folder = containsFolderWithName(folderName, parentFolder);
+		    if(folder == null) {
+		    folder = CmisUtil.createFolder(session, parentFolder, folderName);
+		   }
+		    return folder;
+		  }
+		  
+		  public Document saveDocumentToFolder(byte[] documentStreamByteArray, String folderId, String name,
+				  String fileSuffix, String mimeType) {
+			  try {
+				  byte[] content = documentStreamByteArray;
+			Folder folder = (Folder) session.getObject(folderId);
+			return CmisUtil.createDocument(session, folder, name +
+		 "-" + new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()) + fileSuffix,
+		mimeType, content);
+		    } catch(Exception e) {
+		   throw new ActivitiException("Error storing document in CMIS repository", e);
+		    } finally {
+		  try {
+			  //documentStreamByteArray.close();
+		   } catch(Exception e) {}
+		    }
+		  }
+		  
+		  public void attachDocumentToProcess(String processInstanceId, Document document, String fileSuffix, String fileDescription) {
+		  ProcessEngine processEngine = ProcessEngines.getProcessEngines().get(ProcessEngines.NAME_DEFAULT);
+		    processEngine.getTaskService().createAttachment(fileSuffix, null, processInstanceId,
+		    document.getName().substring(0, document.getName().lastIndexOf(".")),
+		     fileDescription, document.getContentStream().getStream());
+		  }
+		
+ private Folder containsFolderWithName(String name, Folder parentFolder) {
+		  Folder found = null;
+		  for(CmisObject cmisObject : parentFolder.getChildren()) {
+		 System.out.println("name " + name + " cmis " + cmisObject.getName());
+		 if(cmisObject.getProperty(PropertyIds.OBJECT_TYPE_ID).getValueAsString().equals(ObjectType.FOLDER_BASETYPE_ID) &&
+		 name.equals(cmisObject.getName())) {
+		
+	  found = (Folder) cmisObject;
+		break;
+	}
+		}
+  return found;
+		 }
 
 }
