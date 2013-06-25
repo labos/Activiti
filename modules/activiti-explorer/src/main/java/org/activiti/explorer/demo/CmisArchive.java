@@ -16,6 +16,7 @@ package org.activiti.explorer.demo;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +47,8 @@ import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Repository;
 import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.chemistry.opencmis.client.api.SessionFactory;
+import org.apache.chemistry.opencmis.client.bindings.spi.atompub.AbstractAtomPubService;
+import org.apache.chemistry.opencmis.client.bindings.spi.atompub.AtomPubParser;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
@@ -93,6 +96,36 @@ public class CmisArchive implements JavaDelegate {
 		
 		
 	}
+	
+	public static final String getDocumentURL(final Document document, final Session session) {
+
+	    String link = null;
+
+	    try {
+
+	        Method loadLink = AbstractAtomPubService.class.getDeclaredMethod("loadLink", 
+
+	            new Class[] { String.class, String.class, String.class, String.class });
+
+	 
+
+	        loadLink.setAccessible(true);
+
+	 
+
+	        link = (String) loadLink.invoke(session.getBinding().getObjectService(), session.getRepositoryInfo().getId(),
+
+	            document.getId(), AtomPubParser.LINK_REL_CONTENT, null);
+
+	    } catch (Exception e) {
+
+	       e.printStackTrace();
+
+	    }
+
+	    return link;
+
+	  }
 	
 	  public void createCmisSession() {
 		   session = CmisUtil.createCmisSession("admin", ALFRESCO_ADMIN_PASSWORD, ALFRESCO_CMIS_URL);
