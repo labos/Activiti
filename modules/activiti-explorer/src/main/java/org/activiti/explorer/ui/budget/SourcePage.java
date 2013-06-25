@@ -73,8 +73,8 @@ public class SourcePage extends BudgetPage{
 	        Item item = sourceTable.getItem(event.getProperty().getValue()); // the value of the property is the itemId of the table entry
 	        if(item != null) {
 	          String sourceId = (String) item.getItemProperty("id").getValue();
-	         // setDetailComponent(new SourceDetailPanel(SourcePage.this, sourceId));
-	          setDetailComponent(null); //Da cancellare
+	          setDetailComponent(new SourceDetailPanel(SourcePage.this, sourceId));
+	          
 	          
 	          // Update URL
 	          ExplorerApp.get().setCurrentUriFragment(
