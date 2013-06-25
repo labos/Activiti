@@ -16,17 +16,19 @@ package org.activiti.explorer.form;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.budget.Source;
 import org.activiti.engine.form.AbstractFormType;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.persistence.entity.budget.SourceEntity;
 import org.activiti.engine.repository.ProcessDefinition;
 
 
 /**
  * @author Lab Open Source
  */
-public class ProjectFormType extends AbstractFormType {
+public class SourceFormType extends AbstractFormType {
 
-  public static final String TYPE_NAME = "project";
+  public static final String TYPE_NAME = "source";
   
   public String getName() {
     return TYPE_NAME;
@@ -35,13 +37,17 @@ public class ProjectFormType extends AbstractFormType {
   @Override
   public Object convertFormValueToModelValue(String propertyValue) {
     if(propertyValue != null) {
-      BudgetRow budgetRow = new BudgetRow();
-     
-      budgetRow.setId(propertyValue);
-      budgetRow.setProjectName(propertyValue);
-      budgetRow.setProjectAmount(new Double(100)); 
-        
-      return budgetRow;
+      Source source = ProcessEngines.getDefaultProcessEngine()
+    		  .getBudgetService()
+    		  .createSourceQuery()
+    		  .sourceId(propertyValue)
+    		  .singleResult();
+      
+      if(source == null) {
+        throw new ActivitiObjectNotFoundException("Source with id " + propertyValue + " does not exist", SourceEntity.class);
+      }
+      
+      return source;
     }
     return null;
   }
@@ -51,9 +57,9 @@ public class ProjectFormType extends AbstractFormType {
     if (modelValue == null) {
       return null;
     }
-    if (!(modelValue instanceof BudgetRow)) {
-      throw new ActivitiIllegalArgumentException("This form type only support budget rows, but is " + modelValue.getClass());
+    if (!(modelValue instanceof Source)) {
+      throw new ActivitiIllegalArgumentException("This form type only support sources, but is " + modelValue.getClass());
     }
-    return ((BudgetRow) modelValue).getId();
+    return ((Source) modelValue).getId();
   }
 }
