@@ -33,6 +33,7 @@ public class SourceEntity implements Source, Serializable, PersistentObject, Has
 	protected String id;
 	protected int revision;
 	protected String name;
+	protected Double total;
 
 	public SourceEntity() {
 	}
@@ -44,6 +45,7 @@ public class SourceEntity implements Source, Serializable, PersistentObject, Has
 	public Object getPersistentState() {
 		Map<String, Object> persistentState = new HashMap<String, Object>();
 		persistentState.put("name", name);
+		persistentState.put("total", total);
 		return persistentState;
 	}
 
@@ -76,5 +78,15 @@ public class SourceEntity implements Source, Serializable, PersistentObject, Has
 	public int getRevision() {
 		return this.revision;
 	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+	
+	
 
 }

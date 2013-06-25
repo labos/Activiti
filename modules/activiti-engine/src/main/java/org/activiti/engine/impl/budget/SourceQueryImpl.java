@@ -16,6 +16,7 @@ public class SourceQueryImpl extends AbstractQuery<SourceQuery, Source> implemen
 	private static final long serialVersionUID = 1L;
 	protected String id;
 	protected String name;
+	protected Double total;
 	
 	public SourceQueryImpl(){
 		
@@ -66,11 +67,14 @@ public class SourceQueryImpl extends AbstractQuery<SourceQuery, Source> implemen
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
-	
-	
-	
 
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+	
+	
 }

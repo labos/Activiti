@@ -72,7 +72,7 @@ protected transient BudgetService budgetService;
       addItemProperty("id", new ObjectProperty<String>(source.getId(), String.class));
       if (source.getName() != null) {
         addItemProperty("name", new ObjectProperty<String>(source.getName()
-                + " (" + source.getName() + ")", String.class));
+                + " (" + source.getTotal() + ")", String.class));
       } else {
         addItemProperty("name", new ObjectProperty<String>("(" + source.getId() + ")", String.class));
       }

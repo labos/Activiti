@@ -4,7 +4,28 @@
   
 <mapper namespace="org.activiti.engine.impl.persistence.entity.budget.SourceEntity">
 
+  <!-- SOURCE INSERT -->
+
+  <insert id="insertSource" parameterType="org.activiti.engine.impl.persistence.entity.budget.SourceEntity">
+    insert into ${prefix}ACT_BUDGET_SOURCE (ID_, REV_, NAME_, TOTAL_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      1, 
+      #{name ,jdbcType=VARCHAR},
+      #{total ,jdbcType=DOUBLE}
+    )
+  </insert>
+
+  <!-- SOURCE UPDATE -->
   
+  <update id="updateSource" parameterType="org.activiti.engine.impl.persistence.entity.budget.SourceEntity">
+    update ${prefix}ACT_BUDGET_SOURCE set
+      REV_ = #{revisionNext ,jdbcType=INTEGER},
+      NAME_ = #{name ,jdbcType=VARCHAR},
+      TOTAL_ = #{total ,jdbcType=DOUBLE}
+    where ID_ = #{id}
+       and REV_ = #{revision}
+  </update>
 
   <!-- SOURCE RESULTMAP -->
 
@@ -12,6 +33,7 @@
     <id property="id" column="ID_" jdbcType="VARCHAR" />
     <result property="revision" column="REV_" jdbcType="INTEGER" />
     <result property="name" column="NAME_" jdbcType="VARCHAR" />
+    <result property="total" column="TOTAL_" jdbcType="DOUBLE" />
   </resultMap>
   
   <!-- SOURCE SELECT -->
@@ -41,6 +63,9 @@
       </if>
       <if test="name != null">
         and RES.NAME_ = #{name}
+      </if> 
+      <if test="total != null">
+        and RES.TOTAL_ = #{total}
       </if>     
     </where>
   </sql>

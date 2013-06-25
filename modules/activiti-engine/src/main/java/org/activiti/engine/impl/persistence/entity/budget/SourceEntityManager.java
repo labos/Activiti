@@ -20,6 +20,9 @@ import org.activiti.engine.budget.SourceQuery;
 import org.activiti.engine.impl.Page;
 import org.activiti.engine.impl.budget.SourceQueryImpl;
 import org.activiti.engine.impl.context.Context;
+import org.activiti.engine.impl.db.DbSqlSession;
+import org.activiti.engine.impl.db.PersistentObject;
+import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.AbstractManager;
 
 
@@ -28,28 +31,40 @@ import org.activiti.engine.impl.persistence.AbstractManager;
  */
 public class SourceEntityManager extends AbstractManager {
 
-    
-  public Source createNewSource(String sourceId){
-	  return new SourceEntity(sourceId);
-  }
+	public Source createNewSource(String sourceId) {
+		return new SourceEntity(sourceId);
+	}
 
-  
-  public SourceEntity findSourceById(String sourceId) {
-    return (SourceEntity) getDbSqlSession().selectOne("selectSourceById", sourceId);
-  }  
-  
-  @SuppressWarnings("unchecked")
-  public List<Source> findSourceByQueryCriteria(SourceQueryImpl query, Page page) {
-    return getDbSqlSession().selectList("selectSourceByQueryCriteria", query, page);
-  }
-  
-  public long findSourceCountByQueryCriteria(SourceQueryImpl query) {
-    return (Long) getDbSqlSession().selectOne("selectSourceCountByQueryCriteria", query);
-  }
-  
-  
-  public SourceQuery createNewSourceQuery() {
-    return new SourceQueryImpl(Context.getProcessEngineConfiguration().getCommandExecutorTxRequired());
-  } 
-  
+	public void insertSource(Source source) {
+		getDbSqlSession().insert((PersistentObject) source);
+	}
+
+	public void updateSource(SourceEntity updatedSource) {
+		CommandContext commandContext = Context.getCommandContext();
+		DbSqlSession dbSqlSession = commandContext.getDbSqlSession();
+		dbSqlSession.update(updatedSource);
+	}
+
+	public SourceEntity findSourceById(String sourceId) {
+		return (SourceEntity) getDbSqlSession().selectOne("selectSourceById",
+				sourceId);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Source> findSourceByQueryCriteria(SourceQueryImpl query,
+			Page page) {
+		return getDbSqlSession().selectList("selectSourceByQueryCriteria",
+				query, page);
+	}
+
+	public long findSourceCountByQueryCriteria(SourceQueryImpl query) {
+		return (Long) getDbSqlSession().selectOne(
+				"selectSourceCountByQueryCriteria", query);
+	}
+
+	public SourceQuery createNewSourceQuery() {
+		return new SourceQueryImpl(Context.getProcessEngineConfiguration()
+				.getCommandExecutorTxRequired());
+	}
+
 }

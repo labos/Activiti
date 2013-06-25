@@ -12,9 +12,7 @@
  */
 package org.activiti.engine.budget;
 
-
 import org.activiti.engine.budget.SourceQuery;
-
 
 /**
  * Service to manage Budget Sources, Programs and Projects
@@ -23,6 +21,25 @@ import org.activiti.engine.budget.SourceQuery;
  */
 public interface BudgetService {
 
-  SourceQuery createSourceQuery();
-   
+	/**
+	 * Creates a new source. The source is transient and must be saved using
+	 * {@link #saveSource(Source)}.
+	 * 
+	 * @param sourceId
+	 *            id for the new source, cannot be null.
+	 */
+	Source newSource(String sourceId);
+
+	/**
+	 * Saves the source. If the source already exists, the source is updated.
+	 * 
+	 * @param source
+	 *            source to save, cannot be null.
+	 * @throws RuntimeException
+	 *             when a source with the same name already exists.
+	 */
+	void saveSource(Source source);
+
+	SourceQuery createSourceQuery();
+
 }

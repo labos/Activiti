@@ -13,21 +13,29 @@
 package org.activiti.engine.impl.budget;
 
 import org.activiti.engine.budget.BudgetService;
+import org.activiti.engine.budget.Source;
 import org.activiti.engine.budget.SourceQuery;
 import org.activiti.engine.impl.ServiceImpl;
+import org.activiti.engine.impl.cmd.budget.CreateSourceCmd;
 import org.activiti.engine.impl.cmd.budget.CreateSourceQueryCmd;
-
+import org.activiti.engine.impl.cmd.budget.SaveSourceCmd;
+import org.activiti.engine.impl.persistence.entity.budget.SourceEntity;
 
 /**
  * @author Lab Open Source
  */
 public class BudgetServiceImpl extends ServiceImpl implements BudgetService {
-  
 
-  public SourceQuery createSourceQuery(){
-	  return commandExecutor.execute(new CreateSourceQueryCmd());
-  }
+	public Source newSource(String sourceId) {
+		return commandExecutor.execute(new CreateSourceCmd(sourceId));
+	}
 
-  
-  
+	public void saveSource(Source source) {
+		commandExecutor.execute(new SaveSourceCmd((SourceEntity) source));
+	}
+
+	public SourceQuery createSourceQuery() {
+		return commandExecutor.execute(new CreateSourceQueryCmd());
+	}
+
 }

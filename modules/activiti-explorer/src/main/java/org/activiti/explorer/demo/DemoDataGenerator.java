@@ -25,6 +25,8 @@ import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.budget.BudgetService;
+import org.activiti.engine.budget.Source;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.Picture;
 import org.activiti.engine.identity.User;
@@ -52,6 +54,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   protected transient ProcessEngine processEngine;
   protected transient IdentityService identityService;
   protected transient RepositoryService repositoryService;
+  protected transient BudgetService budgetService;
   
   protected boolean createDemoUsersAndGroups;
   protected boolean createDemoProcessDefinitions;
@@ -61,6 +64,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   public void init() {
     this.identityService = processEngine.getIdentityService();
     this.repositoryService = processEngine.getRepositoryService();
+    this.budgetService = processEngine.getBudgetService();
     
     if (createDemoUsersAndGroups) {
       LOGGER.info("Initializing demo groups");
@@ -83,6 +87,8 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
       LOGGER.info("Initializing demo report data");
       generateReportData();
     }
+    
+    initDemoSources();
   }
   
   public void setProcessEngine(ProcessEngine processEngine) {
@@ -124,6 +130,25 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
       newGroup.setType(type);
       identityService.saveGroup(newGroup);
     }
+  }
+  
+  protected void initDemoSources(){
+	  createSource("fonte1", "Fonte 1", new Double(10000));
+	  createSource("fonte2", "Fonte 2", new Double(20000));
+	  createSource("fonte3", "Fonte 3", new Double(30000));
+	  createSource("fonte4", "Fonte 4", new Double(40000));
+	  createSource("fonte5", "Fonte 5", new Double(50000));
+	  createSource("fonte6", "Fonte 6", new Double(60000));
+	  createSource("fonte7", "Fonte 7", new Double(70000));
+  }
+  
+  protected void createSource(String sourceId,String name, Double total){
+	  if(budgetService.createSourceQuery().sourceId(sourceId).count() == 0){
+		  Source newSource = budgetService.newSource(sourceId);
+		  newSource.setName(name);
+		  newSource.setTotal(total);
+		  budgetService.saveSource(newSource);
+	  }
   }
 
   protected void initDemoUsers() {
