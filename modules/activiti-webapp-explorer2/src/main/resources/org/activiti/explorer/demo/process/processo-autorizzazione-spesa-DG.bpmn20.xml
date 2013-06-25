@@ -55,8 +55,8 @@
     <exclusiveGateway id="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9"></exclusiveGateway>
     <userTask id="sid-5461C0AB-2B42-4333-A519-114CDF48EF2A" name="Aggiunta numero/data AGI" activiti:exclusive="false" activiti:assignee="smaxia">
       <extensionElements>
-        <activiti:formProperty id="numero-determ" name="Numero Determinazione" type="long" variable="numero-determ" required="true"></activiti:formProperty>
-        <activiti:formProperty id="data-determ" name="Data Determinazione" type="date" variable="data-determ" required="true"></activiti:formProperty>
+        <activiti:formProperty id="numerodeterm" name="Numero Determinazione" type="long" variable="numerodeterminazione" required="true"></activiti:formProperty>
+        <activiti:formProperty id="datadeterminazione" name="Data Determinazione" type="date" variable="datadeterminazione" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <parallelGateway id="sid-DAD148B9-A0F5-4979-A9A4-D2B5251EDCAA"></parallelGateway>
@@ -76,7 +76,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <endEvent id="sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120"></endEvent>
     <serviceTask id="sid-2413096E-CAE7-47F7-892A-BB9871125E38" name="Notifica Determinazione non firmata" activiti:exclusive="false" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -172,20 +171,19 @@
     <serviceTask id="servicetask3" name="Check Determinaz" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
-          <activiti:expression>${1}</activiti:expression>
+          <activiti:expression>1</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow43" sourceRef="servicetask3" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow44" sourceRef="parallelgateway2" targetRef="parallelgateway1"></sequenceFlow>
     <sequenceFlow id="flow45" sourceRef="exclusivegateway2" targetRef="sid-5461C0AB-2B42-4333-A519-114CDF48EF2A">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="servicetask4" name="Service Task" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
-          <activiti:expression>${1}</activiti:expression>
+          <activiti:expression>1</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -200,16 +198,25 @@
     <sequenceFlow id="flow49" sourceRef="exclusivegateway2" targetRef="servicetask5"></sequenceFlow>
     <serviceTask id="servicetask5" name="Archivia Determinazione" activiti:async="true" activiti:class="org.activiti.explorer.demo.CmisArchive">
       <extensionElements>
-        <activiti:field name="suffixFolder">
-          <activiti:expression>${execution.getId()}</activiti:expression>
+        <activiti:field name="suffixId">
+          <activiti:expression>${numerodeterminazione}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="suffixDate">
+          <activiti:expression>${datadeterminazione}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="parentFolder">
+          <activiti:expression>DeterminazioniDG</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <userTask id="usertask1" name="Lista Documenti Archiviati"></userTask>
-    <sequenceFlow id="flow53" sourceRef="servicetask5" targetRef="parallelgateway2">
+    <sequenceFlow id="flow53" sourceRef="servicetask5" targetRef="parallelgateway1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isArchived}]]></conditionExpression>
     </sequenceFlow>
-    <parallelGateway id="parallelgateway2" name="Exclusive Gateway"></parallelGateway>
+    <parallelGateway id="parallelgateway1" name="Exclusive Gateway"></parallelGateway>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow54" sourceRef="parallelgateway1" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow55" sourceRef="parallelgateway1" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_processo-autorizzazione-spesa-DG">
     <bpmndi:BPMNPlane bpmnElement="processo-autorizzazione-spesa-DG" id="BPMNPlane_processo-autorizzazione-spesa-DG">
@@ -249,9 +256,6 @@
       <bpmndi:BPMNShape bpmnElement="sid-43C91A10-DCF6-437E-BBD6-9DB9CBACA019" id="BPMNShape_sid-43C91A10-DCF6-437E-BBD6-9DB9CBACA019">
         <omgdc:Bounds height="80.0" width="100.0" x="1153.0" y="409.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120" id="BPMNShape_sid-2EB4C47D-B0FC-4B7C-A9E7-34D166A87120">
-        <omgdc:Bounds height="35.0" width="35.0" x="1423.0" y="170.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-2413096E-CAE7-47F7-892A-BB9871125E38" id="BPMNShape_sid-2413096E-CAE7-47F7-892A-BB9871125E38">
         <omgdc:Bounds height="82.0" width="110.0" x="826.0" y="400.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -289,10 +293,13 @@
         <omgdc:Bounds height="55.0" width="105.0" x="1273.0" y="45.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="1510.0" y="45.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="1408.0" y="139.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="1420.0" y="52.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="1440.0" y="52.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="1522.0" y="55.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="360.0" y="167.0"></omgdi:waypoint>
@@ -404,10 +411,6 @@
         <omgdi:waypoint x="1325.0" y="248.0"></omgdi:waypoint>
         <omgdi:waypoint x="1325.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
-        <omgdi:waypoint x="1378.0" y="72.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1430.0" y="72.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
         <omgdi:waypoint x="1305.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="1253.0" y="167.0"></omgdi:waypoint>
@@ -432,7 +435,15 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow53" id="BPMNEdge_flow53">
         <omgdi:waypoint x="1378.0" y="72.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1420.0" y="72.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1440.0" y="72.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow54" id="BPMNEdge_flow54">
+        <omgdi:waypoint x="1480.0" y="72.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1522.0" y="72.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow55" id="BPMNEdge_flow55">
+        <omgdi:waypoint x="1460.0" y="92.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1460.0" y="139.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
