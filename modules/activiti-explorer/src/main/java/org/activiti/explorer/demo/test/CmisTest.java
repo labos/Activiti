@@ -1,4 +1,4 @@
-package org.activiti.explorer.demo;
+package org.activiti.explorer.demo.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import org.activiti.explorer.demo.cmis.CmisUtil;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
