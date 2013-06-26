@@ -3,7 +3,7 @@
   <process id="processo-autorizzazione-spesa-DG" isExecutable="true" activiti:candidateStarterGroups="pst">
     <userTask id="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" name="Inserimento dati progetto ${initiator}" activiti:exclusive="false" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="nomeprogetto" name="Nome Progetto" type="project" variable="nomeprogetto" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sourceprogetto" name="Fonte Finanziamento" type="source" variable="sourceprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="oggettoprogetto" name="Oggetto/Motivazione" type="string" variable="oggettoprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="importo" name="Spesa/Impegno" type="long" variable="importo" required="true"></activiti:formProperty>
         <activiti:formProperty id="notificaagi" name="Nofifica AGI" type="boolean" variable="notificaagi"></activiti:formProperty>
@@ -13,7 +13,7 @@
     </userTask>
     <userTask id="sid-49F646B0-DC0D-42E7-A823-80DC461519E3" name="Autorizzazione SPF" activiti:exclusive="false" activiti:assignee="emulas">
       <extensionElements>
-        <activiti:formProperty id="nome-progetto-spf" name="Nome Progetto" type="string" variable="nomeprogetto.projectName" default="${nomeprogetto.projectName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nome-progetto-spf" name="Fonte Finanziamento" type="string" variable="sourceprogetto.name" default="${sourceprogetto.name}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="oggetto-progetto-spf" name="Oggetto Progetto" variable="oggettoprogetto" writable="false"></activiti:formProperty>
         <activiti:formProperty id="importoread" name="Importo" type="long" expression="#{importo}" variable="importo" writable="false"></activiti:formProperty>
         <activiti:formProperty id="autorizzazionespesa" name="Autorizza?" type="boolean" variable="autorizzazionespesa" required="true"></activiti:formProperty>
