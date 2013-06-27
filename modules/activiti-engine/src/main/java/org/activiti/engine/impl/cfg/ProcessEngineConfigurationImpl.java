@@ -167,6 +167,7 @@ import org.activiti.engine.impl.persistence.entity.TableDataManager;
 import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
 import org.activiti.engine.impl.persistence.entity.UserEntityManager;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
+import org.activiti.engine.impl.persistence.entity.budget.ProgramEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.SourceEntityManager;
 import org.activiti.engine.impl.scripting.BeansResolverFactory;
 import org.activiti.engine.impl.scripting.ResolverFactory;
@@ -707,6 +708,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       addSessionFactory(new GenericManagerFactory(HistoryManager.class));
       //Budget
       addSessionFactory(new GenericManagerFactory(SourceEntityManager.class));
+      addSessionFactory(new GenericManagerFactory(ProgramEntityManager.class));
+     
     }
     if (customSessionFactories!=null) {
       for (SessionFactory sessionFactory: customSessionFactories) {

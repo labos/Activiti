@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="org.activiti.engine.impl.persistence.entity.budget.ProgramEntity">
+
+  <!-- PROGRAM INSERT -->
+
+  <insert id="insertProgram" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProgramEntity">
+    insert into ${prefix}ACT_BUDGET_PROGRAM (ID_, REV_, NAME_, TOTAL_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      1, 
+      #{name ,jdbcType=VARCHAR},
+      #{total ,jdbcType=DOUBLE}
+    )
+  </insert>
+
+  <!-- PROGRAM UPDATE -->
+  
+  <update id="updateProgram" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProgramEntity">
+    update ${prefix}ACT_BUDGET_PROGRAM set
+      REV_ = #{revisionNext ,jdbcType=INTEGER},
+      NAME_ = #{name ,jdbcType=VARCHAR},
+      TOTAL_ = #{total ,jdbcType=DOUBLE}
+    where ID_ = #{id}
+       and REV_ = #{revision}
+  </update>
+
+  <!-- PROGRAM RESULTMAP -->
+
+  <resultMap id="programResultMap" type="org.activiti.engine.impl.persistence.entity.budget.ProgramEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="revision" column="REV_" jdbcType="INTEGER" />
+    <result property="name" column="NAME_" jdbcType="VARCHAR" />
+    <result property="total" column="TOTAL_" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <!-- PROGRAM SELECT -->
+
+  <select id="selectProgramById" parameterType="string" resultMap="programResultMap">
+    select * from ${prefix}ACT_BUDGET_PROGRAM where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+    
+  <select id="selectProgramByQueryCriteria" parameterType="org.activiti.engine.impl.budget.ProgramQueryImpl" resultMap="programResultMap">
+  	${limitBefore}
+    select RES.* ${limitBetween}
+    <include refid="selectProgramByQueryCriteriaSql" />
+    ${orderBy}
+    ${limitAfter}
+  </select>
+  
+   <select id="selectProgramCountByQueryCriteria" parameterType="org.activiti.engine.impl.budget.ProgramQueryImpl" resultType="long">
+    select count(RES.ID_)
+    <include refid="selectProgramByQueryCriteriaSql" />
+  </select>
+  
+  <sql id="selectProgramByQueryCriteriaSql">
+    from ${prefix}ACT_BUDGET_PROGRAM RES 
+    <where>
+      <if test="id != null">
+        RES.ID_ = #{id}
+      </if>
+      <if test="name != null">
+        and RES.NAME_ = #{name}
+      </if> 
+      <if test="total != null">
+        and RES.TOTAL_ = #{total}
+      </if>     
+    </where>
+  </sql>
+  
+</mapper>

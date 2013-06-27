@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.activiti.explorer.ui.budget;
+package org.activiti.explorer.ui.budget.source;
 
 import java.util.ArrayList;
 import java.util.List;

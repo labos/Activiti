@@ -10,43 +10,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.activiti.engine.impl.cmd.budget;
+
+package org.activiti.engine.impl.cmd.budget.source;
 
 import java.io.Serializable;
 
-import org.activiti.engine.ActivitiIllegalArgumentException;
+import org.activiti.engine.budget.SourceQuery;
+import org.activiti.engine.identity.UserQuery;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.impl.persistence.entity.budget.SourceEntity;
 
 
 /**
  * @author Lab Open Source
  */
-public class SaveSourceCmd implements Command<Void>, Serializable {
+public class CreateSourceQueryCmd implements Command<SourceQuery>, Serializable {
   
   private static final long serialVersionUID = 1L;
-  protected SourceEntity source;
-  
-  public SaveSourceCmd(SourceEntity source) {
-    this.source = source;
-  }
-  
-  public Void execute(CommandContext commandContext) {
-    if(source == null) {
-      throw new ActivitiIllegalArgumentException("source is null");
-    }
-    if (source.getRevision()==0) {
-      commandContext
-        .getSourceEntityManager()
-        .insertSource(source);
-    } else {
-      commandContext
-        .getSourceEntityManager()
-        .updateSource(source);
-    }
-    
-    return null;
+
+  public SourceQuery execute(CommandContext commandContext) {
+    return commandContext
+      .getSourceEntityManager()
+      .createNewSourceQuery();
   }
 
 }

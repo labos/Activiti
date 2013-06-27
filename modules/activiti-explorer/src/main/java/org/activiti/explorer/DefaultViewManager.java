@@ -29,7 +29,8 @@ import org.activiti.engine.task.Task;
 import org.activiti.explorer.ui.AbstractPage;
 import org.activiti.explorer.ui.MainWindow;
 import org.activiti.explorer.ui.budget.BudgetMenuBar;
-import org.activiti.explorer.ui.budget.SourcePage;
+import org.activiti.explorer.ui.budget.program.ProgramPage;
+import org.activiti.explorer.ui.budget.source.SourcePage;
 import org.activiti.explorer.ui.management.ManagementMenuBar;
 import org.activiti.explorer.ui.management.admin.AdministrationPage;
 import org.activiti.explorer.ui.management.db.DatabasePage;
@@ -269,8 +270,7 @@ public class DefaultViewManager implements ViewManager, Serializable {
   }
   
   public void showProgramPage(){
-	 
-	  
+	  switchView(new ProgramPage(), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_PROGRAMS);	  
   }
   
   public void showProgramPage(String programId){

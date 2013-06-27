@@ -11,12 +11,12 @@
  * limitations under the License.
  */
 
-package org.activiti.engine.impl.cmd.budget;
+package org.activiti.engine.impl.cmd.budget.source;
 
 import java.io.Serializable;
 
-import org.activiti.engine.budget.SourceQuery;
-import org.activiti.engine.identity.UserQuery;
+import org.activiti.engine.ActivitiIllegalArgumentException;
+import org.activiti.engine.budget.Source;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 
@@ -24,14 +24,23 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 /**
  * @author Lab Open Source
  */
-public class CreateSourceQueryCmd implements Command<SourceQuery>, Serializable {
-  
-  private static final long serialVersionUID = 1L;
+public class CreateSourceCmd implements Command<Source>, Serializable {
 
-  public SourceQuery execute(CommandContext commandContext) {
+  private static final long serialVersionUID = 1L;
+  
+  protected String sourceId;
+  
+  public CreateSourceCmd(String sourceId) {
+    if(sourceId == null) {
+      throw new ActivitiIllegalArgumentException("sourceId is null");
+    }
+    this.sourceId = sourceId;
+  }
+
+  public Source execute(CommandContext commandContext) {
     return commandContext
       .getSourceEntityManager()
-      .createNewSourceQuery();
+      .createNewSource(sourceId);
   }
 
 }

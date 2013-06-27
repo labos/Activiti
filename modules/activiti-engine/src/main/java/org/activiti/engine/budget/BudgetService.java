@@ -41,5 +41,12 @@ public interface BudgetService {
 	void saveSource(Source source);
 
 	SourceQuery createSourceQuery();
+	
+	Program newProgram(String programId);
+	
+	void saveProgram(Program program);
+
+	ProgramQuery createProgramQuery();
+	
 
 }

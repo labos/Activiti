@@ -16,7 +16,7 @@ package org.activiti.engine.impl.cmd.budget;
 import java.io.Serializable;
 
 import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.budget.Source;
+import org.activiti.engine.budget.Program;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 
@@ -24,23 +24,23 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 /**
  * @author Lab Open Source
  */
-public class CreateSourceCmd implements Command<Source>, Serializable {
+public class CreateProgramCmd implements Command<Program>, Serializable {
 
   private static final long serialVersionUID = 1L;
   
-  protected String sourceId;
+  protected String programId;
   
-  public CreateSourceCmd(String sourceId) {
-    if(sourceId == null) {
-      throw new ActivitiIllegalArgumentException("sourceId is null");
+  public CreateProgramCmd(String programId) {
+    if(programId == null) {
+      throw new ActivitiIllegalArgumentException("programId is null");
     }
-    this.sourceId = sourceId;
+    this.programId = programId;
   }
 
-  public Source execute(CommandContext commandContext) {
+  public Program execute(CommandContext commandContext) {
     return commandContext
-      .getSourceEntityManager()
-      .createNewSource(sourceId);
+      .getProgramEntityManager()
+      .createNewProgram(programId);
   }
 
 }

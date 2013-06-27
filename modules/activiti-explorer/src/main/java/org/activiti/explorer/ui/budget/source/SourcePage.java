@@ -1,4 +1,4 @@
-package org.activiti.explorer.ui.budget;
+package org.activiti.explorer.ui.budget.source;
 
 import org.activiti.explorer.ExplorerApp;
 import org.activiti.explorer.data.LazyLoadingContainer;
@@ -7,6 +7,7 @@ import org.activiti.explorer.navigation.GroupNavigator;
 import org.activiti.explorer.navigation.UriFragment;
 import org.activiti.explorer.navigation.budget.SourceNavigator;
 import org.activiti.explorer.ui.Images;
+import org.activiti.explorer.ui.budget.BudgetPage;
 import org.activiti.explorer.ui.management.identity.GroupDetailPanel;
 import org.activiti.explorer.ui.management.identity.GroupListQuery;
 import org.activiti.explorer.ui.management.identity.GroupPage;

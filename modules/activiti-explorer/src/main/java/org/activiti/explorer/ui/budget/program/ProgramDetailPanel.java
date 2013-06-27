@@ -10,13 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.activiti.explorer.ui.budget;
+package org.activiti.explorer.ui.budget.program;
 
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.budget.BudgetService;
-import org.activiti.engine.budget.Source;
-import org.activiti.engine.identity.Group;
+import org.activiti.engine.budget.Program;
 import org.activiti.explorer.ExplorerApp;
 import org.activiti.explorer.I18nManager;
 import org.activiti.explorer.Messages;
@@ -40,7 +39,7 @@ import com.vaadin.ui.themes.Reindeer;
  * @author Lab Open Source
  */
 //public class SourceDetailPanel extends DetailPanel implements MemberShipChangeListener {
-public class SourceDetailPanel extends DetailPanel {
+public class ProgramDetailPanel extends DetailPanel {
 
   private static final long serialVersionUID = 1L;
   
@@ -48,8 +47,8 @@ public class SourceDetailPanel extends DetailPanel {
   protected transient BudgetService budgetService;
   protected I18nManager i18nManager;
 
-  protected SourcePage sourcePage;
-  protected Source source;
+  protected ProgramPage programPage;
+  protected Program program;
   protected VerticalLayout panelLayout;
   
   protected boolean editingDetails;
@@ -61,10 +60,10 @@ public class SourceDetailPanel extends DetailPanel {
   protected Table membersTable;
   protected Label noMembersTable;
   
-  public SourceDetailPanel(SourcePage sourcePage, String sourceId) {
-	    this.sourcePage = sourcePage;
+  public ProgramDetailPanel(ProgramPage programPage, String programId) {
+	    this.programPage = programPage;
 	    this.budgetService = ProcessEngines.getDefaultProcessEngine().getBudgetService();
-	    this.source = budgetService.createSourceQuery().sourceId(sourceId).singleResult();
+	    this.program = budgetService.createProgramQuery().programId(programId).singleResult();
 	    this.i18nManager = ExplorerApp.get().getI18nManager();
 	    
 	    init();
@@ -75,7 +74,7 @@ public class SourceDetailPanel extends DetailPanel {
     addStyleName(Reindeer.PANEL_LIGHT);
     
     initPageTitle();
-    initSourceDetails();
+    initProgramDetails();
    // initMembers();
     
    
@@ -91,45 +90,45 @@ public class SourceDetailPanel extends DetailPanel {
     layout.setMargin(false, false, true, false);
     addDetailComponent(layout);
     
-    Embedded sourceImage = new Embedded(null, Images.GROUP_50);
-    layout.addComponent(sourceImage);
+    Embedded programImage = new Embedded(null, Images.GROUP_50);
+    layout.addComponent(programImage);
     
-    Label sourceName = new Label(getSourceName(source));
-    sourceName.setSizeUndefined();
-    sourceName.addStyleName(Reindeer.LABEL_H2);
-    layout.addComponent(sourceName);
-    layout.setComponentAlignment(sourceName, Alignment.MIDDLE_LEFT);
-    layout.setExpandRatio(sourceName, 1.0f);
+    Label programName = new Label(getProgramName(program));
+    programName.setSizeUndefined();
+    programName.addStyleName(Reindeer.LABEL_H2);
+    layout.addComponent(programName);
+    layout.setComponentAlignment(programName, Alignment.MIDDLE_LEFT);
+    layout.setExpandRatio(programName, 1.0f);
   }
   
-  protected String getSourceName(Source theSource) {
-    if(theSource.getName() == null) {
-      return theSource.getId();
+  protected String getProgramName(Program theProgram) {
+    if(theProgram.getName() == null) {
+      return theProgram.getId();
     }
-    return theSource.getName();
+    return theProgram.getName();
   }
 
-  protected void initSourceDetails() {
-    Label sourceDetailsHeader = new Label(i18nManager.getMessage(Messages.GROUP_HEADER_DETAILS));
-    sourceDetailsHeader.addStyleName(ExplorerLayout.STYLE_H3);
-    sourceDetailsHeader.addStyleName(ExplorerLayout.STYLE_DETAIL_BLOCK);
+  protected void initProgramDetails() {
+    Label programDetailsHeader = new Label(i18nManager.getMessage(Messages.GROUP_HEADER_DETAILS));
+    programDetailsHeader.addStyleName(ExplorerLayout.STYLE_H3);
+    programDetailsHeader.addStyleName(ExplorerLayout.STYLE_DETAIL_BLOCK);
     
-    addDetailComponent(sourceDetailsHeader);
+    addDetailComponent(programDetailsHeader);
     
     detailLayout = new HorizontalLayout();
     detailLayout.setSpacing(true);
     detailLayout.setMargin(true, false, true, false);
     addDetailComponent(detailLayout);
     
-    populateSourceDetails();
+    populateProgramDetails();
   }
   
-  protected void populateSourceDetails() {
-    initSourceProperties();
+  protected void populateProgramDetails() {
+    initProgramProperties();
    
   }
   
-  protected void initSourceProperties() {
+  protected void initProgramProperties() {
     detailsGrid = new GridLayout(2, 3);
     detailsGrid.setSpacing(true);
     detailLayout.setMargin(true, true, true, false);
@@ -139,7 +138,7 @@ public class SourceDetailPanel extends DetailPanel {
     Label idLabel = new Label(i18nManager.getMessage(Messages.GROUP_ID) + ": ");
     idLabel.addStyleName(ExplorerLayout.STYLE_LABEL_BOLD);
     detailsGrid.addComponent(idLabel);
-    Label idValueLabel = new Label(source.getId());
+    Label idValueLabel = new Label(program.getId());
     detailsGrid.addComponent(idValueLabel);
     
     // name
@@ -147,10 +146,10 @@ public class SourceDetailPanel extends DetailPanel {
     nameLabel.addStyleName(ExplorerLayout.STYLE_LABEL_BOLD);
     detailsGrid.addComponent(nameLabel);
     if (!editingDetails) {
-      Label nameValueLabel = new Label(source.getName());
+      Label nameValueLabel = new Label(program.getName());
       detailsGrid.addComponent(nameValueLabel);
     } else {
-      nameTextField = new TextField(null, source.getName());
+      nameTextField = new TextField(null, program.getName());
       detailsGrid.addComponent(nameTextField);
     }
     
@@ -159,7 +158,7 @@ public class SourceDetailPanel extends DetailPanel {
     Label totalLabel = new Label("Total" + ": ");
     totalLabel.addStyleName(ExplorerLayout.STYLE_LABEL_BOLD);
     detailsGrid.addComponent(totalLabel);
-    Label typeValueLabel = new Label(source.getTotal().toString());
+    Label typeValueLabel = new Label(program.getTotal().toString());
     detailsGrid.addComponent(typeValueLabel);
     
   }

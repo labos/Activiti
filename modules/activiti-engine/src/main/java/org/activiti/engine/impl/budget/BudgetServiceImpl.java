@@ -13,12 +13,18 @@
 package org.activiti.engine.impl.budget;
 
 import org.activiti.engine.budget.BudgetService;
+import org.activiti.engine.budget.Program;
+import org.activiti.engine.budget.ProgramQuery;
 import org.activiti.engine.budget.Source;
 import org.activiti.engine.budget.SourceQuery;
 import org.activiti.engine.impl.ServiceImpl;
-import org.activiti.engine.impl.cmd.budget.CreateSourceCmd;
-import org.activiti.engine.impl.cmd.budget.CreateSourceQueryCmd;
-import org.activiti.engine.impl.cmd.budget.SaveSourceCmd;
+import org.activiti.engine.impl.cmd.budget.CreateProgramCmd;
+import org.activiti.engine.impl.cmd.budget.CreateProgramQueryCmd;
+import org.activiti.engine.impl.cmd.budget.SaveProgramCmd;
+import org.activiti.engine.impl.cmd.budget.source.CreateSourceCmd;
+import org.activiti.engine.impl.cmd.budget.source.CreateSourceQueryCmd;
+import org.activiti.engine.impl.cmd.budget.source.SaveSourceCmd;
+import org.activiti.engine.impl.persistence.entity.budget.ProgramEntity;
 import org.activiti.engine.impl.persistence.entity.budget.SourceEntity;
 
 /**
@@ -36,6 +42,18 @@ public class BudgetServiceImpl extends ServiceImpl implements BudgetService {
 
 	public SourceQuery createSourceQuery() {
 		return commandExecutor.execute(new CreateSourceQueryCmd());
+	}
+	
+	public Program newProgram(String programId) {
+		return commandExecutor.execute(new CreateProgramCmd(programId));
+	}
+
+	public void saveProgram(Program program) {
+		commandExecutor.execute(new SaveProgramCmd((ProgramEntity) program));
+	}
+
+	public ProgramQuery createProgramQuery() {
+		return commandExecutor.execute(new CreateProgramQueryCmd());
 	}
 
 }
