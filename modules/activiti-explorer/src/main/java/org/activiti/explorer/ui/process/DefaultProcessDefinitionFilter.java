@@ -16,8 +16,10 @@ package org.activiti.explorer.ui.process;
 import java.io.Serializable;
 
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.impl.ProcessDefinitionQueryImpl;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
+import org.activiti.explorer.ExplorerApp;
 import org.activiti.explorer.ui.process.ProcessDefinitionListQuery.ProcessDefinitionListItem;
 
 import com.vaadin.data.util.ObjectProperty;
@@ -33,7 +35,7 @@ public class DefaultProcessDefinitionFilter implements ProcessDefinitionFilter, 
   
   
   public ProcessDefinitionQuery getQuery(RepositoryService repositoryService) {
-    return getBaseQuery(repositoryService)
+	return getBaseQuery(repositoryService)
             .orderByProcessDefinitionName().asc()
             .orderByProcessDefinitionKey().asc(); // name is not unique, so we add the order on key (so we can use it in the comparsion of ProcessDefinitionListItem)
   }
@@ -43,10 +45,21 @@ public class DefaultProcessDefinitionFilter implements ProcessDefinitionFilter, 
   }
   
   protected ProcessDefinitionQuery getBaseQuery(RepositoryService repositoryService) {
-    return repositoryService
+	  String loggedInUserId = ExplorerApp.get().getLoggedInUser().getId();
+	  ProcessDefinitionQuery aProcessDefinitionQuery;
+	 //System.out.println("DATI utente:" + loggedInUserId + " con nome:" + getBaseQuery(repositoryService).list().get(0).getName());
+	    
+	  if(repositoryService
             .createProcessDefinitionQuery()
-            .latestVersion()
-            .active();
+            .latestVersion().startableByUser(loggedInUserId) != null){
+		  aProcessDefinitionQuery = repositoryService
+		            .createProcessDefinitionQuery()
+		            .latestVersion().startableByUser(loggedInUserId).active();
+	  }
+	  else{
+		  aProcessDefinitionQuery = new ProcessDefinitionQueryImpl();
+	  }
+    return aProcessDefinitionQuery;
   }
 
   public ProcessDefinitionListItem createItem(ProcessDefinition processDefinition) {
