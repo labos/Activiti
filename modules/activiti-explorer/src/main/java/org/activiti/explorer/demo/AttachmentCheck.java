@@ -1,4 +1,3 @@
-
 /* Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,18 +14,14 @@ package org.activiti.explorer.demo;
 
 import java.util.List;
 
+import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
-import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.task.Attachment;
-import org.activiti.engine.task.Task;
 import org.activiti.explorer.ExplorerApp;
-import org.activiti.explorer.Messages;
-
-
 
 /**
- * @author Joram Barrez
+ * @author Lab Open Source
  */
 public class AttachmentCheck implements JavaDelegate {
   

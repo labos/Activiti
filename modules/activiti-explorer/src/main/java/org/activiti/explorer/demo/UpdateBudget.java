@@ -1,15 +1,12 @@
 package org.activiti.explorer.demo;
 
-
-
 import org.activiti.engine.budget.Source;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.delegate.DelegateExecution;
 
-
 /**
- * @author Joram Barrez
+ * @author Lab Open Source
  */
 public class UpdateBudget implements JavaDelegate {
   

@@ -44,9 +44,8 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * @author Joram Barrez
+ * @author Lab Open Source
  */
 public class DemoDataGenerator implements ModelDataJsonConstants {
   
@@ -191,11 +190,13 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     createUser("sbaghino", "Sebastiano", "Baghino", "baghino", "labopensource+PST-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("pst","user"),
-            null);
+            Arrays.asList("birthDate", "", "jobTitle", "Membro", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("gserra", "Giuseppe", "Serra", "serra", "labopensource+PST-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("pst","user"),
-            null);
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("emulas", "Enrico", "Mulas", "mulas", "labopensource+SPF-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("spf", "app", "user"),

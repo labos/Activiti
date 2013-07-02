@@ -20,13 +20,13 @@ import org.activiti.engine.delegate.DelegateExecution;
 /**
  * @author Lab Open Source
  */
-public class EmailInitiator implements JavaDelegate {
+public class InitiatorJobTitle implements JavaDelegate {
   
   private Expression idInitiator;
   
   public void execute(DelegateExecution execution) {
-	  String emailInitiator = execution.getEngineServices().getIdentityService().getUserEmail((String)idInitiator.getValue(execution));
-    execution.setVariable("emailInitiator",emailInitiator);
+	  String initiatorJobTitle = execution.getEngineServices().getIdentityService().getUserInfo((String)idInitiator.getValue(execution), "jobTitle");
+    execution.setVariable("initiatorJobTitle",initiatorJobTitle);
   }
   
 }
