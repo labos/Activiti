@@ -15,6 +15,7 @@ package org.activiti.explorer.demo;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.chemistry.opencmis.client.bindings.spi.atompub.AbstractAtomPubService;
 import org.apache.chemistry.opencmis.client.bindings.spi.atompub.AtomPubParser;
 import org.apache.chemistry.opencmis.commons.PropertyIds;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author LabOpenSource
@@ -55,6 +57,7 @@ public class CmisArchive implements JavaDelegate {
 		String suffixIdString = "";
 		String suffixDateString = "";
 		Folder archiveFolder;
+		ArrayList<String> alfrescoPageLinks = new ArrayList<String>();
 
 		// create a new CMIS session
 		this.createCmisSession();
@@ -94,10 +97,13 @@ public class CmisArchive implements JavaDelegate {
 				isArchived = false;
 				break;
 			}
+			alfrescoPageLinks.add(getDocumentURL(aDocument, session));
+			System.out.println("link alfresco:" + getDocumentURL(aDocument, session));
 		}
 		// set a boolean process variable to check for successful archive
 		// submission
 		execution.setVariable("isArchived", isArchived);
+		execution.setVariable("alfrescoPageLinks", StringUtils.join(alfrescoPageLinks, "###"));
 
 	}
 

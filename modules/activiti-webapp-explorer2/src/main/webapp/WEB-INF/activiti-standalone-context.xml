@@ -53,6 +53,7 @@
         <bean class="org.activiti.explorer.form.ProjectFormType"/>
         <bean class="org.activiti.explorer.form.TextAreaFormType"/>
         <bean class="org.activiti.explorer.form.SourceFormType"/>    
+        <bean class="org.activiti.explorer.form.LinksFormType"/>        
       </list>
     </property>
   </bean>

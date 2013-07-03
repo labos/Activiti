@@ -24,7 +24,7 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="sid-B070A3C7-C89E-409B-979E-9301C76591BD" name="Firma determinaz Direttore" activiti:exclusive="false" activiti:assignee="aatzeni">
+    <userTask id="sid-B070A3C7-C89E-409B-979E-9301C76591BD" name="Firma Proposta Determinazione Direttore" activiti:exclusive="false" activiti:assignee="aatzeni">
       <extensionElements>
         <activiti:formProperty id="firmatodirautorizzazioneimporto" name="Accettata" type="boolean" variable="firmatodirautorizzazioneimporto" required="true"></activiti:formProperty>
         <activiti:formProperty id="motivazione-direttore" name="Motivazione" variable="motivazione-direttore"></activiti:formProperty>
@@ -98,7 +98,7 @@
       </extensionElements>
     </serviceTask>
     <parallelGateway id="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6"></parallelGateway>
-    <userTask id="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" name="Allega Determinazione" activiti:exclusive="false" activiti:assignee="${initiator}">
+    <userTask id="sid-94C357BD-11C5-490B-A895-3F82CC25DD46" name="Allega Proposta Determinazione" activiti:exclusive="false" activiti:assignee="${initiator}">
       <extensionElements>
         <activiti:taskListener event="create" class="org.activiti.engine.impl.bpmn.listener.ScriptTaskListener">
           <activiti:field name="script">
@@ -167,6 +167,9 @@
     </serviceTask>
     <userTask id="usertask1" name="Lista Documenti Archiviati" activiti:assignee="${initiator}">
       <documentation>Il processo di autorizzazione spesa per il progetto "${sourceprogetto.name}" si è concluso con successo.</documentation>
+      <extensionElements>
+        <activiti:formProperty id="idListaDocumenti" name="Lista Documenti" type="links" expression="${alfrescoPageLinks}"></activiti:formProperty>
+      </extensionElements>
     </userTask>
     <endEvent id="endevent2" name="End"></endEvent>
     <serviceTask id="servicetask6" name="Aggiornamento Budget" activiti:class="org.activiti.explorer.demo.UpdateBudget">
@@ -357,14 +360,14 @@
         <omgdi:waypoint x="455.0" y="166.0"></omgdi:waypoint>
         <omgdi:waypoint x="485.0" y="167.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="47.0" x="-7.0" y="7.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="44.0" x="-7.0" y="7.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
         <omgdi:waypoint x="435.0" y="186.0"></omgdi:waypoint>
         <omgdi:waypoint x="436.0" y="265.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="67.0" x="10.0" y="-13.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="66.0" x="10.0" y="-13.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
@@ -379,14 +382,14 @@
         <omgdi:waypoint x="880.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="880.0" y="335.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="64.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="64.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
         <omgdi:waypoint x="900.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="960.0" y="166.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="43.0" x="-40.0" y="18.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="43.0" x="-40.0" y="18.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
@@ -484,14 +487,14 @@
         <omgdi:waypoint x="169.0" y="82.0"></omgdi:waypoint>
         <omgdi:waypoint x="310.0" y="127.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="65.0" x="3.0" y="-5.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="64.0" x="3.0" y="-5.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow61" id="BPMNEdge_flow61">
         <omgdi:waypoint x="189.0" y="62.0"></omgdi:waypoint>
         <omgdi:waypoint x="257.0" y="62.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="38.0" x="-23.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="38.0" x="-23.0" y="-17.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow62" id="BPMNEdge_flow62">
