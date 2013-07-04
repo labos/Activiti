@@ -59,47 +59,58 @@ public class CmisArchive implements JavaDelegate {
 		Folder archiveFolder;
 		ArrayList<String> alfrescoPageLinks = new ArrayList<String>();
 
-		// create a new CMIS session
-		this.createCmisSession();
-		// set parent folder name
-		this.parentFolderName = (String)parentFolder.getValue(execution);
-		// set a new folder name for current process instance
-		suffixIdString = Long.toString((Long) suffixId.getValue(execution));
-		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-		
-		suffixDateString =  dt.format((Date) suffixDate.getValue(execution));
-		archiveFolder = CmisUtil.getFolder(session, this.parentFolderName );
-		
-		// get all attachments
-		List<Attachment> attachmentList = execution
-				.getEngineServices()
-				.getTaskService()
-				.getProcessInstanceAttachments(execution.getProcessInstanceId());
-		
-		System.out.println("*** cartella parent:" + this.parentFolderName);
-		System.out.println("*** suffisso:" + suffixIdString + "_" + suffixDateString);
-		
-		
-		// store each file in the new folder
-		for (Attachment attachment : attachmentList) {
-			// set content type
-			String[] contentTypeValues =  attachment.getType().split(";");
+
+		try {
+			// create a new CMIS session
+			this.createCmisSession();
+			// set parent folder name
+			this.parentFolderName = (String)parentFolder.getValue(execution);
+			// set a new folder name for current process instance
+			suffixIdString = Long.toString((Long) suffixId.getValue(execution));
+			SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 			
-			InputStream aStream = execution.getEngineServices()
-					.getTaskService().getAttachmentContent(attachment.getId());
-			System.out.println("*** tipo di content:" + contentTypeValues[0]);
-			Document aDocument = this.saveDocumentToFolder(
-					IoUtil.readInputStream(aStream, "stream attachment"),
-					archiveFolder.getId(), "determinazioneDG", suffixIdString + "_" + suffixDateString + "." + contentTypeValues[1],
-					contentTypeValues[0]);
+			suffixDateString =  dt.format((Date) suffixDate.getValue(execution));
+			archiveFolder = CmisUtil.getFolder(session, this.parentFolderName );
 			
-			if (aDocument == null) {
-				isArchived = false;
-				break;
+			// get all attachments
+			List<Attachment> attachmentList = execution
+					.getEngineServices()
+					.getTaskService()
+					.getProcessInstanceAttachments(execution.getProcessInstanceId());
+			
+			System.out.println("*** cartella parent:" + this.parentFolderName);
+			System.out.println("*** suffisso:" + suffixIdString + "_" + suffixDateString);
+			
+			
+			// store each file in the new folder
+			for (Attachment attachment : attachmentList) {
+				// set content type
+				String[] contentTypeValues =  attachment.getType().split(";");
+				
+				InputStream aStream = execution.getEngineServices()
+						.getTaskService().getAttachmentContent(attachment.getId());
+				System.out.println("*** tipo di content:" + contentTypeValues[0]);
+				Document aDocument = this.saveDocumentToFolder(
+						IoUtil.readInputStream(aStream, "stream attachment"),
+						archiveFolder.getId(), "determinazioneDG", suffixIdString + "_" + suffixDateString + "." + contentTypeValues[1],
+						contentTypeValues[0]);
+				
+				if (aDocument == null) {
+					isArchived = false;
+					break;
+				}
+				isArchived = true;
+				alfrescoPageLinks.add(getDocumentURL(aDocument, session));
+				System.out.println("link alfresco:" + getDocumentURL(aDocument, session));
 			}
-			alfrescoPageLinks.add(getDocumentURL(aDocument, session));
-			System.out.println("link alfresco:" + getDocumentURL(aDocument, session));
+			
+		} catch (Exception e) {
+			
+			System.out.println("*** Problema accesso Alfresco: " + e.getMessage());
+			
 		}
+		
+
 		// set a boolean process variable to check for successful archive
 		// submission
 		execution.setVariable("isArchived", isArchived);
