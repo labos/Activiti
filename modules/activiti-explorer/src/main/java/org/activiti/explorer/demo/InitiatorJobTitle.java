@@ -44,11 +44,11 @@ public class InitiatorJobTitle implements JavaDelegate {
 	  
 	  execution.setVariable("initiatorGroupHead","kermit");
 	  for (Group group : groups) {
-		  System.out.println(group.getId());
+//		  System.out.println(group.getId());
 		  for (User user : execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup(group.getId()).list()) {
-			  System.out.println(user.getId());
+//			  System.out.println(user.getId());
 			  String userJobTitle = execution.getEngineServices().getIdentityService().getUserInfo(user.getId(), "jobTitle");
-			  System.out.println(userJobTitle);
+//			  System.out.println(userJobTitle);
 			  if (userJobTitle != null && userJobTitle.equals("Responsabile")) {
 				  execution.setVariable("initiatorGroupHead",user.getId());
 			}
