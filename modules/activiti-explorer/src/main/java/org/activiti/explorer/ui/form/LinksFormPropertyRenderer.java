@@ -54,7 +54,7 @@ public class LinksFormPropertyRenderer extends AbstractFormPropertyRenderer {
 	int i = 1;
 	for( String link: listOfLinks){
 		Link linkHtml =  new Link(link, new ExternalResource(link));
-
+		linkHtml.setTargetName("_blank");
 		table.addItem(new Object[] {"Documento " + i++ ,linkHtml}, rand.nextInt());
 	}
 	
