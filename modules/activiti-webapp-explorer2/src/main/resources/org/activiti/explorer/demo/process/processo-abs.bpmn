@@ -6,10 +6,9 @@
     <userTask id="usertask3" name="Preparazione della Convenzione e del Disciplinare"></userTask>
     <sequenceFlow id="flow3" sourceRef="startevent1" targetRef="usertask3"></sequenceFlow>
     <userTask id="usertask4" name="Stipula della Convenzione e firma del Disciplinare"></userTask>
-    <sequenceFlow id="flow4" sourceRef="usertask3" targetRef="usertask4"></sequenceFlow>
-    <userTask id="usertask5" name="Determinazione di delega del finanziamento e autorizzazione alla liquidazione del primo acconto"></userTask>
+    <userTask id="usertask5" name="Accettazione Regione - Determinazione di delega del finanziamento e autorizzazione alla liquidazione del primo acconto"></userTask>
     <sequenceFlow id="flow5" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
-    <userTask id="usertask6" name="Approvazione del documento &quot;Fabbisogno di acquisti di beni e servizi&quot;"></userTask>
+    <userTask id="usertask6" name="Inserimento Doc Fabbisogno - Approvazione del documento &quot;Fabbisogno di acquisti di beni e servizi&quot;"></userTask>
     <sequenceFlow id="flow6" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
     <userTask id="usertask7" name="Individuazione, in capo alla U.O., del budget per la singola commessa ed individuazione del RUP nella persona del Responsabile dell'U.O."></userTask>
     <sequenceFlow id="flow7" sourceRef="usertask6" targetRef="usertask7"></sequenceFlow>
@@ -40,6 +39,22 @@
     <sequenceFlow id="flow21" sourceRef="usertask19" targetRef="usertask20"></sequenceFlow>
     <userTask id="usertask21" name="Aggiudicazione definitiva oppure per beni e servizi di valore inferiore a 40.000,00 euro affidamento diretto"></userTask>
     <sequenceFlow id="flow22" sourceRef="usertask20" targetRef="usertask21"></sequenceFlow>
+    <sequenceFlow id="flow23" sourceRef="usertask3" targetRef="servicetask1"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Check Documento Convenzione" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+      <extensionElements>
+        <activiti:field name="minAttachmentsNum">
+          <activiti:string>1</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow24" sourceRef="servicetask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow25" sourceRef="exclusivegateway1" targetRef="usertask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="exclusivegateway1" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_idProcessoABS">
     <bpmndi:BPMNPlane bpmnElement="idProcessoABS" id="BPMNPlane_idProcessoABS">
@@ -103,13 +118,15 @@
       <bpmndi:BPMNShape bpmnElement="usertask21" id="BPMNShape_usertask21">
         <omgdc:Bounds height="55.0" width="105.0" x="2656.0" y="210.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="182.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="379.0" y="227.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="85.0" y="127.0"></omgdi:waypoint>
         <omgdi:waypoint x="170.0" y="127.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="299.0" y="127.0"></omgdi:waypoint>
-        <omgdi:waypoint x="340.0" y="127.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="459.0" y="127.0"></omgdi:waypoint>
@@ -178,6 +195,22 @@
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
         <omgdi:waypoint x="2601.0" y="256.0"></omgdi:waypoint>
         <omgdi:waypoint x="2656.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="234.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="234.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="287.0" y="247.0"></omgdi:waypoint>
+        <omgdi:waypoint x="379.0" y="247.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="399.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="399.0" y="168.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="399.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="234.0" y="173.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
