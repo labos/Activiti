@@ -112,6 +112,7 @@ public class TaskRelatedContentComponent extends VerticalLayout implements Relat
         CreateAttachmentPopupWindow popup = new CreateAttachmentPopupWindow();
         
         if (task.getProcessInstanceId() != null) {
+          popup.setTaskId(task.getId());
           popup.setProcessInstanceId(task.getProcessInstanceId());
         } else {
           popup.setTaskId(task.getId());

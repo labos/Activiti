@@ -100,8 +100,8 @@ public class CmisArchive implements JavaDelegate {
 					break;
 				}
 				isArchived = true;
-				alfrescoPageLinks.add(getDocumentURL(aDocument, session));
-				System.out.println("link alfresco:" + getDocumentURL(aDocument, session));
+				alfrescoPageLinks.add(CmisUtil.getDocumentURL(aDocument, session));
+				System.out.println("link alfresco:" + CmisUtil.getDocumentURL(aDocument, session));
 			}
 			
 		} catch (Exception e) {
@@ -118,49 +118,14 @@ public class CmisArchive implements JavaDelegate {
 
 	}
 
-	public static final String getDocumentURL(final Document document,
-			final Session session) {
 
-		String link = null;
-
-		try {
-
-			Method loadLink = AbstractAtomPubService.class.getDeclaredMethod(
-					"loadLink",
-
-					new Class[] { String.class, String.class, String.class,
-							String.class });
-
-			loadLink.setAccessible(true);
-
-			link = (String) loadLink.invoke(session.getBinding()
-					.getObjectService(), session.getRepositoryInfo().getId(),
-
-			document.getId(), AtomPubParser.LINK_REL_CONTENT, null);
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		}
-
-		return link;
-
-	}
 
 	public void createCmisSession() {
 		session = CmisUtil.createCmisSession("admin", ALFRESCO_ADMIN_PASSWORD,
 				ALFRESCO_CMIS_URL);
 	}
 
-	private Folder getFolder(String folderName) {
-		Folder parentFolder = CmisUtil.getFolder(session, this.parentFolderName );
-		Folder folder = containsFolderWithName(folderName, parentFolder);
-		if (folder == null) {
-			folder = CmisUtil.createFolder(session, parentFolder, folderName);
-		}
-		return folder;
-	}
+
 
 	public Document saveDocumentToFolder(byte[] documentStreamByteArray,
 			String folderId, String name, String fileSuffix, String mimeType) {
@@ -180,33 +145,8 @@ public class CmisArchive implements JavaDelegate {
 		}
 	}
 
-	public void attachDocumentToProcess(String processInstanceId,
-			Document document, String fileSuffix, String fileDescription) {
-		ProcessEngine processEngine = ProcessEngines.getProcessEngines().get(
-				ProcessEngines.NAME_DEFAULT);
-		processEngine.getTaskService().createAttachment(
-				fileSuffix,
-				null,
-				processInstanceId,
-				document.getName().substring(0,
-						document.getName().lastIndexOf(".")), fileDescription,
-				document.getContentStream().getStream());
-	}
 
-	private Folder containsFolderWithName(String name, Folder parentFolder) {
-		Folder found = null;
-		for (CmisObject cmisObject : parentFolder.getChildren()) {
-			System.out
-					.println("name " + name + " cmis " + cmisObject.getName());
-			if (cmisObject.getProperty(PropertyIds.OBJECT_TYPE_ID)
-					.getValueAsString().equals(ObjectType.FOLDER_BASETYPE_ID)
-					&& name.equals(cmisObject.getName())) {
 
-				found = (Folder) cmisObject;
-				break;
-			}
-		}
-		return found;
-	}
+
 
 }
