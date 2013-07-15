@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="idProcessoABS" name="Processo ABS Processo interno per ABS attraverso una procedura di cottimo fiduciario" isExecutable="true" activiti:candidateStarterGroups="pst">
-    <startEvent id="startevent1" name="Start"></startEvent>
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <callActivity id="callactivity1" name="Call activity" calledElement="processo-autorizzazione-spesa-DG"></callActivity>
     <userTask id="usertask3" name="Inserimento doc Convenzione" activiti:assignee="${initiator}"></userTask>
     <sequenceFlow id="flow3" sourceRef="startevent1" targetRef="usertask3"></sequenceFlow>
@@ -270,7 +270,7 @@
     <parallelGateway id="parallelgateway3" name="Exclusive Gateway"></parallelGateway>
     <userTask id="usertask39" name="Scelta destinatario per pubblicazione nel sito" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="iddestinatariopubblicazionesito" name="Destinatario pubblicazione" type="string" variable="destinatariopubblicazionesito"></activiti:formProperty>
+        <activiti:formProperty id="iddestinatariopubblicazionesito" name="Destinatario pubblicazione" type="user" variable="destinatariopubblicazionesito"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow112" sourceRef="parallelgateway3" targetRef="usertask39"></sequenceFlow>
@@ -415,7 +415,13 @@
     </sequenceFlow>
     <userTask id="usertask51" name="Determinazione nomina RUP" activiti:assignee="smaxia"></userTask>
     <sequenceFlow id="flow159" sourceRef="usertask51" targetRef="servicetask21"></sequenceFlow>
-    <serviceTask id="servicetask21" name="Check inserimento det. nomina RUP"></serviceTask>
+    <serviceTask id="servicetask21" name="Check inserimento det. nomina RUP" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+      <extensionElements>
+        <activiti:field name="minAttachmentsNum">
+          <activiti:string>1</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
     <exclusiveGateway id="exclusivegateway26" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow160" sourceRef="servicetask21" targetRef="exclusivegateway26"></sequenceFlow>
     <sequenceFlow id="flow161" sourceRef="exclusivegateway26" targetRef="usertask9">
@@ -441,6 +447,9 @@
       <documentation>Pubblica esiti nel sito</documentation>
     </userTask>
     <sequenceFlow id="flow167" sourceRef="usertask39" targetRef="usertask53"></sequenceFlow>
+    <sequenceFlow id="flow168" sourceRef="exclusivegateway2" targetRef="usertask38">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
+    </sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Possiamo automatizzare meglio la consegna delle lettere di invito al protocollo per la protocollazione in uscita</text>
     </textAnnotation>
@@ -486,9 +495,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <text>inserito dal RUP appena nominato</text>
     </textAnnotation>
     <association id="association13" sourceRef="textannotation15" targetRef="usertask10"></association>
-    <textAnnotation id="textannotation16">
-      <text>Enter your text here</text>
-    </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_idProcessoABS">
     <bpmndi:BPMNPlane bpmnElement="idProcessoABS" id="BPMNPlane_idProcessoABS">
@@ -1272,6 +1278,12 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNEdge bpmnElement="flow167" id="BPMNEdge_flow167">
         <omgdi:waypoint x="4279.0" y="-57.0"></omgdi:waypoint>
         <omgdi:waypoint x="4227.0" y="-57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow168" id="BPMNEdge_flow168">
+        <omgdi:waypoint x="635.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="687.0" y="239.0"></omgdi:waypoint>
+        <omgdi:waypoint x="687.0" y="40.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="41.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
