@@ -12,6 +12,7 @@
  */
 package org.activiti.explorer.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -32,9 +33,10 @@ public class InitiatorJobTitle implements JavaDelegate {
 	  String initiatorJobTitle = execution.getEngineServices().getIdentityService().getUserInfo((String)idInitiator.getValue(execution), "jobTitle");
 	  execution.setVariable("initiatorJobTitle",initiatorJobTitle);
 	  
-	  
+	  //gets all groups initiator belongs to
 	  List<Group> groups = execution.getEngineServices().getIdentityService().createGroupQuery().groupMember((String)idInitiator.getValue(execution)).list();
 	 
+	  //removes "user" from the group list
 	  ListIterator<Group> i = groups.listIterator();
 	  while (i.hasNext()) {
 		  if (i.next().getId().equals("user")) {
@@ -42,17 +44,23 @@ public class InitiatorJobTitle implements JavaDelegate {
 		  }
 	  }
 	  
+	  //finds the user of the initiator groups with the role "responsabile" (must be just one even if there is more than one group)
 	  execution.setVariable("initiatorGroupHead","kermit");
 	  for (Group group : groups) {
-//		  System.out.println(group.getId());
 		  for (User user : execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup(group.getId()).list()) {
-//			  System.out.println(user.getId());
 			  String userJobTitle = execution.getEngineServices().getIdentityService().getUserInfo(user.getId(), "jobTitle");
-//			  System.out.println(userJobTitle);
-			  if (userJobTitle != null && userJobTitle.equals("Responsabile")) {
+			  if (userJobTitle != null && userJobTitle.contains("Responsabile")) {
 				  execution.setVariable("initiatorGroupHead",user.getId());
-			}
+			  }
+		  }
+	  }
+	  
+	  //finds the head of the area initiator belongs to. Since the director doesn't
+	  execution.setVariable("initiatorAreaHead","gpisanu");
+	  if (groups.contains("ric") || groups.contains("cds") || groups.contains("pst")) {
+		  execution.setVariable("initiatorAreaHead","vsongini");
+		} else if (groups.contains("agi") || groups.contains("sir") || groups.contains("sag") || groups.contains("spf") || groups.contains("app")) {
+			execution.setVariable("initiatorAreaHead","emulas");
 		}
-	}
   }
 }

@@ -113,7 +113,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
 
   protected void initDemoGroups() {
-    String[] assignmentGroups = new String[] {"management", "sales", "marketing", "engineering", "sag", "agi", "app", "cds", "sir", "net","spf","pst","rea","stt","ric","cge","doc","dir" };
+    String[] assignmentGroups = new String[] {"dirigenti", "responsabili", "sag", "agi", "app", "cds", "sir", "net","spf","pst","rea","stt","ric","cge","doc","dir" };
     for (String groupId : assignmentGroups) {
       createGroup(groupId, "assignment");
     }
@@ -174,19 +174,15 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   protected void initDemoUsers() {
     createUser("kermit", "Kermit", "The Frog", "kermit", "kermit@activiti.org", 
             "org/activiti/explorer/images/kermit.jpg",
-            Arrays.asList("management", "sales", "marketing", "engineering","sag", "agi", "app", "cds", "sir", "net","spf","pst","rea","stt","ric","cge","doc","dir", "user", "admin"),
+            Arrays.asList("dirigenti", "responsabili", "sag", "agi", "app", "cds", "sir", "net", "spf", "pst", "rea", "stt", "ric", "cge", "doc", "dir", "user", "admin"),
             Arrays.asList("birthDate", "10-10-1955", "jobTitle", "Muppet", "location", "Hollywoord",
                           "phone", "+123456789", "twitterName", "alfresco", "skype", "activiti_kermit_frog"));
-    
-    createUser("gonzo", "Gonzo", "The Great", "gonzo", "gonzo@activiti.org", 
-            "org/activiti/explorer/images/gonzo.jpg",
-            Arrays.asList("management", "sales", "marketing", "user"),
-            null);
-    createUser("fozzie", "Fozzie", "Bear", "fozzie", "fozzie@activiti.org", 
-            "org/activiti/explorer/images/fozzie.jpg",
-            Arrays.asList("marketing", "engineering", "user"),
-            null);
     // new  SR default users
+    createUser("gpisanu", "Giorgio", "Pisanu", "pisanu", "labopensource+DIR-direttore@gmail.com", 
+            "org/activiti/explorer/images/user-blue-icon.png",
+            Arrays.asList("dir", "dirigenti", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Dirigente Area Servizi alle Imprese", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("sbaghino", "Sebastiano", "Baghino", "baghino", "labopensource+PST-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("pst","user"),
@@ -194,53 +190,64 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("gserra", "Giuseppe", "Serra", "serra", "labopensource+PST-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("pst","user"),
+            Arrays.asList("pst", "responsabili", "user"),
             Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("emulas", "Enrico", "Mulas", "mulas", "labopensource+SPF-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("spf", "app", "user"),
-            null);
+            Arrays.asList("spf", "app", "dirigenti", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Dirigente Responsabile Aree Giuridico-Amministrativa ed Economico-Finanziaria", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("smaxia", "Susanna", "Maxia", "maxia", "labopensource+AGI-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("agi", "user"),
-            null);
+            Arrays.asList("agi", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("acorda", "Alessandra", "corda", "corda", "labopensource+SAG-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("sag", "user"),
-            null);
+            Arrays.asList("sag", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("vsongini", "Valter", "Songini", "songini", "labopensource+CDS-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("cds", "user"),
-            null);
+            Arrays.asList("cds", "dirigenti", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Dirigente Responsabile Area Ricerca e Parco Tecnologico", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("lsagheddu", "Lucia", "Sagheddu", "sagheddu", "labopensource+SIR-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("sir", "user"),
-            null);
+            Arrays.asList("sir", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("cmou", "Cesare", "Mou", "mou", "labopensource+REA-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("net","rea", "user"),
-            null);
+            Arrays.asList("net","rea", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("sennas", "Sandra", "Ennas", "ennas", "labopensource+STT-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("stt", "user"),
-            null);
+            Arrays.asList("stt", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("lcontini", "Luca", "Contini", "contini", "labopensource+RIC-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("ric", "user"),
-            null);
+            Arrays.asList("ric", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("agugliotta", "Alessandra", "Gugliotta", "gugliotta", "labopensource+CGE-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("cge", "user"),
-            null);
+            Arrays.asList("cge", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("eangioni", "Elena", "Angioni", "angioni", "labopensource+DOC-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("doc", "user"),
-            null);
+            Arrays.asList("doc", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     createUser("aatzeni", "Alessandra", "Atzeni", "atzeni", "labopensource+DIR-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("dir", "user"),
-            null);
+            Arrays.asList("dir", "responsabili", "user"),
+            Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
+                    "phone", "", "twitterName", "", "skype", ""));
     
   }
   
