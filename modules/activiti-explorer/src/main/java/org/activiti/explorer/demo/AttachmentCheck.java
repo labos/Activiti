@@ -12,6 +12,7 @@
  */
 package org.activiti.explorer.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.activiti.engine.delegate.DelegateExecution;
@@ -32,7 +33,7 @@ public class AttachmentCheck implements JavaDelegate {
   public void execute(DelegateExecution execution) {
 	  Boolean isAttached = false;
 	  Integer numAttachments = 1;
-	  
+	  List<Attachment> attachmentList = new ArrayList<Attachment>();
 	  if( minAttachmentsNum.getValue(execution)!= null	){
 		  numAttachments = Integer.parseInt((String)minAttachmentsNum.getValue(execution));
 	  }
@@ -45,16 +46,19 @@ public class AttachmentCheck implements JavaDelegate {
 	  
 	  if( taskList != null && taskList.size() > 0 ){
 		  Task lastTask = taskList.get(taskList.size() -1);
-		  
-		  List<Attachment> attachmentList =  execution.getEngineServices().getTaskService().getTaskAttachments(lastTask.getId());
-		  System.out.println("ID del tasks: " + lastTask.getId() + " Dimensione attachmentlist: " + attachmentList.size() + " -- "  + numAttachments.intValue());
-		  if(attachmentList.size() >= numAttachments.intValue()){
+		  List<Task> taskListRelated =  execution.getEngineServices().getTaskService().createTaskQuery().taskDefinitionKey(lastTask.getTaskDefinitionKey()).list();
+		  for(Task aTask: taskListRelated){
+			  attachmentList.addAll(execution.getEngineServices().getTaskService().getTaskAttachments(aTask.getId()));		 
+		  }
+		  System.out.println("ID del task: " + lastTask.getId() + " Dimensione attachmentlist: " + attachmentList.size() + " -- "  + numAttachments.intValue());
+
+	  if(attachmentList.size() >= numAttachments.intValue()){
 			  isAttached = true;
 		  } 
 	  }
 	 
 	  else{
-			List<Attachment> attachmentList =  execution.getEngineServices().getTaskService().getProcessInstanceAttachments( execution.getProcessInstanceId());
+			attachmentList =  execution.getEngineServices().getTaskService().getProcessInstanceAttachments( execution.getProcessInstanceId());
 			  if(attachmentList.size() >= numAttachments.intValue()){
 				  isAttached = true;
 			  }  
@@ -67,7 +71,7 @@ public class AttachmentCheck implements JavaDelegate {
 	  if(!isAttached){
 		    ExplorerApp.get().getNotificationManager().showErrorNotification(
 		            "determinazione.required", 
-		            "Devi Allegare una determina in questo task");
+		            "Devi Allegare " + numAttachments + " documento/i  in questo task");
 	  }
     
   }
