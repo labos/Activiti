@@ -12,7 +12,6 @@
  */
 package org.activiti.explorer.demo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -47,6 +46,7 @@ public class InitiatorJobTitle implements JavaDelegate {
 	  //finds the user of the initiator groups with the role "responsabile" (must be just one even if there is more than one group)
 	  execution.setVariable("initiatorGroupHead","kermit");
 	  for (Group group : groups) {
+		  System.out.println("Gruppo initiator:" + group.getId() + group.getName());
 		  for (User user : execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup(group.getId()).list()) {
 			  String userJobTitle = execution.getEngineServices().getIdentityService().getUserInfo(user.getId(), "jobTitle");
 			  if (userJobTitle != null && userJobTitle.contains("Responsabile")) {
@@ -56,11 +56,15 @@ public class InitiatorJobTitle implements JavaDelegate {
 	  }
 	  
 	  //finds the head of the area initiator belongs to. Since the director doesn't
-	  execution.setVariable("initiatorAreaHead","gpisanu");
-	  if (groups.contains("ric") || groups.contains("cds") || groups.contains("pst")) {
-		  execution.setVariable("initiatorAreaHead","vsongini");
-		} else if (groups.contains("agi") || groups.contains("sir") || groups.contains("sag") || groups.contains("spf") || groups.contains("app")) {
-			execution.setVariable("initiatorAreaHead","emulas");
-		}
+	  for (Group group : groups) {
+		  if (group.getId().equals("ric") || group.getId().equals("cds") || group.getId().equals("pst")) {
+			  execution.setVariable("initiatorAreaHead","vsongini");
+		  } else if (group.getId().equals("agi") || group.getId().equals("sir") || 
+				  	  group.getId().equals("sag") || group.getId().equals("spf") || group.getId().equals("app")) {
+			  execution.setVariable("initiatorAreaHead","emulas");
+		  } else {
+			  execution.setVariable("initiatorAreaHead","gpisanu");
+		  }
+	  }
   }
 }

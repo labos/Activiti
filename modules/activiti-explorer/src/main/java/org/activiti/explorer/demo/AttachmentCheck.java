@@ -70,8 +70,8 @@ public class AttachmentCheck implements JavaDelegate {
     
 	  if(!isAttached){
 		    ExplorerApp.get().getNotificationManager().showErrorNotification(
-		            "determinazione.required", 
-		            "Devi Allegare " + numAttachments + " documento/i  in questo task");
+		            "attachment.required", 
+		            "Devi Allegare " + numAttachments.toString() + " documento/i  in questo task");
 	  }
     
   }
