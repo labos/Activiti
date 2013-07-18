@@ -27,7 +27,7 @@
     <userTask id="usertask18" name="Inserimento documenti offerta aggiudicataria, verbale sedute" activiti:async="true" activiti:assignee="${initiator}"></userTask>
     <userTask id="usertask20" name="Inserimento determinazione di aggiudicazione definitiva"></userTask>
     <sequenceFlow id="flow21" sourceRef="manualtask1" targetRef="usertask20"></sequenceFlow>
-    <serviceTask id="servicetask1" name="Check Convenzione e Disciplinare" activiti:async="true" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask1" name="Check Convenzione e Disciplinare" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -851,7 +851,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="325.0" y="128.0"></omgdi:waypoint>
         <omgdi:waypoint x="367.0" y="128.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="-18.0" y="3.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="-18.0" y="3.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
