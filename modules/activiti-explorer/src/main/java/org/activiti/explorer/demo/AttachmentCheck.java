@@ -39,10 +39,9 @@ public class AttachmentCheck implements JavaDelegate {
 		  numAttachments = Integer.parseInt((String)minAttachmentsNum.getValue(execution));
 	  }
   
-	  
 	
-	  List<HistoricTaskInstance> taskList =	  execution.getEngineServices().getHistoryService().createHistoricTaskInstanceQuery().processInstanceId(execution.getProcessInstanceId()).orderByHistoricTaskInstanceStartTime().asc().list();
-	  System.out.println("Dimensione tasks: " +taskList.size());
+	  List<HistoricTaskInstance> taskList =	  execution.getEngineServices().getHistoryService().createHistoricTaskInstanceQuery().processInstanceId(execution.getProcessInstanceId()).orderByHistoricTaskInstanceEndTime().asc().list();
+	  System.out.println("Dimensione tasks: " + taskList.size());
 	  
 	  if( taskList != null && taskList.size() > 0 ){
 		  HistoricTaskInstance lastTask = taskList.get(taskList.size() -1);
