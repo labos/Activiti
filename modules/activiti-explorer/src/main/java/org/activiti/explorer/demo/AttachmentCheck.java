@@ -18,6 +18,7 @@ import java.util.List;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
 import org.activiti.explorer.ExplorerApp;
@@ -40,29 +41,22 @@ public class AttachmentCheck implements JavaDelegate {
   
 	  
 	
-	  List<Task> taskList =	  execution.getEngineServices().getTaskService().createTaskQuery().processInstanceId(execution.getProcessInstanceId()).orderByTaskCreateTime()
-	  .asc().list();
+	  List<HistoricTaskInstance> taskList =	  execution.getEngineServices().getHistoryService().createHistoricTaskInstanceQuery().processInstanceId(execution.getProcessInstanceId()).orderByHistoricTaskInstanceStartTime().asc().list();
 	  System.out.println("Dimensione tasks: " +taskList.size());
 	  
 	  if( taskList != null && taskList.size() > 0 ){
-		  Task lastTask = taskList.get(taskList.size() -1);
-		  List<Task> taskListRelated =  execution.getEngineServices().getTaskService().createTaskQuery().taskDefinitionKey(lastTask.getTaskDefinitionKey()).list();
-		  for(Task aTask: taskListRelated){
+		  HistoricTaskInstance lastTask = taskList.get(taskList.size() -1);
+		  List<HistoricTaskInstance> taskListRelated =  execution.getEngineServices().getHistoryService().createHistoricTaskInstanceQuery().processInstanceId(execution.getProcessInstanceId()).taskDefinitionKey(lastTask.getTaskDefinitionKey()).list();
+		  for(HistoricTaskInstance aTask: taskListRelated){
 			  attachmentList.addAll(execution.getEngineServices().getTaskService().getTaskAttachments(aTask.getId()));		 
 		  }
-		  System.out.println("ID del task: " + lastTask.getId() + " Dimensione attachmentlist: " + attachmentList.size() + " -- "  + numAttachments.intValue());
+		  System.out.println("ID del task: " + lastTask.getId() + " chiave task: " + lastTask.getTaskDefinitionKey() + " Dimensione attachmentlist: " + attachmentList.size() + " -- "  + numAttachments.intValue() + " Dimensione taskListRelated:" + taskListRelated.size());
 
 	  if(attachmentList.size() >= numAttachments.intValue()){
 			  isAttached = true;
 		  } 
 	  }
 	 
-	  else{
-			attachmentList =  execution.getEngineServices().getTaskService().getProcessInstanceAttachments( execution.getProcessInstanceId());
-			  if(attachmentList.size() >= numAttachments.intValue()){
-				  isAttached = true;
-			  }  
-	  }
  
 		  
 
