@@ -2,7 +2,12 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="idProcessoABS" name="Processo ABS Processo interno per ABS attraverso una procedura di cottimo fiduciario" isExecutable="true" activiti:candidateStarterGroups="pst">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
-    <callActivity id="callactivity1" name="Call activity" calledElement="processo-autorizzazione-spesa-DG"></callActivity>
+    <callActivity id="callactivity1" name="Call activity" calledElement="processo-autorizzazione-spesa-DG">
+      <extensionElements>
+        <activiti:in source="initiator" target="initiator"></activiti:in>
+        <activiti:out source="alfrescoPageLinks" target="alfrescoPageLinks"></activiti:out>
+      </extensionElements>
+    </callActivity>
     <userTask id="usertask3" name="Inserimento Convenzione e Disciplinare degli obblighi del beneficiario" activiti:assignee="${initiator}"></userTask>
     <sequenceFlow id="flow3" sourceRef="startevent1" targetRef="usertask3"></sequenceFlow>
     <userTask id="usertask6" name="Inserimento Documento &quot;Fabbisogno di acquisti di beni e servizi&quot; e Determinazione DG" activiti:async="true" activiti:assignee="${initiator}"></userTask>
@@ -17,7 +22,11 @@
     <sequenceFlow id="flow10" sourceRef="exclusivegateway15" targetRef="usertask10">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask11" name="Trasmissione della documentazione di gara ai fini del parere di coerenza e regolarità programmatica" activiti:assignee="${initiator}"></userTask>
+    <userTask id="usertask11" name="Trasmissione della documentazione di gara ai fini del parere di coerenza e regolarità programmatica" activiti:assignee="${initiator}">
+      <extensionElements>
+        <activiti:formProperty id="idABSDocs" name="Documentazione di gara" type="links" expression="${alfrescoPageLinks}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
     <userTask id="usertask12" name="Inserimento delle lettere di invito firmate" activiti:assignee="${initiator}"></userTask>
     <userTask id="usertask14" name="Inoltro e protocollo in uscita" activiti:assignee="acorda" activiti:candidateGroups="sag"></userTask>
     <userTask id="usertask15" name="Inserimento distinta " activiti:assignee="acorda"></userTask>
@@ -1313,7 +1322,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="2670.0" y="139.0"></omgdi:waypoint>
         <omgdi:waypoint x="2860.0" y="137.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

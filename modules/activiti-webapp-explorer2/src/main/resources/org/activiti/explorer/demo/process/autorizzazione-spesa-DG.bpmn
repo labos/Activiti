@@ -200,10 +200,10 @@
     <sequenceFlow id="flow18" sourceRef="sid-3CA4A162-AE12-40DC-99F5-B0B23436FE5B" targetRef="sid-F4A09FD3-8485-40D2-9EC6-309191123276"></sequenceFlow>
     <sequenceFlow id="flow19" sourceRef="sid-F4A09FD3-8485-40D2-9EC6-309191123276" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA"></sequenceFlow>
     <sequenceFlow id="flow23" name="DIR non firma" sourceRef="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9" targetRef="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!firmatodirautorizzazioneimporto}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firmatodirautorizzazioneimporto=='false'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow25" name="DIR firma" sourceRef="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9" targetRef="servicetask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firmatodirautorizzazioneimporto}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firmatodirautorizzazioneimporto=='true'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow6" sourceRef="sid-CE56D2C7-DDC5-44FB-86D3-3A434391A7A6" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA"></sequenceFlow>
     <sequenceFlow id="flow29" sourceRef="sid-B070A3C7-C89E-409B-979E-9301C76591BD" targetRef="sid-A9A094F7-C14F-4EB0-A8F3-215D852583F9"></sequenceFlow>
