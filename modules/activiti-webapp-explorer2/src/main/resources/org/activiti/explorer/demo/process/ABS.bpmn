@@ -13,7 +13,7 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask10" name="Inserimento CIG" activiti:assignee="${initiatorGroupHead}"></userTask>
+    <userTask id="usertask10" name="Inserimento CIG" activiti:assignee="${nominativoRUP}"></userTask>
     <sequenceFlow id="flow10" sourceRef="exclusivegateway15" targetRef="usertask10">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
@@ -99,24 +99,6 @@
     <sequenceFlow id="flow61" name="Non allegato" sourceRef="exclusivegateway7" targetRef="usertask11">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask26" name="Assegnazione 5 nominativi" activiti:assignee="smaxia">
-      <extensionElements>
-        <activiti:formProperty id="idragionesociale1" name="Ragione Sociale 1" type="string" variable="ragionesociale1" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idsede1" name="Sedes" type="string" variable="sede1" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idragionesociale2" name="Ragione Sociale 2" type="string" variable="ragionesociale2" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idsede2" name="Sede 2" type="string" variable="sede2" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idragionesociale3" name="Ragione Sociale 3" type="string" variable="ragionesociale3" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idsede3" name="Sede 3" type="string" variable="sede3" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idragionesociale4" name="Ragione Sociale 4" type="string" variable="ragionesociale4" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idsede4" name="Sede 4" type="string" variable="sede4" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idragionesociale5" name="Ragione Sociale 5" type="string" variable="ragionesociale5" required="true"></activiti:formProperty>
-        <activiti:formProperty id="idsede5" name="Sede 5" type="string" variable="sede5" required="true"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
-    <sequenceFlow id="flow62" sourceRef="exclusivegateway7" targetRef="usertask26">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow63" sourceRef="usertask26" targetRef="usertask12"></sequenceFlow>
     <sequenceFlow id="flow64" sourceRef="usertask12" targetRef="servicetask6"></sequenceFlow>
     <serviceTask id="servicetask6" name="Check 5 lettere di invito" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
       <extensionElements>
@@ -460,17 +442,20 @@
           <activiti:value id="false" name="NO"></activiti:value>
           <activiti:value id="true" name="SI"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="idReadNominativoRUP" name="RUP scelto" type="user" variable="NominativoRUP" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="idReadNominativoRUP" name="RUP scelto" type="user" variable="nominativoRUP" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow169" sourceRef="usertask54" targetRef="usertask55"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway27" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow170" sourceRef="usertask55" targetRef="exclusivegateway27"></sequenceFlow>
     <sequenceFlow id="flow171" name="Approvato" sourceRef="exclusivegateway27" targetRef="usertask51">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvazioneRUPDIR}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvazioneRUPDIR=='true'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow172" name="Rigettato" sourceRef="exclusivegateway27" targetRef="usertask54">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approvazioneRUPDIR}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvazioneRUPDIR=='false'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow173" name="Allegato" sourceRef="exclusivegateway7" targetRef="usertask12">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Possiamo automatizzare meglio la consegna delle lettere di invito al protocollo per la protocollazione in uscita</text>
@@ -487,7 +472,6 @@
     <textAnnotation id="textannotation6">
       <text>potrebbero essere più di 5</text>
     </textAnnotation>
-    <association id="association6" sourceRef="textannotation6" targetRef="usertask26"></association>
     <textAnnotation id="textannotation7">
       <text>è stata fatta questa gara e l'impresa che ha vinto è ... Si manda il verbale della commissione
 </text>
@@ -591,9 +575,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway7" id="BPMNShape_exclusivegateway7">
         <omgdc:Bounds height="40.0" width="40.0" x="2630.0" y="119.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask26" id="BPMNShape_usertask26">
-        <omgdc:Bounds height="55.0" width="105.0" x="2715.0" y="112.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
         <omgdc:Bounds height="55.0" width="105.0" x="2860.0" y="260.0"></omgdc:Bounds>
@@ -914,14 +895,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
           <omgdc:Bounds height="13.0" width="59.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow62" id="BPMNEdge_flow62">
-        <omgdi:waypoint x="2670.0" y="139.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2715.0" y="139.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow63" id="BPMNEdge_flow63">
-        <omgdi:waypoint x="2820.0" y="139.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2860.0" y="137.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow64" id="BPMNEdge_flow64">
         <omgdi:waypoint x="2912.0" y="170.0"></omgdi:waypoint>
         <omgdi:waypoint x="2912.0" y="260.0"></omgdi:waypoint>
@@ -1045,10 +1018,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNEdge bpmnElement="association5" id="BPMNEdge_association5">
         <omgdi:waypoint x="2460.0" y="290.0"></omgdi:waypoint>
         <omgdi:waypoint x="2382.0" y="198.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association6" id="BPMNEdge_association6">
-        <omgdi:waypoint x="2768.0" y="258.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2767.0" y="167.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association7" id="BPMNEdge_association7">
         <omgdi:waypoint x="4030.0" y="305.0"></omgdi:waypoint>
@@ -1338,6 +1307,13 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="1110.0" y="69.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="13.0" width="42.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow173" id="BPMNEdge_flow173">
+        <omgdi:waypoint x="2670.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2860.0" y="137.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
