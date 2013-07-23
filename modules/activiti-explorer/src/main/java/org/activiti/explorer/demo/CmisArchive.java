@@ -27,6 +27,7 @@ import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.impl.util.IoUtil;
 import org.activiti.engine.task.Attachment;
+import org.activiti.explorer.ExplorerApp;
 import org.activiti.explorer.demo.cmis.CmisUtil;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
@@ -106,6 +107,7 @@ public class CmisArchive implements JavaDelegate {
 			
 		} catch (Exception e) {
 			
+		
 			System.out.println("*** Problema accesso Alfresco: " + e.getMessage());
 			
 		}

@@ -65,6 +65,7 @@ public class CmisRead implements JavaDelegate {
 	}
 
 	  public void retrieveFolder() throws Exception {
+			try {
 		  Session session = CmisUtil.createCmisSession(
 		  "admin", "tubonero.99", ALFRESCO_CMIS_URL);
 		  Folder folder = CmisUtil.getFolder(
@@ -92,6 +93,12 @@ public class CmisRead implements JavaDelegate {
 		  }
 		  output.close();
 		  repoDocument.close();
+			}
+			catch(Exception e){
+			    ExplorerApp.get().getNotificationManager().showErrorNotification(
+			            "Problema lettura con il documentale Alfresco", 
+			            "Riprova o contatta l'amministratore");
+			}
 
   }
 
