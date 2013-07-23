@@ -50,7 +50,7 @@ public class LinksFormPropertyRenderer extends AbstractFormPropertyRenderer {
 	Table table = new Table("Lista Documenti della Procedura");
 	table.addContainerProperty("Nome", String.class,  null);
 	table.addContainerProperty("Link",  Link.class,  null);
-	table.setHeight("100px");
+	table.setHeight("250px");
 	int i = 1;
 	for( String link: listOfLinks){
 		Link linkHtml =  new Link(link, new ExternalResource(link));

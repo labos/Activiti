@@ -265,16 +265,35 @@
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow68" sourceRef="servicetask5" targetRef="exclusivegateway6"></sequenceFlow>
-    <userTask id="usertask3" name="Problema Archiviazione" activiti:assignee="smaxia">
+    <userTask id="usertask3" name="Problema Archiviazione" activiti:assignee="${initiator}">
       <documentation>C'è stato un problema nell'archiviazione dei documenti. Contattare l'amministratore e solo dopo aver avuto conferma dall'amministratore completare questo task.</documentation>
     </userTask>
-    <sequenceFlow id="flow69" sourceRef="exclusivegateway6" targetRef="usertask3">
+    <sequenceFlow id="flow69" sourceRef="exclusivegateway6" targetRef="parallelgateway1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isArchived}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow70" sourceRef="usertask3" targetRef="servicetask5"></sequenceFlow>
     <sequenceFlow id="flow71" sourceRef="exclusivegateway6" targetRef="usertask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isArchived}]]></conditionExpression>
     </sequenceFlow>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow73" sourceRef="parallelgateway1" targetRef="usertask3"></sequenceFlow>
+    <sequenceFlow id="flow74" sourceRef="parallelgateway1" targetRef="mailtask1"></sequenceFlow>
+    <serviceTask id="mailtask1" name="Avviso problema archiviazione" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${emailInitiator}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>responsabile@sardegnaricerche.it</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Problema archiviazione documentale </activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:string>Attenzione, c'è stato un problema nell'archiviazione dei documenti nel gestore documentale. Avvisare l'amministratore e completare il task.</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_processo-autorizzazione-spesa-DG">
     <bpmndi:BPMNPlane bpmnElement="processo-autorizzazione-spesa-DG" id="BPMNPlane_processo-autorizzazione-spesa-DG">
@@ -375,7 +394,13 @@
         <omgdc:Bounds height="40.0" width="40.0" x="1305.0" y="-40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
-        <omgdc:Bounds height="55.0" width="105.0" x="1112.0" y="-47.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="1101.0" y="-47.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="1237.0" y="-40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="1205.0" y="-138.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="360.0" y="167.0"></omgdi:waypoint>
@@ -572,17 +597,25 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow69" id="BPMNEdge_flow69">
         <omgdi:waypoint x="1305.0" y="-20.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1217.0" y="-20.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1277.0" y="-20.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow70" id="BPMNEdge_flow70">
-        <omgdi:waypoint x="1164.0" y="8.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1164.0" y="72.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1153.0" y="8.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1153.0" y="72.0"></omgdi:waypoint>
         <omgdi:waypoint x="1273.0" y="72.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow71" id="BPMNEdge_flow71">
         <omgdi:waypoint x="1345.0" y="-20.0"></omgdi:waypoint>
         <omgdi:waypoint x="1452.0" y="-20.0"></omgdi:waypoint>
         <omgdi:waypoint x="1452.0" y="45.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow73" id="BPMNEdge_flow73">
+        <omgdi:waypoint x="1237.0" y="-20.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1206.0" y="-20.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow74" id="BPMNEdge_flow74">
+        <omgdi:waypoint x="1257.0" y="-40.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1257.0" y="-83.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
