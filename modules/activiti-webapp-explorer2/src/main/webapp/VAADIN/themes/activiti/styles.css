@@ -43,7 +43,8 @@ body {
 }
 
 .error {
-    background: url("img/warning.png") no-repeat scroll 0 0 transparent;
+    background: url("img/warning.png") no-repeat scroll 0 0 #FFF787;
+    opacity:1;
     color: red;
     padding-left: 20px;
 }
@@ -980,4 +981,9 @@ div.searchbox {
 .scroll-block  {
 	height:588px;
 	overflow:hidden;
+}
+.v-Notification.attachment {
+    background: #FFFF00;
+    border: 10px solid #C00000;
+    color: black;
 }

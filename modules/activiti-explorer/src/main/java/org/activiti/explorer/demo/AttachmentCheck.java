@@ -30,15 +30,19 @@ public class AttachmentCheck implements JavaDelegate {
   
  
   private Expression minAttachmentsNum;
+  private Expression customMessage;
   
   public void execute(DelegateExecution execution) {
 	  Boolean isAttached = false;
+	  String  customMessageNotification = "";
 	  Integer numAttachments = 1;
 	  List<Attachment> attachmentList = new ArrayList<Attachment>();
 	  if( minAttachmentsNum.getValue(execution)!= null	){
 		  numAttachments = Integer.parseInt((String)minAttachmentsNum.getValue(execution));
 	  }
-  
+	  if(customMessage!= null && customMessage.getValue(execution)!= null	){
+		  customMessageNotification = (String)customMessage.getValue(execution);
+	  }
 	
 	  List<HistoricTaskInstance> taskList =	  execution.getEngineServices().getHistoryService().createHistoricTaskInstanceQuery().processInstanceId(execution.getProcessInstanceId()).orderByHistoricTaskInstanceEndTime().asc().list();
 	  System.out.println("Dimensione tasks: " + taskList.size());
@@ -62,9 +66,10 @@ public class AttachmentCheck implements JavaDelegate {
     execution.setVariable("isAttached",isAttached);
     
 	  if(!isAttached){
+		  Integer numRequiredAttachments = numAttachments.intValue() - attachmentList.size();
 		    ExplorerApp.get().getNotificationManager().showErrorNotification(
 		            "attachment.required", 
-		            "Devi Allegare " + numAttachments.toString() + " documento/i  in questo task");
+		            "Devi Allegare " + numRequiredAttachments.toString() + " documento/i  in questo task, di " + numAttachments.toString() + " richiesti. " + customMessageNotification);
 	  }
     
   }
