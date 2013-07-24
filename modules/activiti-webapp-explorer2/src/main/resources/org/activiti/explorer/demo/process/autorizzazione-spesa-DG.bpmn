@@ -171,7 +171,7 @@
     <userTask id="usertask1" name="Lista Documenti Archiviati" activiti:assignee="${initiator}">
       <documentation>Il processo di autorizzazione spesa per il progetto "${sourceprogetto.name}" si è concluso con successo.</documentation>
       <extensionElements>
-        <activiti:formProperty id="idListaDocumenti" name="Lista Documenti" type="links" expression="${alfrescoPageLinks}"></activiti:formProperty>
+        <activiti:formProperty id="idListaDocumenti" name="Lista Documenti" type="links" variable="alfrescoPageLinks"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <endEvent id="endevent2" name="End"></endEvent>
@@ -287,7 +287,7 @@
           <activiti:string>responsabile@sardegnaricerche.it</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Problema archiviazione documentale </activiti:string>
+          <activiti:string>Problema archiviazione documentale</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:string>Attenzione, c'è stato un problema nell'archiviazione dei documenti nel gestore documentale. Avvisare l'amministratore e completare il task.</activiti:string>
