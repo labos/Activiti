@@ -47,7 +47,7 @@ public class LinksFormPropertyRenderer extends AbstractFormPropertyRenderer {
   public Field getPropertyField(FormProperty formProperty) {
 	Random rand = new Random(); 
 	String[] listOfLinks = formProperty.getValue().split("###");
-	Table table = new Table("Lista Documenti della Procedura");
+	Table table = new Table("");
 	table.addContainerProperty("Nome", String.class,  null);
 	table.addContainerProperty("Link",  Link.class,  null);
 	table.setHeight("250px");

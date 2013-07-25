@@ -55,6 +55,7 @@ public class CmisArchive implements JavaDelegate {
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 		Boolean isArchived = false;
+		Integer indexAttachment = 1;
 		String suffixIdString = "";
 		String suffixDateString = "";
 		Folder archiveFolder;
@@ -93,9 +94,9 @@ public class CmisArchive implements JavaDelegate {
 				System.out.println("*** tipo di content:" + contentTypeValues[0]);
 				Document aDocument = this.saveDocumentToFolder(
 						IoUtil.readInputStream(aStream, "stream attachment"),
-						archiveFolder.getId(), "determinazioneDG", suffixIdString + "_" + suffixDateString + "." + contentTypeValues[1],
+						archiveFolder.getId(), "determinazioneDG" + indexAttachment.toString(), suffixIdString + "_" + suffixDateString + "." + contentTypeValues[1],
 						contentTypeValues[0]);
-				
+				indexAttachment++;
 				if (aDocument == null) {
 					isArchived = false;
 					break;
