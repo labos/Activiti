@@ -84,9 +84,6 @@ public class AttachmentRendererManager implements InitializingBean, Serializable
   }
   
   public void afterPropertiesSet() throws Exception {
-    // URL
-    addAttachmentRenderer(new UrlAttachmentRenderer());
-    addAttachmentEditor(new UrlAttachmentEditor());
     
     // Regular file upload
     addAttachmentEditor(new FileAttachmentEditor());
@@ -95,5 +92,9 @@ public class AttachmentRendererManager implements InitializingBean, Serializable
     addAttachmentRenderer(new PdfAttachmentRenderer());
     addAttachmentRenderer(new ImageAttachmentRenderer());
     addAttachmentRenderer(new EmailAttachmentRenderer());
+    
+    // URL
+    addAttachmentRenderer(new UrlAttachmentRenderer());
+    addAttachmentEditor(new UrlAttachmentEditor());
   }
 }
