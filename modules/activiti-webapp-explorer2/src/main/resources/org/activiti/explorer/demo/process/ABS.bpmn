@@ -54,7 +54,7 @@
     <serviceTask id="servicetask2" name="Check Documento Fabbisogno e Determinazione DG" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
-          <activiti:string>3</activiti:string>
+          <activiti:string>2</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -112,7 +112,7 @@
     <serviceTask id="servicetask6" name="Check 5 lettere di invito" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
-          <activiti:string>9</activiti:string>
+          <activiti:string>5</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -403,7 +403,7 @@
     <sequenceFlow id="flow155" sourceRef="exclusivegateway24" targetRef="usertask38">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask51" name="Determinazione nomina RUP" activiti:assignee="smaxia"></userTask>
+    <userTask id="usertask51" name="Determinazione nomina RUP ${nominativoRUP}" activiti:assignee="smaxia"></userTask>
     <sequenceFlow id="flow159" sourceRef="usertask51" targetRef="servicetask21"></sequenceFlow>
     <serviceTask id="servicetask21" name="Check inserimento det. nomina RUP" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
       <extensionElements>
@@ -781,7 +781,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdc:Bounds height="40.0" width="40.0" x="1090.0" y="135.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask51" id="BPMNShape_usertask51">
-        <omgdc:Bounds height="55.0" width="105.0" x="1351.0" y="121.0"></omgdc:Bounds>
+        <omgdc:Bounds height="64.0" width="105.0" x="1351.0" y="112.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask21" id="BPMNShape_servicetask21">
         <omgdc:Bounds height="55.0" width="105.0" x="1351.0" y="255.0"></omgdc:Bounds>
@@ -1335,7 +1335,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow171" id="BPMNEdge_flow171">
         <omgdi:waypoint x="1285.0" y="148.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1351.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1351.0" y="144.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="39.0" width="49.0" x="-33.0" y="12.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
