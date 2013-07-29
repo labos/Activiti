@@ -22,11 +22,7 @@
     <sequenceFlow id="flow10" sourceRef="exclusivegateway15" targetRef="usertask10">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask11" name="Trasmissione della documentazione di gara ai fini del parere di coerenza e regolarità programmatica" activiti:assignee="${nominativoRUP}">
-      <extensionElements>
-        <activiti:formProperty id="idABSDocs" name="Documentazione di gara" type="links" variable="alfrescoPageLinks"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
+    <userTask id="usertask11" name="Trasmissione della documentazione di gara ai fini del parere di coerenza e regolarità programmatica" activiti:assignee="${nominativoRUP}"></userTask>
     <userTask id="usertask12" name="Inserimento delle lettere di invito firmate" activiti:assignee="${nominativoRUP}"></userTask>
     <userTask id="usertask14" name="Inoltro e protocollo in uscita" activiti:assignee="acorda" activiti:candidateGroups="sag"></userTask>
     <userTask id="usertask15" name="Inserimento distinta " activiti:assignee="acorda"></userTask>
