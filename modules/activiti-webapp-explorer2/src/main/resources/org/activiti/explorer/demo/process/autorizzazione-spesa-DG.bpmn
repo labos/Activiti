@@ -6,8 +6,6 @@
         <activiti:formProperty id="sourceprogetto" name="Fonte Finanziamento" type="source" variable="sourceprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="oggettoprogetto" name="Oggetto/Motivazione" type="string" variable="oggettoprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="importo" name="Spesa/Impegno" type="long" variable="importo" required="true"></activiti:formProperty>
-        <activiti:formProperty id="notificaagi" name="Nofifica AGI" type="boolean" variable="notificaagi"></activiti:formProperty>
-        <activiti:formProperty id="avvisoresponsabile" name="Notifica al Responsabile" type="boolean" variable="avvisoresponsabile"></activiti:formProperty>
         <activiti:formProperty id="visto" name="VISTO" type="textarea" variable="visto"></activiti:formProperty>
         <activiti:formProperty id="applicazioneva" name="Applica l'IVA" type="boolean" variable="applicazioneiva"></activiti:formProperty>
       </extensionElements>
