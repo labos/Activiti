@@ -69,28 +69,7 @@
     </serviceTask>
     <sequenceFlow id="flow53" sourceRef="usertask3" targetRef="servicetask4"></sequenceFlow>
     <sequenceFlow id="flow54" sourceRef="servicetask4" targetRef="servicetask1"></sequenceFlow>
-    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
-    <sequenceFlow id="flow55" sourceRef="callactivity1" targetRef="parallelgateway2"></sequenceFlow>
-    <serviceTask id="mailtask2" name="Notifica trimestrale non del DG CTG" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:string>ctg@tiscali.it</activiti:string>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string>info@sardegnaricerche.ti</activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string>Notifica trimestrale CTG</activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:string>Notifica trimestrale non del DG al CTG</activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <userTask id="usertask25" name="Notifica trimestrale AGI" activiti:assignee="smaxia"></userTask>
-    <sequenceFlow id="flow56" sourceRef="parallelgateway2" targetRef="mailtask2"></sequenceFlow>
-    <sequenceFlow id="flow57" sourceRef="parallelgateway2" targetRef="usertask25"></sequenceFlow>
-    <sequenceFlow id="flow58" sourceRef="parallelgateway2" targetRef="usertask11"></sequenceFlow>
+    <sequenceFlow id="flow55" sourceRef="callactivity1" targetRef="usertask11"></sequenceFlow>
     <serviceTask id="servicetask5" name="Check Doc Parere di coerenza" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
@@ -570,17 +549,8 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
         <omgdc:Bounds height="55.0" width="105.0" x="-3.0" y="196.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="2121.0" y="118.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
         <omgdc:Bounds height="64.0" width="105.0" x="2480.0" y="107.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="2170.0" y="167.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask25" id="BPMNShape_usertask25">
-        <omgdc:Bounds height="69.0" width="105.0" x="2170.0" y="55.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway7" id="BPMNShape_exclusivegateway7">
         <omgdc:Bounds height="40.0" width="40.0" x="2630.0" y="119.0"></omgdc:Bounds>
@@ -871,20 +841,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow55" id="BPMNEdge_flow55">
         <omgdi:waypoint x="2085.0" y="137.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2121.0" y="138.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow56" id="BPMNEdge_flow56">
-        <omgdi:waypoint x="2141.0" y="158.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2141.0" y="194.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2170.0" y="194.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow57" id="BPMNEdge_flow57">
-        <omgdi:waypoint x="2141.0" y="118.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2141.0" y="89.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2170.0" y="89.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow58" id="BPMNEdge_flow58">
-        <omgdi:waypoint x="2161.0" y="138.0"></omgdi:waypoint>
         <omgdi:waypoint x="2330.0" y="139.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow59" id="BPMNEdge_flow59">
