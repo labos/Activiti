@@ -13,16 +13,22 @@
     <userTask id="usertask6" name="Inserimento Documento &quot;Fabbisogno di acquisti di beni e servizi&quot; e Determinazione DG" activiti:async="true" activiti:assignee="${initiator}"></userTask>
     <userTask id="usertask9" name="Inserimento C.U.P." activiti:async="true" activiti:exclusive="false" activiti:assignee="acorda">
       <extensionElements>
-        <activiti:formProperty id="cup" name="CUP" type="string" variable="cup">
+        <activiti:formProperty id="cup" name="CUP" type="string" variable="cup" required="true">
           <activiti:value id="cup" name="CUP"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask10" name="Inserimento CIG" activiti:assignee="${nominativoRUP}"></userTask>
+    <userTask id="usertask10" name="Inserimento CIG" activiti:assignee="${nominativoRUP}">
+      <extensionElements>
+        <activiti:formProperty id="idCig" name="CIG" type="string" variable="cig" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="flow10" sourceRef="exclusivegateway15" targetRef="usertask10">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask11" name="Trasmissione della documentazione di gara ai fini del parere di coerenza e regolarità programmatica" activiti:assignee="${nominativoRUP}"></userTask>
+    <userTask id="usertask11" name="Trasmissione della documentazione di gara ai fini del parere di coerenza e regolarità programmatica" activiti:assignee="${nominativoRUP}">
+      <documentation>Allega nome Documento di Coerenza</documentation>
+    </userTask>
     <userTask id="usertask12" name="Inserimento delle lettere di invito firmate" activiti:assignee="${nominativoRUP}"></userTask>
     <userTask id="usertask14" name="Inoltro e protocollo in uscita" activiti:assignee="acorda" activiti:candidateGroups="sag"></userTask>
     <userTask id="usertask15" name="Inserimento distinta " activiti:assignee="acorda"></userTask>
@@ -241,7 +247,7 @@
     <sequenceFlow id="flow112" sourceRef="parallelgateway3" targetRef="usertask39"></sequenceFlow>
     <userTask id="usertask40" name="Sag protocolla lettere di comunicazione" activiti:assignee="acorda"></userTask>
     <sequenceFlow id="flow113" sourceRef="parallelgateway3" targetRef="usertask40"></sequenceFlow>
-    <userTask id="usertask41" name="Invio lettere di comunicazione dal RUP"></userTask>
+    <userTask id="usertask41" name="Invio lettere di comunicazione dal RUP" activiti:assignee="acorda"></userTask>
     <sequenceFlow id="flow114" sourceRef="exclusivegateway17" targetRef="usertask41">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
