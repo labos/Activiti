@@ -54,7 +54,7 @@
         <activiti:formProperty id="showriufiutoautorizzazione" name="Motivazione Rifiuto" default="${motivazioneriufiutoautorizzazione}" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <serviceTask id="servicetask6" name="Aggiornamento Budget" activiti:class="org.activiti.explorer.demo.UpdateBudget">
+    <serviceTask id="servicetask6" name="Aggiornamento Budget" activiti:class="org.activiti.explorer.delegates.UpdateBudget">
       <extensionElements>
         <activiti:field name="sourceToUpdate">
           <activiti:expression>${sourceprogetto}</activiti:expression>

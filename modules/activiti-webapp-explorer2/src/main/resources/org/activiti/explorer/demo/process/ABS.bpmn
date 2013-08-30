@@ -37,7 +37,7 @@
     <userTask id="usertask16" name="Inserimento verbale ricezione offerte" activiti:assignee="acorda"></userTask>
     <userTask id="usertask18" name="Inserimento documenti offerta aggiudicataria, verbale sedute" activiti:assignee="${nominativoRUP}"></userTask>
     <sequenceFlow id="flow55" sourceRef="callactivity1" targetRef="usertask11"></sequenceFlow>
-    <serviceTask id="servicetask5" name="Check Doc Parere di coerenza" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask5" name="Check Doc Parere di coerenza" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -51,7 +51,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow64" sourceRef="usertask12" targetRef="servicetask6"></sequenceFlow>
-    <serviceTask id="servicetask6" name="Check 5 lettere di invito" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask6" name="Check 5 lettere di invito" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>5</activiti:string>
@@ -67,7 +67,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow68" sourceRef="usertask15" targetRef="servicetask7"></sequenceFlow>
-    <serviceTask id="servicetask7" name="Check distinta" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask7" name="Check distinta" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -83,7 +83,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow72" sourceRef="usertask16" targetRef="servicetask8"></sequenceFlow>
-    <serviceTask id="servicetask8" name="Check verbale ricez offerte" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask8" name="Check verbale ricez offerte" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -97,7 +97,7 @@
     </sequenceFlow>
     <userTask id="usertask27" name="Inserimento contratto firmato  da entrambe le parti e protocollato" activiti:assignee="acorda"></userTask>
     <sequenceFlow id="flow77" sourceRef="usertask27" targetRef="servicetask9"></sequenceFlow>
-    <serviceTask id="servicetask9" name="Check contratto firmato e protocollato" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask9" name="Check contratto firmato e protocollato" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -155,7 +155,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${acquisizioneDurc=='false'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow104" sourceRef="usertask9" targetRef="servicetask11"></sequenceFlow>
-    <serviceTask id="servicetask11" name="Check inserimento CUP" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask11" name="Check inserimento CUP" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -163,7 +163,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow105" sourceRef="usertask10" targetRef="servicetask12"></sequenceFlow>
-    <serviceTask id="servicetask12" name="Check inserimento CIG" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask12" name="Check inserimento CIG" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -195,7 +195,7 @@
     <sequenceFlow id="flow113" sourceRef="parallelgateway3" targetRef="usertask40"></sequenceFlow>
     <userTask id="usertask41" name="Invio lettere di comunicazione dal RUP" activiti:assignee="${nominativoRUP}"></userTask>
     <sequenceFlow id="flow115" sourceRef="usertask40" targetRef="servicetask13"></sequenceFlow>
-    <serviceTask id="servicetask13" name="Check lettere di comunicazione" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask13" name="Check lettere di comunicazione" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -218,7 +218,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow126" sourceRef="usertask43" targetRef="servicetask15"></sequenceFlow>
-    <serviceTask id="servicetask15" name="Check inserimento contratto da inoltrare" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask15" name="Check inserimento contratto da inoltrare" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -237,7 +237,7 @@
     <sequenceFlow id="flow131" sourceRef="exclusivegateway20" targetRef="servicetask16">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask16" name="Check doc. fatture e POR" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask16" name="Check doc. fatture e POR" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>2</activiti:string>
@@ -249,7 +249,7 @@
     <sequenceFlow id="flow132" sourceRef="usertask36" targetRef="usertask45"></sequenceFlow>
     <sequenceFlow id="flow133" sourceRef="usertask45" targetRef="usertask37"></sequenceFlow>
     <sequenceFlow id="flow134" sourceRef="usertask35" targetRef="servicetask17"></sequenceFlow>
-    <serviceTask id="servicetask17" name="Check Quietanza Liberatoria" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask17" name="Check Quietanza Liberatoria" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -265,7 +265,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow140" sourceRef="usertask18" targetRef="servicetask19"></sequenceFlow>
-    <serviceTask id="servicetask19" name="Check inserimento doc offerta e verbale sedute" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask19" name="Check inserimento doc offerta e verbale sedute" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>2</activiti:string>
@@ -334,14 +334,14 @@
     <sequenceFlow id="flow176" sourceRef="exclusivegateway17" targetRef="usertask41">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask22" name="Set initiator email" activiti:class="org.activiti.explorer.demo.EmailInitiator">
+    <serviceTask id="servicetask22" name="Set initiator email" activiti:class="org.activiti.explorer.delegates.EmailInitiator">
       <extensionElements>
         <activiti:field name="idInitiator">
           <activiti:expression>${initiator}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask23" name="Set initiator role" activiti:class="org.activiti.explorer.demo.InitiatorJobTitle">
+    <serviceTask id="servicetask23" name="Set initiator role" activiti:class="org.activiti.explorer.delegates.InitiatorJobTitle">
       <extensionElements>
         <activiti:field name="idInitiator">
           <activiti:expression>${initiator}</activiti:expression>
@@ -351,7 +351,7 @@
     <sequenceFlow id="flow177" sourceRef="startevent1" targetRef="servicetask22"></sequenceFlow>
     <sequenceFlow id="flow178" sourceRef="servicetask22" targetRef="servicetask23"></sequenceFlow>
     <userTask id="usertask60" name="Convenzione, Disciplinare, Piano delle performance" activiti:assignee="${initiator}"></userTask>
-    <serviceTask id="servicetask24" name="Check documenti preliminari" activiti:class="org.activiti.explorer.demo.AttachmentCheck">
+    <serviceTask id="servicetask24" name="Check documenti preliminari" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>3</activiti:string>
