@@ -309,6 +309,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
         .addClasspathResource("org/activiti/explorer/demo/process/reviewSalesLead.bpmn20.xml")
         .addClasspathResource("org/activiti/explorer/demo/process/ABS.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/autorizzazione-spesa-DG.bpmn")
+        .addClasspathResource("org/activiti/explorer/demo/process/determinazione-DG.bpmn")
         .deploy();
     }
     

@@ -55,7 +55,7 @@ public class CmisRead implements JavaDelegate {
  
   private Expression minAttachmentsNum;
   private static final String ALFRESCO_CMIS_URL =
-		  "http://alfrescotest.consorzio21.it:8080/alfresco/service/cmis";
+		  "http://localhost:8081/alfresco/service/cmis";
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
@@ -67,7 +67,7 @@ public class CmisRead implements JavaDelegate {
 	  public void retrieveFolder() throws Exception {
 			try {
 		  Session session = CmisUtil.createCmisSession(
-		  "admin", "tubonero.99", ALFRESCO_CMIS_URL);
+		  "admin", "admin", ALFRESCO_CMIS_URL);
 		  Folder folder = CmisUtil.getFolder(
 		  session, "Processi");
 		 // assertNotNull(folder);

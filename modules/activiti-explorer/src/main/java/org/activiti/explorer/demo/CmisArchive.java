@@ -49,8 +49,8 @@ public class CmisArchive implements JavaDelegate {
 	private Expression suffixDate;	
 	private Session session;
 	private String parentFolderName;
-	private static final String ALFRESCO_CMIS_URL = "http://alfrescotest.consorzio21.it:8080/alfresco/service/cmis";
-	private static final String ALFRESCO_ADMIN_PASSWORD = "tubonero.99";
+	private static final String ALFRESCO_CMIS_URL = "http://localhost:8081/alfresco/service/cmis";
+	private static final String ALFRESCO_ADMIN_PASSWORD = "admin";
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
