@@ -102,9 +102,6 @@
 			<fileset dir="../modules/activiti-osgi/target">
 				<include name="activiti-osgi-*.jar" />
 			</fileset>
-			<fileset dir="../modules/activiti-processi-sr/target">
-        <include name="activiti-processi-sr-*.jar" />
-      </fileset>
 		</copy>
 
 	</target>

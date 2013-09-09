@@ -56,10 +56,10 @@
         <bean class="org.activiti.explorer.form.UserFormType"/>
         <bean class="org.activiti.explorer.form.ProcessDefinitionFormType"/> 
         <bean class="org.activiti.explorer.form.MonthFormType"/>
-        <bean class="org.activiti.explorer.form.ProjectFormType"/>
-        <bean class="org.activiti.explorer.form.TextAreaFormType"/>
-        <bean class="org.activiti.explorer.form.SourceFormType"/>    
-        <bean class="org.activiti.explorer.form.LinksFormType"/>        
+        <bean class="org.sr.activiti.explorer.form.ProjectFormType"/>
+        <bean class="org.sr.activiti.explorer.form.TextAreaFormType"/>
+        <bean class="org.sr.activiti.explorer.form.SourceFormType"/>    
+        <bean class="org.sr.activiti.explorer.form.LinksFormType"/>        
       </list>
     </property>
   </bean>

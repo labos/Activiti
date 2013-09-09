@@ -22,6 +22,9 @@ import java.util.Map;
 
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.task.Attachment;
+import org.activiti.explorer.ui.content.AttachmentEditor;
+import org.activiti.explorer.ui.content.AttachmentRenderer;
+import org.activiti.explorer.ui.content.GenericAttachmentRenderer;
 import org.activiti.explorer.ui.content.email.EmailAttachmentRenderer;
 import org.activiti.explorer.ui.content.file.FileAttachmentEditor;
 import org.activiti.explorer.ui.content.file.ImageAttachmentRenderer;

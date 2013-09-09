@@ -242,11 +242,6 @@
         <artifactId>activiti-bpmn-layout</artifactId>
         <version>${project.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.activiti</groupId>
-        <artifactId>activiti-processi-sr</artifactId>
-        <version>${project.version}</version>
-      </dependency>
       <!-- EMAIL -->
       <dependency>
         <groupId>org.apache.commons</groupId>
@@ -717,7 +712,6 @@
         <module>modules/activiti-camel</module>
         <module>modules/activiti-cdi</module>
         <module>modules/activiti-osgi</module>
-        <module>modules/activiti-processi-sr</module>
       </modules>
       <build>
         <plugins>
@@ -808,7 +802,6 @@
         <module>modules/activiti-camel</module>	      
         <module>modules/activiti-mule</module>
         <module>modules/activiti-cdi</module>
-        <module>modules/activiti-processi-sr</module>
       </modules>
     </profile>
     <profile>
@@ -837,7 +830,6 @@
         <module>modules/activiti-diagram-rest</module>
         <module>modules/activiti-bpmn-layout</module>
         <module>modules/activiti-simple-workflow</module>
-        <module>modules/activiti-processi-sr</module>
       </modules>
       <properties>
         <skipTests>true</skipTests>

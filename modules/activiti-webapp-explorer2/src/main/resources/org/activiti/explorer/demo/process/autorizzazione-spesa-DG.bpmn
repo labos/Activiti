@@ -54,7 +54,7 @@
         <activiti:formProperty id="showriufiutoautorizzazione" name="Motivazione Rifiuto" default="${motivazioneriufiutoautorizzazione}" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <serviceTask id="servicetask6" name="Aggiornamento Budget" activiti:class="org.activiti.explorer.delegates.UpdateBudget">
+    <serviceTask id="servicetask6" name="Aggiornamento Budget" activiti:class="org.sr.activiti.explorer.delegates.UpdateBudget">
       <extensionElements>
         <activiti:field name="sourceToUpdate">
           <activiti:expression>${sourceprogetto}</activiti:expression>
@@ -210,7 +210,7 @@
         <omgdi:waypoint x="169.0" y="146.0"></omgdi:waypoint>
         <omgdi:waypoint x="169.0" y="82.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="-49.0" y="4.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="45.0" x="-49.0" y="4.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow67" id="BPMNEdge_flow67">

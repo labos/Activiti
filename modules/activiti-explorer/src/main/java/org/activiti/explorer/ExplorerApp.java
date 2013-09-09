@@ -24,11 +24,11 @@ import org.activiti.explorer.identity.LoggedInUser;
 import org.activiti.explorer.navigation.UriFragment;
 import org.activiti.explorer.ui.ComponentFactory;
 import org.activiti.explorer.ui.MainWindow;
-import org.activiti.explorer.ui.content.AttachmentRendererManager;
 import org.activiti.explorer.ui.form.FormPropertyRendererManager;
 import org.activiti.explorer.ui.login.LoginHandler;
 import org.activiti.explorer.ui.variable.VariableRendererManager;
 import org.activiti.workflow.simple.converter.WorkflowDefinitionConversionFactory;
+import org.activiti.explorer.ui.content.AttachmentRendererManager;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;

@@ -28,9 +28,9 @@ import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 import org.activiti.explorer.ui.AbstractPage;
 import org.activiti.explorer.ui.MainWindow;
-import org.activiti.explorer.ui.budget.BudgetMenuBar;
-import org.activiti.explorer.ui.budget.program.ProgramPage;
-import org.activiti.explorer.ui.budget.source.SourcePage;
+import org.sr.activiti.explorer.ui.budget.BudgetMenuBar;
+import org.sr.activiti.explorer.ui.budget.program.ProgramPage;
+import org.sr.activiti.explorer.ui.budget.source.SourcePage;
 import org.activiti.explorer.ui.management.ManagementMenuBar;
 import org.activiti.explorer.ui.management.admin.AdministrationPage;
 import org.activiti.explorer.ui.management.db.DatabasePage;
@@ -58,7 +58,6 @@ import org.activiti.workflow.simple.definition.WorkflowDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.ui.Window;
-
 
 /**
  * @author Joram Barrez

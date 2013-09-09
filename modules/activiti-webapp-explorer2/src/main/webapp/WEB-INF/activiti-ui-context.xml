@@ -39,10 +39,10 @@
         <bean class="org.activiti.explorer.ui.form.BooleanFormPropertyRenderer" />
         <bean class="org.activiti.explorer.ui.form.ProcessDefinitionFormPropertyRenderer" />
         <bean class="org.activiti.explorer.ui.form.MonthFormPropertyRenderer" />
-        <bean class="org.activiti.explorer.ui.form.ProjectFormPropertyRenderer" />
-        <bean class="org.activiti.explorer.ui.form.SourceFormPropertyRenderer" />
-        <bean class="org.activiti.explorer.ui.form.TextAreaFormPropertyRenderer" />
-        <bean class="org.activiti.explorer.ui.form.LinksFormPropertyRenderer" />
+        <bean class="org.sr.activiti.explorer.ui.form.ProjectFormPropertyRenderer" />
+        <bean class="org.sr.activiti.explorer.ui.form.SourceFormPropertyRenderer" />
+        <bean class="org.sr.activiti.explorer.ui.form.TextAreaFormPropertyRenderer" />
+        <bean class="org.sr.activiti.explorer.ui.form.LinksFormPropertyRenderer" />
        </list>
     </property>
   </bean>

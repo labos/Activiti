@@ -19,7 +19,6 @@ import org.activiti.explorer.ExplorerApp;
 
 import com.vaadin.ui.Field;
 
-
 /**
  * @author Frederik Heremans
  */

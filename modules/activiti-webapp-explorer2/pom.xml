@@ -170,10 +170,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
-			<artifactId>activiti-processi-sr</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
 			<artifactId>activiti-modeler</artifactId>
 			<exclusions>
 			 <exclusion>
@@ -231,6 +227,10 @@
             <version>0.10.0</version>
         </dependency>
 
+ 		<dependency>
+ 			<groupId>org.activiti</groupId>
+ 			<artifactId>activiti-explorer</artifactId>
+ 		</dependency>
 	</dependencies>
 
 	<repositories>
