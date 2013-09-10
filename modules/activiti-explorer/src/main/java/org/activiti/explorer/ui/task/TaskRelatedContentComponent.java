@@ -15,8 +15,12 @@ package org.activiti.explorer.ui.task;
 
 import java.util.List;
 
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
 import org.activiti.explorer.ExplorerApp;
@@ -61,6 +65,8 @@ public class TaskRelatedContentComponent extends VerticalLayout implements Relat
   private static final long serialVersionUID = 1L;
   
   protected transient TaskService taskService;
+  protected transient RuntimeService runtimeService;
+  protected transient HistoryService historyService;
   protected I18nManager i18nManager;
   protected AttachmentRendererManager attachmentRendererManager;
   
@@ -72,6 +78,8 @@ public class TaskRelatedContentComponent extends VerticalLayout implements Relat
 
   public TaskRelatedContentComponent(Task task, TaskDetailPanel taskDetailPanel) {
     this.taskService = ProcessEngines.getDefaultProcessEngine().getTaskService();
+    this.runtimeService = ProcessEngines.getDefaultProcessEngine().getRuntimeService();
+    this.historyService = ProcessEngines.getDefaultProcessEngine().getHistoryService();
     this.i18nManager = ExplorerApp.get().getI18nManager();
     this.attachmentRendererManager = ExplorerApp.get().getAttachmentRendererManager();
     
@@ -183,6 +191,15 @@ public class TaskRelatedContentComponent extends VerticalLayout implements Relat
     List<Attachment> attachments = null;
     if (task.getProcessInstanceId() != null){
       attachments = (taskService.getProcessInstanceAttachments(task.getProcessInstanceId()));
+      List <ProcessInstance> parentProcesses = runtimeService.createProcessInstanceQuery().subProcessInstanceId(task.getProcessInstanceId()).list();  
+      List <HistoricProcessInstance> historicProcesses = historyService.createHistoricProcessInstanceQuery().superProcessInstanceId(task.getProcessInstanceId()).list();
+
+      for( ProcessInstance aParentProcess : parentProcesses){
+    	  attachments.addAll(taskService.getProcessInstanceAttachments(aParentProcess.getId())); 	  
+      }
+      for( HistoricProcessInstance aSubProcess : historicProcesses){
+    	  attachments.addAll(taskService.getProcessInstanceAttachments(aSubProcess.getId())); 	  
+      }
     } else {
       attachments = taskService.getTaskAttachments(task.getId());
     }
