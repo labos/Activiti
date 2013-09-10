@@ -27,6 +27,7 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.budget.BudgetService;
 import org.activiti.engine.budget.Program;
+import org.activiti.engine.budget.Project;
 import org.activiti.engine.budget.Source;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.Picture;
@@ -90,6 +91,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     
     initDemoSources();
     initDemoPrograms();
+    initDemoProjects();
   }
   
   public void setProcessEngine(ProcessEngine processEngine) {
@@ -134,13 +136,13 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoSources(){
-	  createSource("fonte1", "Fonte 1", new Double(10000));
-	  createSource("fonte2", "Fonte 2", new Double(20000));
-	  createSource("fonte3", "Fonte 3", new Double(30000));
-	  createSource("fonte4", "Fonte 4", new Double(40000));
-	  createSource("fonte5", "Fonte 5", new Double(50000));
-	  createSource("fonte6", "Fonte 6", new Double(60000));
-	  createSource("fonte7", "Fonte 7", new Double(70000));
+	  createSource("fonte1", "Fonte 1", new Double(100000));
+	  createSource("fonte2", "Fonte 2", new Double(200000));
+	  createSource("fonte3", "Fonte 3", new Double(300000));
+	  createSource("fonte4", "Fonte 4", new Double(400000));
+	  createSource("fonte5", "Fonte 5", new Double(500000));
+	  createSource("fonte6", "Fonte 6", new Double(600000));
+	  createSource("fonte7", "Fonte 7", new Double(700000));
   }
   
   protected void createSource(String sourceId,String name, Double total){
@@ -153,13 +155,13 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoPrograms(){
-	  createProgram("programma1", "Programma 1", new Double(1000));
-	  createProgram("programma2", "Programma 2", new Double(2000));
-	  createProgram("programma3", "Programma 3", new Double(3000));
-	  createProgram("programma4", "Programma 4", new Double(4000));
-	  createProgram("programma5", "Programma 5", new Double(5000));
-	  createProgram("programma6", "Programma 6", new Double(6000));
-	  createProgram("programma7", "Programma 7", new Double(7000));
+	  createProgram("programma1", "Programma 1", new Double(10000));
+	  createProgram("programma2", "Programma 2", new Double(20000));
+	  createProgram("programma3", "Programma 3", new Double(30000));
+	  createProgram("programma4", "Programma 4", new Double(40000));
+	  createProgram("programma5", "Programma 5", new Double(50000));
+	  createProgram("programma6", "Programma 6", new Double(60000));
+	  createProgram("programma7", "Programma 7", new Double(70000));
   }
   
   protected void createProgram(String programId,String name, Double total){
@@ -168,6 +170,25 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
 		  newProgram.setName(name);
 		  newProgram.setTotal(total);
 		  budgetService.saveProgram(newProgram);
+	  }
+  }
+  
+  protected void initDemoProjects(){
+	  createProject("progetto1", "Progetto 1", new Double(1000));
+	  createProject("progetto2", "Progetto 2", new Double(2000));
+	  createProject("progetto3", "Progetto 3", new Double(3000));
+	  createProject("progetto4", "Progetto 4", new Double(4000));
+	  createProject("progetto5", "Progetto 5", new Double(5000));
+	  createProject("progetto6", "Progetto 6", new Double(6000));
+	  createProject("progetto6", "Progetto 7", new Double(7000));
+  }
+  
+  protected void createProject(String projectId,String name, Double total){
+	  if(budgetService.createProjectQuery().projectId(projectId).count() == 0){
+		  Project newProject = budgetService.newProject(projectId);
+		  newProject.setName(name);
+		  newProject.setTotal(total);
+		  budgetService.saveProject(newProject);
 	  }
   }
 

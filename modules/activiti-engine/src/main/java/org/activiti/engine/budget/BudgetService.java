@@ -48,5 +48,11 @@ public interface BudgetService {
 
 	ProgramQuery createProgramQuery();
 	
+	Project newProject(String projectId);
+	
+	void saveProject(Project project);
+
+	ProjectQuery createProjectQuery();
+	
 
 }

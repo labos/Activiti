@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="org.activiti.engine.impl.persistence.entity.budget.ProjectEntity">
+
+  <!-- PROJECT INSERT -->
+
+  <insert id="insertProject" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProjectEntity">
+    insert into ${prefix}ACT_BUDGET_PROJECT (ID_, REV_, NAME_, TOTAL_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      1, 
+      #{name ,jdbcType=VARCHAR},
+      #{total ,jdbcType=DOUBLE}
+    )
+  </insert>
+
+  <!-- PROJECT UPDATE -->
+  
+  <update id="updateProject" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProjectEntity">
+    update ${prefix}ACT_BUDGET_PROJECT set
+      REV_ = #{revisionNext ,jdbcType=INTEGER},
+      NAME_ = #{name ,jdbcType=VARCHAR},
+      TOTAL_ = #{total ,jdbcType=DOUBLE}
+    where ID_ = #{id}
+       and REV_ = #{revision}
+  </update>
+
+  <!-- PROJECT RESULTMAP -->
+
+  <resultMap id="projectResultMap" type="org.activiti.engine.impl.persistence.entity.budget.ProjectEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="revision" column="REV_" jdbcType="INTEGER" />
+    <result property="name" column="NAME_" jdbcType="VARCHAR" />
+    <result property="total" column="TOTAL_" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <!-- PROJECT SELECT -->
+
+  <select id="selectProjectById" parameterType="string" resultMap="projectResultMap">
+    select * from ${prefix}ACT_BUDGET_PROJECT where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+    
+  <select id="selectProjectByQueryCriteria" parameterType="org.activiti.engine.impl.budget.ProjectQueryImpl" resultMap="projectResultMap">
+  	${limitBefore}
+    select RES.* ${limitBetween}
+    <include refid="selectProjectByQueryCriteriaSql" />
+    ${orderBy}
+    ${limitAfter}
+  </select>
+  
+   <select id="selectProjectCountByQueryCriteria" parameterType="org.activiti.engine.impl.budget.ProjectQueryImpl" resultType="long">
+    select count(RES.ID_)
+    <include refid="selectProjectByQueryCriteriaSql" />
+  </select>
+  
+  <sql id="selectProjectByQueryCriteriaSql">
+    from ${prefix}ACT_BUDGET_PROJECT RES 
+    <where>
+      <if test="id != null">
+        RES.ID_ = #{id}
+      </if>
+      <if test="name != null">
+        and RES.NAME_ = #{name}
+      </if> 
+      <if test="total != null">
+        and RES.TOTAL_ = #{total}
+      </if>     
+    </where>
+  </sql>
+  
+</mapper>

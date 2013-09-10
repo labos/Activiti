@@ -30,6 +30,7 @@ import org.activiti.explorer.ui.AbstractPage;
 import org.activiti.explorer.ui.MainWindow;
 import org.sr.activiti.explorer.ui.budget.BudgetMenuBar;
 import org.sr.activiti.explorer.ui.budget.program.ProgramPage;
+import org.sr.activiti.explorer.ui.budget.project.ProjectPage;
 import org.sr.activiti.explorer.ui.budget.source.SourcePage;
 import org.activiti.explorer.ui.management.ManagementMenuBar;
 import org.activiti.explorer.ui.management.admin.AdministrationPage;
@@ -261,11 +262,9 @@ public class DefaultViewManager implements ViewManager, Serializable {
   
   public void showSourcePage(){
 	  switchView(new SourcePage(), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_SOURCES);	  
-	  
   }
   
   public void showSourcePage(String sourceId){
-	  
   }
   
   public void showProgramPage(){
@@ -273,16 +272,13 @@ public class DefaultViewManager implements ViewManager, Serializable {
   }
   
   public void showProgramPage(String programId){
-	  
   }
   
   public void showProjectPage(){
-	 
-	  
+	  switchView(new ProjectPage(), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_PROJECTS);
   }
   
   public void showProjectPage(String projectId){
-	  
   }
   
   // Management

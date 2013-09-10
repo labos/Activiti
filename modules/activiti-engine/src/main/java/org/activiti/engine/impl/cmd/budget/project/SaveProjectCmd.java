@@ -10,27 +10,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.activiti.engine.impl.cmd.budget;
+package org.activiti.engine.impl.cmd.budget.project;
 
 import java.io.Serializable;
 
-import org.activiti.engine.budget.ProgramQuery;
+import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
-
+import org.activiti.engine.impl.persistence.entity.budget.ProjectEntity;
 
 /**
  * @author Lab Open Source
  */
-public class CreateProgramQueryCmd implements Command<ProgramQuery>, Serializable {
+public class SaveProjectCmd implements Command<Void>, Serializable {
   
   private static final long serialVersionUID = 1L;
-
-  public ProgramQuery execute(CommandContext commandContext) {
-    return commandContext
-      .getProgramEntityManager()
-      .createNewProgramQuery();
+  protected ProjectEntity project;
+  
+  public SaveProjectCmd(ProjectEntity project) {
+    this.project = project;
+  }
+  
+  public Void execute(CommandContext commandContext) {
+    if(project == null) {
+      throw new ActivitiIllegalArgumentException("project is null");
+    }
+    if (project.getRevision()==0) {
+      commandContext
+        .getProjectEntityManager()
+        .insertProject(project);
+    } else {
+      commandContext
+        .getProjectEntityManager()
+        .updateProject(project);
+    }
+    
+    return null;
   }
 
 }
