@@ -110,6 +110,10 @@ public interface ViewManager {
   
   void showProjectPage(String projectId);
   
+  void showCostEntryPage();
+  
+  void showCostEntryPage(String costEntryId);
+  
   // Management
   
   void showDatabasePage();

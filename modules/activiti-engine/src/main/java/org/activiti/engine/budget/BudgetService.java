@@ -54,5 +54,10 @@ public interface BudgetService {
 
 	ProjectQuery createProjectQuery();
 	
-
+	CostEntry newCostEntry(String costEntryId);
+	
+	void saveCostEntry(CostEntry costEntry);
+	
+	CostEntryQuery createCostEntryQuery();
+	
 }

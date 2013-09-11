@@ -485,6 +485,6 @@ public interface Messages {
   String BUDGET_MENU_SOURCES = "budget.menu.sources";
   String BUDGET_MENU_PROGRAMS = "budget.menu.programs";
   String BUDGET_MENU_PROJECTS = "budget.menu.projects";
-  
+  String BUDGET_MENU_COSTENTRIES = "budget.menu.costEntries";
 
 }

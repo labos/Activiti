@@ -49,7 +49,9 @@ import org.activiti.engine.impl.ProcessDefinitionQueryImpl;
 import org.activiti.engine.impl.ProcessInstanceQueryImpl;
 import org.activiti.engine.impl.TaskQueryImpl;
 import org.activiti.engine.impl.UserQueryImpl;
+import org.activiti.engine.impl.budget.CostEntryQueryImpl;
 import org.activiti.engine.impl.budget.ProgramQueryImpl;
+import org.activiti.engine.impl.budget.ProjectQueryImpl;
 import org.activiti.engine.impl.budget.SourceQueryImpl;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.context.Context;
@@ -1189,6 +1191,14 @@ public class DbSqlSession implements Session {
   
   public ProgramQueryImpl createProgramQuery(){
 	  return new ProgramQueryImpl();
+  }
+  
+  public ProjectQueryImpl createProjectQuery(){
+	  return new ProjectQueryImpl();
+  }
+  
+  public CostEntryQueryImpl createCostEntryQuery(){
+	  return new CostEntryQueryImpl();
   }
 
   // getters and setters //////////////////////////////////////////////////////

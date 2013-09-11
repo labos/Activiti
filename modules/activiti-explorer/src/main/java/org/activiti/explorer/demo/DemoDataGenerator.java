@@ -26,6 +26,7 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.budget.BudgetService;
+import org.activiti.engine.budget.CostEntry;
 import org.activiti.engine.budget.Program;
 import org.activiti.engine.budget.Project;
 import org.activiti.engine.budget.Source;
@@ -92,6 +93,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     initDemoSources();
     initDemoPrograms();
     initDemoProjects();
+    initDemoCostEntries();
   }
   
   public void setProcessEngine(ProcessEngine processEngine) {
@@ -189,6 +191,20 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
 		  newProject.setName(name);
 		  newProject.setTotal(total);
 		  budgetService.saveProject(newProject);
+	  }
+  }
+  
+  protected void initDemoCostEntries(){
+	  createCostEntry("collaboratori", "Collaboratori");
+	  createCostEntry("attrezzature", "Attrezzature");
+	  createCostEntry("altro", "Altro");
+  }
+  
+  protected void createCostEntry(String costEntryId,String name){
+	  if(budgetService.createCostEntryQuery().costEntryId(costEntryId).count() == 0){
+		  CostEntry newCostEntry = budgetService.newCostEntry(costEntryId);
+		  newCostEntry.setName(name);
+		  budgetService.saveCostEntry(newCostEntry);
 	  }
   }
 

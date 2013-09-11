@@ -29,6 +29,7 @@ import org.activiti.engine.task.Task;
 import org.activiti.explorer.ui.AbstractPage;
 import org.activiti.explorer.ui.MainWindow;
 import org.sr.activiti.explorer.ui.budget.BudgetMenuBar;
+import org.sr.activiti.explorer.ui.budget.costEntry.CostEntryPage;
 import org.sr.activiti.explorer.ui.budget.program.ProgramPage;
 import org.sr.activiti.explorer.ui.budget.project.ProjectPage;
 import org.sr.activiti.explorer.ui.budget.source.SourcePage;
@@ -279,6 +280,13 @@ public class DefaultViewManager implements ViewManager, Serializable {
   }
   
   public void showProjectPage(String projectId){
+  }
+  
+  public void showCostEntryPage(){
+	  switchView(new CostEntryPage(), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_COSTENTRIES);
+  }
+  
+  public void showCostEntryPage(String costEntryId){
   }
   
   // Management

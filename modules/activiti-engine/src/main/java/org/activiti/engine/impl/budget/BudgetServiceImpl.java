@@ -13,6 +13,8 @@
 package org.activiti.engine.impl.budget;
 
 import org.activiti.engine.budget.BudgetService;
+import org.activiti.engine.budget.CostEntry;
+import org.activiti.engine.budget.CostEntryQuery;
 import org.activiti.engine.budget.Program;
 import org.activiti.engine.budget.ProgramQuery;
 import org.activiti.engine.budget.Project;
@@ -20,6 +22,9 @@ import org.activiti.engine.budget.ProjectQuery;
 import org.activiti.engine.budget.Source;
 import org.activiti.engine.budget.SourceQuery;
 import org.activiti.engine.impl.ServiceImpl;
+import org.activiti.engine.impl.cmd.budget.costEntry.CreateCostEntryCmd;
+import org.activiti.engine.impl.cmd.budget.costEntry.CreateCostEntryQueryCmd;
+import org.activiti.engine.impl.cmd.budget.costEntry.SaveCostEntryCmd;
 import org.activiti.engine.impl.cmd.budget.program.CreateProgramCmd;
 import org.activiti.engine.impl.cmd.budget.program.CreateProgramQueryCmd;
 import org.activiti.engine.impl.cmd.budget.program.SaveProgramCmd;
@@ -29,6 +34,7 @@ import org.activiti.engine.impl.cmd.budget.project.SaveProjectCmd;
 import org.activiti.engine.impl.cmd.budget.source.CreateSourceCmd;
 import org.activiti.engine.impl.cmd.budget.source.CreateSourceQueryCmd;
 import org.activiti.engine.impl.cmd.budget.source.SaveSourceCmd;
+import org.activiti.engine.impl.persistence.entity.budget.CostEntryEntity;
 import org.activiti.engine.impl.persistence.entity.budget.ProgramEntity;
 import org.activiti.engine.impl.persistence.entity.budget.ProjectEntity;
 import org.activiti.engine.impl.persistence.entity.budget.SourceEntity;
@@ -72,6 +78,18 @@ public class BudgetServiceImpl extends ServiceImpl implements BudgetService {
 
 	public ProjectQuery createProjectQuery() {
 		return commandExecutor.execute(new CreateProjectQueryCmd());
+	}
+	
+	public CostEntry newCostEntry(String costEntryId) {
+		return commandExecutor.execute(new CreateCostEntryCmd(costEntryId));
+	}
+
+	public void saveCostEntry(CostEntry costEntry) {
+		commandExecutor.execute(new SaveCostEntryCmd((CostEntryEntity) costEntry));
+	}
+
+	public CostEntryQuery createCostEntryQuery() {
+		return commandExecutor.execute(new CreateCostEntryQueryCmd());
 	}
 
 }

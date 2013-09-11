@@ -50,6 +50,7 @@ import org.activiti.engine.impl.persistence.entity.TableDataManager;
 import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
 import org.activiti.engine.impl.persistence.entity.UserEntityManager;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
+import org.activiti.engine.impl.persistence.entity.budget.CostEntryEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProgramEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProjectEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.SourceEntityManager;
@@ -309,7 +310,10 @@ public class CommandContext {
   
   public ProjectEntityManager getProjectEntityManager(){
 	  return getSession(ProjectEntityManager.class);
-  } 
+  }
+  public CostEntryEntityManager getCostEntryEntityManager(){
+	  return getSession(CostEntryEntityManager.class);
+  }
   
   public PropertyEntityManager getPropertyEntityManager() {
     return getSession(PropertyEntityManager.class);

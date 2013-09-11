@@ -30,6 +30,7 @@ public class BudgetMenuBar extends ToolBar {
   public static final String ENTRY_SOURCES = "sources";
   public static final String ENTRY_PROGRAMS = "programs";
   public static final String ENTRY_PROJECTS = "projects";
+  public static final String ENTRY_COSTENTRIES = "costEntries";
 
   protected I18nManager i18nManager;
   protected ViewManager viewManager;
@@ -61,5 +62,11 @@ public class BudgetMenuBar extends ToolBar {
         viewManager.showProjectPage();
       }
     });
+    
+    addToolbarEntry(ENTRY_COSTENTRIES, i18nManager.getMessage(Messages.BUDGET_MENU_COSTENTRIES), new ToolbarCommand() {
+        public void toolBarItemSelected() {
+          viewManager.showCostEntryPage();
+        }
+      });
   }
 }

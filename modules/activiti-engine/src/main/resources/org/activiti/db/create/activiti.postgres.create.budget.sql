@@ -22,5 +22,12 @@ create table ACT_BUDGET_PROJECT (
     primary key (ID_)
 );
 
+create table ACT_BUDGET_COSTENTRY (
+    ID_ varchar(64),
+    REV_ integer,
+    NAME_ varchar(255),
+    primary key (ID_)
+);
+
 
 
