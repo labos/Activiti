@@ -350,24 +350,10 @@
     </serviceTask>
     <sequenceFlow id="flow177" sourceRef="startevent1" targetRef="servicetask22"></sequenceFlow>
     <sequenceFlow id="flow178" sourceRef="servicetask22" targetRef="servicetask23"></sequenceFlow>
-    <userTask id="usertask60" name="Convenzione, Disciplinare, Piano delle performance" activiti:assignee="${initiator}"></userTask>
-    <serviceTask id="servicetask24" name="Check documenti preliminari" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
-      <extensionElements>
-        <activiti:field name="minAttachmentsNum">
-          <activiti:string>3</activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
+    <userTask id="usertask60" name="Documentazione preliminare" activiti:assignee="${initiator}">
+      <documentation>ALLEGARE EVENTUALE DOCUMENTAZIONE PRELIMINARE NECESSARIA PER L'AVVIO DELLA PROCEDURA DI ACQUISIZIONE DI BENI E SERVIZI</documentation>
+    </userTask>
     <sequenceFlow id="flow179" sourceRef="servicetask23" targetRef="usertask60"></sequenceFlow>
-    <sequenceFlow id="flow180" sourceRef="usertask60" targetRef="servicetask24"></sequenceFlow>
-    <exclusiveGateway id="exclusivegateway28" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow182" sourceRef="servicetask24" targetRef="exclusivegateway28"></sequenceFlow>
-    <sequenceFlow id="flow183" name="Allegato" sourceRef="exclusivegateway28" targetRef="usertask54">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow184" name="Non allegato" sourceRef="exclusivegateway28" targetRef="usertask60">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
-    </sequenceFlow>
     <callActivity id="callactivity2" name="Determinazione nomina RUP" calledElement="determinazione-DG">
       <extensionElements>
         <activiti:in sourceExpression="smaxia" target="detAssignee"></activiti:in>
@@ -400,6 +386,7 @@
     <sequenceFlow id="flow190" sourceRef="usertask56" targetRef="callactivity4"></sequenceFlow>
     <sequenceFlow id="flow191" sourceRef="callactivity4" targetRef="usertask59"></sequenceFlow>
     <sequenceFlow id="flow192" sourceRef="parallelgateway3" targetRef="usertask29"></sequenceFlow>
+    <sequenceFlow id="flow193" sourceRef="usertask60" targetRef="usertask54"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Possiamo automatizzare meglio la consegna delle lettere di invito al protocollo per la protocollazione in uscita</text>
     </textAnnotation>
@@ -686,12 +673,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask23" id="BPMNShape_servicetask23">
         <omgdc:Bounds height="55.0" width="105.0" x="10.0" y="141.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask24" id="BPMNShape_servicetask24">
-        <omgdc:Bounds height="55.0" width="105.0" x="140.0" y="47.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway28" id="BPMNShape_exclusivegateway28">
-        <omgdc:Bounds height="40.0" width="40.0" x="273.0" y="104.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity2" id="BPMNShape_callactivity2">
         <omgdc:Bounds height="62.0" width="105.0" x="446.0" y="60.0"></omgdc:Bounds>
@@ -1070,28 +1051,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="115.0" y="168.0"></omgdi:waypoint>
         <omgdi:waypoint x="140.0" y="172.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow180" id="BPMNEdge_flow180">
-        <omgdi:waypoint x="192.0" y="137.0"></omgdi:waypoint>
-        <omgdi:waypoint x="192.0" y="102.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow182" id="BPMNEdge_flow182">
-        <omgdi:waypoint x="245.0" y="74.0"></omgdi:waypoint>
-        <omgdi:waypoint x="293.0" y="104.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow183" id="BPMNEdge_flow183">
-        <omgdi:waypoint x="293.0" y="104.0"></omgdi:waypoint>
-        <omgdi:waypoint x="292.0" y="13.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="39.0" x="-43.0" y="-6.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow184" id="BPMNEdge_flow184">
-        <omgdi:waypoint x="273.0" y="124.0"></omgdi:waypoint>
-        <omgdi:waypoint x="192.0" y="137.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="59.0" x="-9.0" y="12.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow185" id="BPMNEdge_flow185">
         <omgdi:waypoint x="370.0" y="90.0"></omgdi:waypoint>
         <omgdi:waypoint x="446.0" y="91.0"></omgdi:waypoint>
@@ -1141,6 +1100,10 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNEdge bpmnElement="association18" id="BPMNEdge_association18">
         <omgdi:waypoint x="4937.0" y="40.0"></omgdi:waypoint>
         <omgdi:waypoint x="4850.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow193" id="BPMNEdge_flow193">
+        <omgdi:waypoint x="192.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="292.0" y="13.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
