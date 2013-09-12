@@ -34,6 +34,7 @@ import org.activiti.engine.ActivitiOptimisticLockingException;
 import org.activiti.engine.ActivitiWrongDbException;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
+import org.activiti.engine.budget.ProjectCostItemQuery;
 import org.activiti.engine.impl.DeploymentQueryImpl;
 import org.activiti.engine.impl.ExecutionQueryImpl;
 import org.activiti.engine.impl.GroupQueryImpl;
@@ -51,6 +52,7 @@ import org.activiti.engine.impl.TaskQueryImpl;
 import org.activiti.engine.impl.UserQueryImpl;
 import org.activiti.engine.impl.budget.CostEntryQueryImpl;
 import org.activiti.engine.impl.budget.ProgramQueryImpl;
+import org.activiti.engine.impl.budget.ProjectCostItemQueryImpl;
 import org.activiti.engine.impl.budget.ProjectQueryImpl;
 import org.activiti.engine.impl.budget.SourceQueryImpl;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -1199,6 +1201,10 @@ public class DbSqlSession implements Session {
   
   public CostEntryQueryImpl createCostEntryQuery(){
 	  return new CostEntryQueryImpl();
+  }
+  
+  public ProjectCostItemQueryImpl createProjectCostItemQuery(){
+	  return new ProjectCostItemQueryImpl();
   }
 
   // getters and setters //////////////////////////////////////////////////////

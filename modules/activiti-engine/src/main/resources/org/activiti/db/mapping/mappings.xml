@@ -34,5 +34,6 @@
     <mapper resource="org/activiti/db/mapping/entity/budget/Program.xml" />
     <mapper resource="org/activiti/db/mapping/entity/budget/Project.xml" />
     <mapper resource="org/activiti/db/mapping/entity/budget/CostEntry.xml" />
+    <mapper resource="org/activiti/db/mapping/entity/budget/ProjectCostItem.xml" />
 	</mappers>
 </configuration>

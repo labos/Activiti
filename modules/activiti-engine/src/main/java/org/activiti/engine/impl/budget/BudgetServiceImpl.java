@@ -18,6 +18,8 @@ import org.activiti.engine.budget.CostEntryQuery;
 import org.activiti.engine.budget.Program;
 import org.activiti.engine.budget.ProgramQuery;
 import org.activiti.engine.budget.Project;
+import org.activiti.engine.budget.ProjectCostItem;
+import org.activiti.engine.budget.ProjectCostItemQuery;
 import org.activiti.engine.budget.ProjectQuery;
 import org.activiti.engine.budget.Source;
 import org.activiti.engine.budget.SourceQuery;
@@ -31,11 +33,15 @@ import org.activiti.engine.impl.cmd.budget.program.SaveProgramCmd;
 import org.activiti.engine.impl.cmd.budget.project.CreateProjectCmd;
 import org.activiti.engine.impl.cmd.budget.project.CreateProjectQueryCmd;
 import org.activiti.engine.impl.cmd.budget.project.SaveProjectCmd;
+import org.activiti.engine.impl.cmd.budget.projectCostItem.CreateProjectCostItemCmd;
+import org.activiti.engine.impl.cmd.budget.projectCostItem.CreateProjectCostItemQueryCmd;
+import org.activiti.engine.impl.cmd.budget.projectCostItem.SaveProjectCostItemCmd;
 import org.activiti.engine.impl.cmd.budget.source.CreateSourceCmd;
 import org.activiti.engine.impl.cmd.budget.source.CreateSourceQueryCmd;
 import org.activiti.engine.impl.cmd.budget.source.SaveSourceCmd;
 import org.activiti.engine.impl.persistence.entity.budget.CostEntryEntity;
 import org.activiti.engine.impl.persistence.entity.budget.ProgramEntity;
+import org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntity;
 import org.activiti.engine.impl.persistence.entity.budget.ProjectEntity;
 import org.activiti.engine.impl.persistence.entity.budget.SourceEntity;
 
@@ -91,5 +97,24 @@ public class BudgetServiceImpl extends ServiceImpl implements BudgetService {
 	public CostEntryQuery createCostEntryQuery() {
 		return commandExecutor.execute(new CreateCostEntryQueryCmd());
 	}
+
+	@Override
+	public ProjectCostItem newProjectCostItem(String id) {
+		return commandExecutor.execute(new CreateProjectCostItemCmd(id));
+	}
+
+	@Override
+	public void saveProjectCostItem(ProjectCostItem projectCostItem) {
+		commandExecutor.execute(new SaveProjectCostItemCmd((ProjectCostItemEntity) projectCostItem));
+		
+	}
+
+	@Override
+	public ProjectCostItemQuery createProjectCostItemQuery() {
+		return commandExecutor.execute(new CreateProjectCostItemQueryCmd());
+	}
+	
+	
+	
 
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntity">
+
+  <!-- ProjectCostItem INSERT -->
+
+  <insert id="insertProjectCostItem" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntity">
+    insert into ${prefix}ACT_BUDGET_PROJECTCOSTITEM (ID_, REV_, IDPROJECT_,IDCOSTENTRY_, TOTAL_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      1, 
+      #{idProject ,jdbcType=VARCHAR},
+      #{idCostEntry ,jdbcType=VARCHAR},
+      #{total ,jdbcType=DOUBLE}
+    )
+  </insert>
+
+  <!-- ProjectCostItem UPDATE -->
+  
+  <update id="updateProjectCostItem" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntity">
+    update ${prefix}ACT_BUDGET_PROJECTCOSTITEM set
+      REV_ = #{revisionNext ,jdbcType=INTEGER},
+      IDPROJECT_ = #{idProject ,jdbcType=VARCHAR},
+      IDCOSTENTRY_ = #{idCostEntry ,jdbcType=VARCHAR},
+      TOTAL_ = #{total ,jdbcType=DOUBLE}
+    where ID_ = #{id}
+       and REV_ = #{revision}
+  </update>
+
+  <!-- ProjectCostItem RESULTMAP -->
+
+  <resultMap id="projectCostItemResultMap" type="org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="revision" column="REV_" jdbcType="INTEGER" />
+    <result property="idProject" column="IDPROJECT_" jdbcType="VARCHAR" />
+    <result property="idCostEntry" column="IDCOSTENTRY_" jdbcType="VARCHAR" />
+    <result property="total" column="TOTAL_" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <!-- ProjectCostItem SELECT -->
+
+  <select id="selectProjectCostItemById" parameterType="string" resultMap="projectCostItemResultMap">
+    select * from ${prefix}ACT_BUDGET_PROJECTCOSTITEM where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+    
+  <select id="selectProjectCostItemByQueryCriteria" parameterType="org.activiti.engine.impl.budget.ProjectCostItemQueryImpl" resultMap="projectCostItemResultMap">
+  	${limitBefore}
+    select RES.* ${limitBetween}
+    <include refid="selectProjectCostItemByQueryCriteriaSql" />
+    ${orderBy}
+    ${limitAfter}
+  </select>
+  
+   <select id="selectProjectCostItemCountByQueryCriteria" parameterType="org.activiti.engine.impl.budget.ProjectCostItemQueryImpl" resultType="long">
+    select count(RES.ID_)
+    <include refid="selectProjectCostItemByQueryCriteriaSql" />
+  </select>
+  
+  <sql id="selectProjectCostItemByQueryCriteriaSql">
+    from ${prefix}ACT_BUDGET_PROJECTCOSTITEM RES 
+    <where>
+      <if test="id != null">
+        RES.ID_ = #{id}
+      </if>
+      <if test="idProject != null">
+        and RES.IDPROJECT_ = #{idProject}
+      </if> 
+      <if test="idCostEntry != null">
+        and RES.IDCOSTENTRY_ = #{idCostEntry}
+      </if> 
+      <if test="total != null">
+        and RES.TOTAL_ = #{total}
+      </if>     
+    </where>
+  </sql>
+  
+</mapper>

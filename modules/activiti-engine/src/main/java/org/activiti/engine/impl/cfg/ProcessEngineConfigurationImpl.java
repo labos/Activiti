@@ -169,6 +169,7 @@ import org.activiti.engine.impl.persistence.entity.UserEntityManager;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.CostEntryEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProgramEntityManager;
+import org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProjectEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.SourceEntityManager;
 import org.activiti.engine.impl.scripting.BeansResolverFactory;
@@ -713,6 +714,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       addSessionFactory(new GenericManagerFactory(ProgramEntityManager.class));
       addSessionFactory(new GenericManagerFactory(ProjectEntityManager.class));
       addSessionFactory(new GenericManagerFactory(CostEntryEntityManager.class));
+      addSessionFactory(new GenericManagerFactory(ProjectCostItemEntityManager.class));
      
     }
     if (customSessionFactories!=null) {

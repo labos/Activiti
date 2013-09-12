@@ -29,6 +29,7 @@ import org.activiti.engine.budget.BudgetService;
 import org.activiti.engine.budget.CostEntry;
 import org.activiti.engine.budget.Program;
 import org.activiti.engine.budget.Project;
+import org.activiti.engine.budget.ProjectCostItem;
 import org.activiti.engine.budget.Source;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.Picture;
@@ -94,6 +95,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     initDemoPrograms();
     initDemoProjects();
     initDemoCostEntries();
+    initDemoProjectCostItems();
   }
   
   public void setProcessEngine(ProcessEngine processEngine) {
@@ -205,6 +207,30 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
 		  CostEntry newCostEntry = budgetService.newCostEntry(costEntryId);
 		  newCostEntry.setName(name);
 		  budgetService.saveCostEntry(newCostEntry);
+	  }
+  }
+  
+  protected void initDemoProjectCostItems(){
+	  createProjectCostItem("1", "progetto1", "collaboratori", new Double(600));
+	  createProjectCostItem("2", "progetto1", "attrezzature", new Double(300));
+	  createProjectCostItem("3", "progetto1", "altro", new Double(100));
+	  
+	  createProjectCostItem("4", "progetto2", "collaboratori", new Double(1400));
+	  createProjectCostItem("5", "progetto1", "attrezzature", new Double(600));
+	 
+	
+	  
+	  
+  }
+  
+  protected void createProjectCostItem(String id, String idProject, String idCostEntry, Double total){
+	  if(budgetService.createProjectCostItemQuery().projectCostItemId(id).count() == 0){
+		  ProjectCostItem newProjectCostItem = budgetService.newProjectCostItem(id);
+		  newProjectCostItem.setId(id);
+		  newProjectCostItem.setIdCostEntry(idCostEntry);
+		  newProjectCostItem.setIdProject(idProject);
+		  newProjectCostItem.setTotal(total);
+		  budgetService.saveProjectCostItem(newProjectCostItem);
 	  }
   }
 
