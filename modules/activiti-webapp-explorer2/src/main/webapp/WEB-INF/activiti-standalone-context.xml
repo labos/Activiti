@@ -59,7 +59,8 @@
         <bean class="org.sr.activiti.explorer.form.ProjectFormType"/>
         <bean class="org.sr.activiti.explorer.form.TextAreaFormType"/>
         <bean class="org.sr.activiti.explorer.form.SourceFormType"/>    
-        <bean class="org.sr.activiti.explorer.form.LinksFormType"/>        
+        <bean class="org.sr.activiti.explorer.form.LinksFormType"/>
+        <bean class="org.sr.activiti.explorer.form.ProjectCostItemFormType"/>        
       </list>
     </property>
   </bean>

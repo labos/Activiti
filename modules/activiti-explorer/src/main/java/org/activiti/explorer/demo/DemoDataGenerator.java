@@ -211,25 +211,22 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoProjectCostItems(){
-	  createProjectCostItem("1", "progetto1", "collaboratori", new Double(600));
-	  createProjectCostItem("2", "progetto1", "attrezzature", new Double(300));
-	  createProjectCostItem("3", "progetto1", "altro", new Double(100));
+	  createProjectCostItem("1", "progetto1", "collaboratori", new Double(600), new Double(600));
+	  createProjectCostItem("2", "progetto1", "attrezzature", new Double(300), new Double(300));
+	  createProjectCostItem("3", "progetto1", "altro", new Double(100), new Double(100));
 	  
-	  createProjectCostItem("4", "progetto2", "collaboratori", new Double(1400));
-	  createProjectCostItem("5", "progetto1", "attrezzature", new Double(600));
-	 
-	
-	  
-	  
+	  createProjectCostItem("4", "progetto2", "collaboratori", new Double(1400), new Double(1400));
+	  createProjectCostItem("5", "progetto1", "attrezzature", new Double(600), new Double(600));
   }
   
-  protected void createProjectCostItem(String id, String idProject, String idCostEntry, Double total){
+  protected void createProjectCostItem(String id, String idProject, String idCostEntry, Double total, Double actual){
 	  if(budgetService.createProjectCostItemQuery().projectCostItemId(id).count() == 0){
 		  ProjectCostItem newProjectCostItem = budgetService.newProjectCostItem(id);
 		  newProjectCostItem.setId(id);
 		  newProjectCostItem.setIdCostEntry(idCostEntry);
 		  newProjectCostItem.setIdProject(idProject);
 		  newProjectCostItem.setTotal(total);
+		  newProjectCostItem.setActual(actual);
 		  budgetService.saveProjectCostItem(newProjectCostItem);
 	  }
   }
