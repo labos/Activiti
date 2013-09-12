@@ -36,6 +36,7 @@ public class ProjectCostItemEntity implements ProjectCostItem, Serializable, Per
 	protected String idCostEntry;
 	protected int revision;
 	protected Double total;
+	protected Double actual;
 
 	public ProjectCostItemEntity() {
 	}
@@ -49,6 +50,7 @@ public class ProjectCostItemEntity implements ProjectCostItem, Serializable, Per
 		persistentState.put("idProject", idProject);
 		persistentState.put("idCostEntry", idCostEntry);
 		persistentState.put("total", total);
+		persistentState.put("actual", actual);
 		return persistentState;
 	}
 
@@ -99,7 +101,14 @@ public class ProjectCostItemEntity implements ProjectCostItem, Serializable, Per
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-	
+
+	public Double getActual() {
+		return actual;
+	}
+
+	public void setActual(Double actual) {
+		this.actual = actual;
+	}	
 	
 
 }

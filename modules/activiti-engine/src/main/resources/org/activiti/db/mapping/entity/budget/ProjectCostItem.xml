@@ -7,13 +7,14 @@
   <!-- ProjectCostItem INSERT -->
 
   <insert id="insertProjectCostItem" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntity">
-    insert into ${prefix}ACT_BUDGET_PROJECTCOSTITEM (ID_, REV_, IDPROJECT_,IDCOSTENTRY_, TOTAL_)
+    insert into ${prefix}ACT_BUDGET_PROJECTCOSTITEM (ID_, REV_, IDPROJECT_,IDCOSTENTRY_, TOTAL_, ACTUAL_)
     values (
       #{id ,jdbcType=VARCHAR},
       1, 
       #{idProject ,jdbcType=VARCHAR},
       #{idCostEntry ,jdbcType=VARCHAR},
-      #{total ,jdbcType=DOUBLE}
+      #{total ,jdbcType=DOUBLE},
+      #{actual ,jdbcType=DOUBLE}
     )
   </insert>
 
@@ -24,7 +25,8 @@
       REV_ = #{revisionNext ,jdbcType=INTEGER},
       IDPROJECT_ = #{idProject ,jdbcType=VARCHAR},
       IDCOSTENTRY_ = #{idCostEntry ,jdbcType=VARCHAR},
-      TOTAL_ = #{total ,jdbcType=DOUBLE}
+      TOTAL_ = #{total ,jdbcType=DOUBLE},
+      ACTUAL_ = #{actual ,jdbcType=DOUBLE}
     where ID_ = #{id}
        and REV_ = #{revision}
   </update>
@@ -37,6 +39,7 @@
     <result property="idProject" column="IDPROJECT_" jdbcType="VARCHAR" />
     <result property="idCostEntry" column="IDCOSTENTRY_" jdbcType="VARCHAR" />
     <result property="total" column="TOTAL_" jdbcType="DOUBLE" />
+    <result property="actual" column="ACTUAL_" jdbcType="DOUBLE" />
   </resultMap>
   
   <!-- ProjectCostItem SELECT -->
@@ -72,6 +75,9 @@
       </if> 
       <if test="total != null">
         and RES.TOTAL_ = #{total}
+      </if>  
+      <if test="actual != null">
+        and RES.ACTUAL_ = #{actual}
       </if>     
     </where>
   </sql>

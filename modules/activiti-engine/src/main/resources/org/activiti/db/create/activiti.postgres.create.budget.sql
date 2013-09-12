@@ -35,6 +35,7 @@ create table ACT_BUDGET_PROJECTCOSTITEM (
     IDCOSTENTRY_ varchar(64),
     REV_ integer,
     TOTAL_ double precision,
+    ACTUAL_ double precision,
     primary key (ID_)
 );
 

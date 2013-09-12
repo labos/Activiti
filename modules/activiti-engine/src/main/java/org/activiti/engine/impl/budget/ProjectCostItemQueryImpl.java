@@ -20,6 +20,7 @@ public class ProjectCostItemQueryImpl extends AbstractQuery<ProjectCostItemQuery
 	protected String idProject;
 	protected String idCostEntry;
 	protected Double total;
+	protected Double actual;
 	
 	public ProjectCostItemQueryImpl(){
 		
@@ -90,6 +91,16 @@ public class ProjectCostItemQueryImpl extends AbstractQuery<ProjectCostItemQuery
 	public void setTotal(Double total) {
 		this.total = total;
 	}
+
+	public Double getActual() {
+		return actual;
+	}
+
+	public void setActual(Double actual) {
+		this.actual = actual;
+	}
+	
+	
 	
 	
 }
