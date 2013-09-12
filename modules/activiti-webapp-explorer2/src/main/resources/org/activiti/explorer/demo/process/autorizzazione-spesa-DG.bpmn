@@ -3,7 +3,7 @@
   <process id="processo-autorizzazione-spesa-DG" name="Autorizzazione spesa DG" isExecutable="true" activiti:candidateStarterGroups="pst">
     <userTask id="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" name="Inserimento dati progetto ${initiator}" activiti:exclusive="false" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="voceprogetto" name="Voce di Costo" type="projectCostItem" variable="voceprogetto" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sourceprogetto" name="Fonte Finanziamento" type="source" variable="sourceprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="oggettoprogetto" name="Oggetto/Motivazione" type="string" variable="oggettoprogetto" required="true"></activiti:formProperty>
         <activiti:formProperty id="importo" name="Spesa/Impegno" type="long" variable="importo" required="true"></activiti:formProperty>
         <activiti:formProperty id="visto" name="VISTO" type="textarea" variable="visto"></activiti:formProperty>
@@ -12,7 +12,7 @@
     </userTask>
     <userTask id="sid-49F646B0-DC0D-42E7-A823-80DC461519E3" name="Autorizzazione SPF" activiti:exclusive="false" activiti:assignee="emulas">
       <extensionElements>
-        <activiti:formProperty id="nome-progetto-spf" name="Voce di Costo" type="string" variable="voceprogetto.idProject" default="${voceprogetto.idProject}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nome-progetto-spf" name="Fonte Finanziamento" type="string" variable="sourceprogetto.name" default="${sourceprogetto.name}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="oggetto-progetto-spf" name="Oggetto Progetto" variable="oggettoprogetto" writable="false"></activiti:formProperty>
         <activiti:formProperty id="importoread" name="Importo" type="long" expression="#{importo}" variable="importo" writable="false"></activiti:formProperty>
         <activiti:formProperty id="applicaiva" name="Applicazione IVA?" type="boolean" variable="applicazioneiva"></activiti:formProperty>
@@ -56,14 +56,14 @@
     </userTask>
     <serviceTask id="servicetask6" name="Aggiornamento Budget" activiti:class="org.sr.activiti.explorer.delegates.UpdateBudget">
       <extensionElements>
+        <activiti:field name="sourceToUpdate">
+          <activiti:expression>${sourceprogetto}</activiti:expression>
+        </activiti:field>
         <activiti:field name="amountToDecrease">
           <activiti:expression>${importo}</activiti:expression>
         </activiti:field>
         <activiti:field name="vatApplied">
           <activiti:expression>${applicazioneiva}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="costToUpdate">
-          <activiti:expression>${voceprogetto}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -89,23 +89,24 @@
     <sequenceFlow id="flow62" sourceRef="usertask2" targetRef="sid-49F646B0-DC0D-42E7-A823-80DC461519E3"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow65" sourceRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA" targetRef="exclusivegateway5"></sequenceFlow>
-    <sequenceFlow id="flow66" name="Capienza OK" sourceRef="exclusivegateway5" targetRef="exclusivegateway4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${voceprogetto.actual - importo > 0}]]></conditionExpression>
+    <sequenceFlow id="flow66" name="Capienza" sourceRef="exclusivegateway5" targetRef="exclusivegateway4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${sourceprogetto.total - importo > 0}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow67" name="Capienza insufficiente" sourceRef="exclusivegateway5" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${voceprogetto.actual - importo < 0}]]></conditionExpression>
+    <sequenceFlow id="flow67" sourceRef="exclusivegateway5" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${sourceprogetto.total - importo < 0}]]></conditionExpression>
     </sequenceFlow>
     <callActivity id="callactivity1" name="Determinazione DG" calledElement="determinazione-DG">
       <extensionElements>
         <activiti:in source="initiator" target="initiator"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
-        <activiti:in source="initiator" target="detAssignee"></activiti:in>
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow68" sourceRef="servicetask6" targetRef="callactivity1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow69" sourceRef="callactivity1" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow69" sourceRef="callactivity1" targetRef="servicetask7"></sequenceFlow>
     <sequenceFlow id="flow70" sourceRef="sid-DCAB1BF0-AD0C-4E05-BA41-112AFCB84A85" targetRef="sid-DC49EAF8-4F1E-4080-9D8F-1734139977EA"></sequenceFlow>
+    <serviceTask id="servicetask7" name="Copy Attachments to parent" activiti:class="org.sr.activiti.explorer.delegates.CopyAttachmentsToParent"></serviceTask>
+    <sequenceFlow id="flow71" sourceRef="servicetask7" targetRef="endevent1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_processo-autorizzazione-spesa-DG">
     <bpmndi:BPMNPlane bpmnElement="processo-autorizzazione-spesa-DG" id="BPMNPlane_processo-autorizzazione-spesa-DG">
@@ -149,7 +150,10 @@
         <omgdc:Bounds height="55.0" width="105.0" x="687.0" y="140.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="850.0" y="150.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="1000.0" y="149.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
+        <omgdc:Bounds height="55.0" width="105.0" x="840.0" y="140.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="360.0" y="167.0"></omgdi:waypoint>
@@ -159,14 +163,14 @@
         <omgdi:waypoint x="455.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="530.0" y="167.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="44.0" x="-32.0" y="-21.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="44.0" x="-32.0" y="-21.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
         <omgdi:waypoint x="435.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="436.0" y="265.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="66.0" x="5.0" y="-15.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="66.0" x="5.0" y="-15.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
@@ -189,14 +193,14 @@
         <omgdi:waypoint x="169.0" y="82.0"></omgdi:waypoint>
         <omgdi:waypoint x="310.0" y="127.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="64.0" x="13.0" y="-14.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="64.0" x="13.0" y="-14.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow61" id="BPMNEdge_flow61">
         <omgdi:waypoint x="189.0" y="62.0"></omgdi:waypoint>
         <omgdi:waypoint x="257.0" y="62.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="38.0" x="-23.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="38.0" x="-23.0" y="-17.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow62" id="BPMNEdge_flow62">
@@ -211,16 +215,13 @@
         <omgdi:waypoint x="169.0" y="146.0"></omgdi:waypoint>
         <omgdi:waypoint x="169.0" y="82.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="63.0" x="-79.0" y="13.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="45.0" x="-49.0" y="4.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow67" id="BPMNEdge_flow67">
         <omgdi:waypoint x="189.0" y="166.0"></omgdi:waypoint>
         <omgdi:waypoint x="219.0" y="165.0"></omgdi:waypoint>
         <omgdi:waypoint x="170.0" y="265.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="100.0" x="4.0" y="-6.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow68" id="BPMNEdge_flow68">
         <omgdi:waypoint x="635.0" y="167.0"></omgdi:waypoint>
@@ -228,11 +229,16 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow69" id="BPMNEdge_flow69">
         <omgdi:waypoint x="792.0" y="167.0"></omgdi:waypoint>
-        <omgdi:waypoint x="850.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="167.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow70" id="BPMNEdge_flow70">
         <omgdi:waypoint x="-35.0" y="304.0"></omgdi:waypoint>
         <omgdi:waypoint x="120.0" y="305.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow71" id="BPMNEdge_flow71">
+        <omgdi:waypoint x="945.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="987.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1000.0" y="166.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

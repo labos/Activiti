@@ -86,7 +86,9 @@
     <sequenceFlow id="flow16" name="Non archiviato" sourceRef="exclusivegateway4" targetRef="parallelgateway1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isArchived}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask5" name="Problema archiviazione" activiti:async="true" activiti:assignee="${initiator}"></userTask>
+    <userTask id="usertask5" name="Problema archiviazione" activiti:async="true" activiti:assignee="${initiator}">
+      <documentation>ATTENZIONE: SI È VERIFICATO UN PROBLEMA NEL SALVATAGGIO DEI FILE NEL DOCUMENTALE. AVVISARE I SISTEMISTI E COMPLETARE IL TASK APPENA AVER RISOLTO IL PROBLEMA</documentation>
+    </userTask>
     <serviceTask id="mailtask1" name="Notifica problema archiviazione" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -161,6 +163,7 @@
     <sequenceFlow id="flow29" sourceRef="parallelgateway3" targetRef="servicetask4"></sequenceFlow>
     <serviceTask id="servicetask5" name="Copy Attachments to parent" activiti:class="org.sr.activiti.explorer.delegates.CopyAttachmentsToParent"></serviceTask>
     <sequenceFlow id="flow30" sourceRef="servicetask5" targetRef="usertask4"></sequenceFlow>
+    <sequenceFlow id="flow31" sourceRef="usertask5" targetRef="servicetask4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_determinazione-DG">
     <bpmndi:BPMNPlane bpmnElement="determinazione-DG" id="BPMNPlane_determinazione-DG">
@@ -367,6 +370,10 @@
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
         <omgdi:waypoint x="1252.0" y="205.0"></omgdi:waypoint>
         <omgdi:waypoint x="1252.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="1000.0" y="108.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1000.0" y="150.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
