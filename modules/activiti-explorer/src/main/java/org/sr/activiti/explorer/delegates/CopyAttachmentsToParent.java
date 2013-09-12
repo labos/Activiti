@@ -25,7 +25,7 @@ public class CopyAttachmentsToParent implements JavaDelegate {
 				.getProcessInstanceAttachments(execution.getProcessInstanceId());
 		for (Attachment anAttachment : attachmentList) {
 			commandExecutor.execute(new CopyAttachmentCmd(anAttachment,
-					execution.getParentId()));
+					execution.getEngineServices().getRuntimeService().createProcessInstanceQuery().subProcessInstanceId(execution.getProcessInstanceId()).singleResult().getProcessInstanceId()));
 		}
 
 	}

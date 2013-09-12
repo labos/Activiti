@@ -192,14 +192,14 @@ public class TaskRelatedContentComponent extends VerticalLayout implements Relat
     if (task.getProcessInstanceId() != null){
       attachments = (taskService.getProcessInstanceAttachments(task.getProcessInstanceId()));
       List <ProcessInstance> parentProcesses = runtimeService.createProcessInstanceQuery().subProcessInstanceId(task.getProcessInstanceId()).list();  
-      List <HistoricProcessInstance> historicProcesses = historyService.createHistoricProcessInstanceQuery().superProcessInstanceId(task.getProcessInstanceId()).list();
+      //List <HistoricProcessInstance> historicProcesses = historyService.createHistoricProcessInstanceQuery().superProcessInstanceId(task.getProcessInstanceId()).list();
 
       for( ProcessInstance aParentProcess : parentProcesses){
     	  attachments.addAll(taskService.getProcessInstanceAttachments(aParentProcess.getId())); 	  
       }
-      for( HistoricProcessInstance aSubProcess : historicProcesses){
+     /* for( HistoricProcessInstance aSubProcess : historicProcesses){
     	  attachments.addAll(taskService.getProcessInstanceAttachments(aSubProcess.getId())); 	  
-      }
+      }*/
     } else {
       attachments = taskService.getTaskAttachments(task.getId());
     }

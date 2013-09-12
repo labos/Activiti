@@ -36,6 +36,7 @@ public class CopyAttachmentCmd implements Command<Object> {
 	public Object execute(CommandContext commandContext) {
 		DbSqlSession dbSqlSession = commandContext.getDbSqlSession();
 		this.attachment.setId(null);
+		this.attachment.setTaskId(null);
 		this.attachment.setProcessInstanceId(this.processInstanceId);
 		dbSqlSession.insert(this.attachment);
 		return attachment;
