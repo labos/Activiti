@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="determinazione-DG" name="Determinazione DG" isExecutable="true" activiti:candidateStarterGroups="user">
-    <startEvent id="startevent1" name="Start"></startEvent>
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <userTask id="usertask1" name="Proposta di determinazione ${detSubject}" activiti:async="true" activiti:assignee="${detAssignee}"></userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask2" name="Approvazione DG" activiti:assignee="aatzeni">
@@ -19,7 +19,7 @@
         <activiti:formProperty id="numerodeterminazione" name="Numero determinazione" type="long" variable="numerodeterminazione" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <serviceTask id="servicetask1" name="Check allegato" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
+    <serviceTask id="servicetask1" name="Check allegato" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -35,7 +35,7 @@
     <sequenceFlow id="flow5" name="Allegato" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="Check allegato" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
+    <serviceTask id="servicetask2" name="Check allegato" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -47,7 +47,7 @@
     <sequenceFlow id="flow9" name="Allegato" sourceRef="exclusivegateway2" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask3" name="Check allegato" activiti:class="org.activiti.explorer.delegates.AttachmentCheck">
+    <serviceTask id="servicetask3" name="Check allegato" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -60,7 +60,7 @@
     <sequenceFlow id="flow12" name="Non allegato" sourceRef="exclusivegateway3" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask4" name="Archiviazione" activiti:class="org.activiti.explorer.delegates.CmisArchive">
+    <serviceTask id="servicetask4" name="Archiviazione" activiti:class="org.sr.activiti.explorer.delegates.CmisArchive">
       <documentation>C'è stato un problema nell'archiviazione dei documenti. Contattare l'amministratore e solo dopo aver avuto conferma dall'amministratore completare questo task.</documentation>
       <extensionElements>
         <activiti:field name="parentFolder">
@@ -80,7 +80,7 @@
     <userTask id="usertask4" name="Lista documenti archiviati" activiti:assignee="${detAssignee}">
       <documentation>L'archiviazione della determinazione si è conclusa con successo.</documentation>
     </userTask>
-    <sequenceFlow id="flow15" name="Archiviato" sourceRef="exclusivegateway4" targetRef="usertask4">
+    <sequenceFlow id="flow15" name="Archiviato" sourceRef="exclusivegateway4" targetRef="servicetask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isArchived}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow16" name="Non archiviato" sourceRef="exclusivegateway4" targetRef="parallelgateway1">
@@ -159,6 +159,8 @@
     </sequenceFlow>
     <sequenceFlow id="flow28" sourceRef="parallelgateway3" targetRef="mailtask3"></sequenceFlow>
     <sequenceFlow id="flow29" sourceRef="parallelgateway3" targetRef="servicetask4"></sequenceFlow>
+    <serviceTask id="servicetask5" name="Copy Attachments to parent" activiti:class="org.sr.activiti.explorer.delegates.CopyAttachmentsToParent"></serviceTask>
+    <sequenceFlow id="flow30" sourceRef="servicetask5" targetRef="usertask4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_determinazione-DG">
     <bpmndi:BPMNPlane bpmnElement="determinazione-DG" id="BPMNPlane_determinazione-DG">
@@ -202,7 +204,7 @@
         <omgdc:Bounds height="40.0" width="40.0" x="1110.0" y="157.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="55.0" width="105.0" x="1210.0" y="150.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="1200.0" y="240.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
         <omgdc:Bounds height="55.0" width="105.0" x="948.0" y="53.0"></omgdc:Bounds>
@@ -211,7 +213,7 @@
         <omgdc:Bounds height="55.0" width="105.0" x="1210.0" y="53.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="1245.0" y="244.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="1350.0" y="250.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
         <omgdc:Bounds height="40.0" width="40.0" x="372.0" y="50.0"></omgdc:Bounds>
@@ -227,6 +229,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="parallelgateway3" id="BPMNShape_parallelgateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="980.0" y="277.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="1200.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="45.0" y="177.0"></omgdi:waypoint>
@@ -286,7 +291,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="1150.0" y="177.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1210.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1200.0" y="177.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="13.0" width="46.0" x="-30.0" y="5.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -307,8 +312,8 @@
         <omgdi:waypoint x="1053.0" y="80.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="1262.0" y="205.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1262.0" y="244.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1305.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1350.0" y="267.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="392.0" y="150.0"></omgdi:waypoint>
@@ -358,6 +363,10 @@
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
         <omgdi:waypoint x="1000.0" y="277.0"></omgdi:waypoint>
         <omgdi:waypoint x="1000.0" y="205.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="1252.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1252.0" y="240.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
