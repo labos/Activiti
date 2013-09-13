@@ -86,7 +86,7 @@
     <sequenceFlow id="flow16" name="Non archiviato" sourceRef="exclusivegateway4" targetRef="parallelgateway1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isArchived}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask5" name="Problema archiviazione" activiti:async="true" activiti:assignee="${initiator}">
+    <userTask id="usertask5" name="Problema archiviazione" activiti:async="true" activiti:assignee="${detAssignee}">
       <documentation>ATTENZIONE: SI È VERIFICATO UN PROBLEMA NEL SALVATAGGIO DEI FILE NEL DOCUMENTALE. AVVISARE I SISTEMISTI E COMPLETARE IL TASK APPENA AVER RISOLTO IL PROBLEMA</documentation>
     </userTask>
     <serviceTask id="mailtask1" name="Notifica problema archiviazione" activiti:type="mail">
