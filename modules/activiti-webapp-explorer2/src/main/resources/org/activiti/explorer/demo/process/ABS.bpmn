@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="idProcessoABS" name="Processo ABS Processo interno per ABS attraverso una procedura di cottimo fiduciario" isExecutable="true" activiti:candidateStarterGroups="pst">
+    <documentation>INSERIRE L'OGGETTO DELLA PROCEDURA DI ACQUISTO</documentation>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <callActivity id="callactivity1" name="Autorizzazione spesa DG" calledElement="processo-autorizzazione-spesa-DG">
       <extensionElements>
@@ -9,6 +10,7 @@
         <activiti:in source="initiatorGroupHead" target="initiatorGroupHead"></activiti:in>
         <activiti:in source="initiatorAreaHead" target="initiatorAreaHead"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
+        <activiti:in source="subject" target="subject"></activiti:in>
         <activiti:out source="alfrescoPageLinks" target="alfrescoPageLinks"></activiti:out>
       </extensionElements>
     </callActivity>
@@ -304,6 +306,7 @@
     </userTask>
     <sequenceFlow id="flow167" sourceRef="usertask39" targetRef="usertask53"></sequenceFlow>
     <userTask id="usertask54" name="Inserimento nominativo RUP" activiti:assignee="${initiatorGroupHead}">
+      <documentation>SELEZIONARE IL RUP PER LA PROCEDURA  "${subject}".</documentation>
       <extensionElements>
         <activiti:formProperty id="idNominativoRUP" type="user" variable="nominativoRUP" required="true"></activiti:formProperty>
       </extensionElements>
@@ -350,15 +353,12 @@
     </serviceTask>
     <sequenceFlow id="flow177" sourceRef="startevent1" targetRef="servicetask22"></sequenceFlow>
     <sequenceFlow id="flow178" sourceRef="servicetask22" targetRef="servicetask23"></sequenceFlow>
-    <userTask id="usertask60" name="Documentazione preliminare" activiti:assignee="${initiator}">
-      <documentation>ALLEGARE EVENTUALE DOCUMENTAZIONE PRELIMINARE NECESSARIA PER L'AVVIO DELLA PROCEDURA DI ACQUISIZIONE DI BENI E SERVIZI</documentation>
-    </userTask>
-    <sequenceFlow id="flow179" sourceRef="servicetask23" targetRef="usertask60"></sequenceFlow>
     <callActivity id="callactivity2" name="Determinazione nomina RUP" calledElement="determinazione-DG">
       <extensionElements>
         <activiti:in sourceExpression="smaxia" target="detAssignee"></activiti:in>
         <activiti:in sourceExpression="nomina RUP" target="detSubject"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
+        <activiti:in source="subject" target="subject"></activiti:in>
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow185" name="Approvato" sourceRef="exclusivegateway27" targetRef="callactivity2">
@@ -386,7 +386,16 @@
     <sequenceFlow id="flow190" sourceRef="usertask56" targetRef="callactivity4"></sequenceFlow>
     <sequenceFlow id="flow191" sourceRef="callactivity4" targetRef="usertask59"></sequenceFlow>
     <sequenceFlow id="flow192" sourceRef="parallelgateway3" targetRef="usertask29"></sequenceFlow>
-    <sequenceFlow id="flow193" sourceRef="usertask60" targetRef="usertask54"></sequenceFlow>
+    <userTask id="usertask61" name="Oggetto della procedura e doc preliminari" activiti:assignee="${initiator}">
+      <documentation>SPECIFICARE L'OGGETTO DELLA PROCEDURA DI ACQUISIZIONE DI BENI E SERVIZI E ALLEGARE EVENTUALE DOCUMENTAZIONE PRELIMINARE NECESSARIA PER L'AVVIO.</documentation>
+      <extensionElements>
+        <activiti:formProperty id="subject" name="Oggetto della procedura ABS" type="textarea" variable="subject" required="true">
+          <activiti:value id="subject" name="Subject"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow194" sourceRef="servicetask23" targetRef="usertask61"></sequenceFlow>
+    <sequenceFlow id="flow195" sourceRef="usertask61" targetRef="usertask54"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Possiamo automatizzare meglio la consegna delle lettere di invito al protocollo per la protocollazione in uscita</text>
     </textAnnotation>
@@ -438,7 +447,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
   <bpmndi:BPMNDiagram id="BPMNDiagram_idProcessoABS">
     <bpmndi:BPMNPlane bpmnElement="idProcessoABS" id="BPMNPlane_idProcessoABS">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="45.0" y="-28.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="45.0" y="-115.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity1" id="BPMNShape_callactivity1">
         <omgdc:Bounds height="67.0" width="105.0" x="849.0" y="-46.0"></omgdc:Bounds>
@@ -665,14 +674,11 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNShape bpmnElement="usertask59" id="BPMNShape_usertask59">
         <omgdc:Bounds height="55.0" width="105.0" x="3269.0" y="90.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask60" id="BPMNShape_usertask60">
-        <omgdc:Bounds height="71.0" width="105.0" x="140.0" y="137.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask22" id="BPMNShape_servicetask22">
-        <omgdc:Bounds height="55.0" width="105.0" x="10.0" y="47.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="10.0" y="-42.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask23" id="BPMNShape_servicetask23">
-        <omgdc:Bounds height="55.0" width="105.0" x="10.0" y="141.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="10.0" y="63.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity2" id="BPMNShape_callactivity2">
         <omgdc:Bounds height="62.0" width="105.0" x="446.0" y="60.0"></omgdc:Bounds>
@@ -682,6 +688,9 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity4" id="BPMNShape_callactivity4">
         <omgdc:Bounds height="82.0" width="105.0" x="3053.0" y="77.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask61" id="BPMNShape_usertask61">
+        <omgdc:Bounds height="71.0" width="105.0" x="180.0" y="115.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="752.0" y="98.0"></omgdi:waypoint>
@@ -1040,16 +1049,12 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="3686.0" y="11.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow177" id="BPMNEdge_flow177">
-        <omgdi:waypoint x="62.0" y="7.0"></omgdi:waypoint>
-        <omgdi:waypoint x="62.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="62.0" y="-80.0"></omgdi:waypoint>
+        <omgdi:waypoint x="62.0" y="-42.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow178" id="BPMNEdge_flow178">
-        <omgdi:waypoint x="62.0" y="102.0"></omgdi:waypoint>
-        <omgdi:waypoint x="62.0" y="141.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow179" id="BPMNEdge_flow179">
-        <omgdi:waypoint x="115.0" y="168.0"></omgdi:waypoint>
-        <omgdi:waypoint x="140.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="62.0" y="13.0"></omgdi:waypoint>
+        <omgdi:waypoint x="62.0" y="63.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow185" id="BPMNEdge_flow185">
         <omgdi:waypoint x="370.0" y="90.0"></omgdi:waypoint>
@@ -1101,8 +1106,12 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="4937.0" y="40.0"></omgdi:waypoint>
         <omgdi:waypoint x="4850.0" y="147.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow193" id="BPMNEdge_flow193">
-        <omgdi:waypoint x="192.0" y="137.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow194" id="BPMNEdge_flow194">
+        <omgdi:waypoint x="115.0" y="90.0"></omgdi:waypoint>
+        <omgdi:waypoint x="232.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow195" id="BPMNEdge_flow195">
+        <omgdi:waypoint x="232.0" y="115.0"></omgdi:waypoint>
         <omgdi:waypoint x="292.0" y="13.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
