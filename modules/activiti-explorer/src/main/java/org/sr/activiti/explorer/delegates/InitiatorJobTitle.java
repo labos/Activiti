@@ -49,7 +49,10 @@ public class InitiatorJobTitle implements JavaDelegate {
 		  System.out.println("Gruppo initiator:" + group.getId() + group.getName());
 		  for (User user : execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup(group.getId()).list()) {
 			  String userJobTitle = execution.getEngineServices().getIdentityService().getUserInfo(user.getId(), "jobTitle");
-			  if (userJobTitle != null && userJobTitle.contains("Responsabile")) {
+			  if (initiatorJobTitle.contains("Responsabile")) {		//initiatorGroupHead is the initiator
+				  execution.setVariable("initiatorGroupHead",((String)idInitiator.getValue(execution)));
+			}
+			  else if (userJobTitle != null && userJobTitle.contains("Responsabile")) {	//initiatorGroupHead is the initiator's group head
 				  execution.setVariable("initiatorGroupHead",user.getId());
 			  }
 		  }
