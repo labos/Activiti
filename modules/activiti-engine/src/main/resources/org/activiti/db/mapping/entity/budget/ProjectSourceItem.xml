@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="org.activiti.engine.impl.persistence.entity.budget.ProjectSourceItemEntity">
+
+  <!-- ProjectSourceItem INSERT -->
+
+  <insert id="insertProjectSourceItem" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProjectSourceItemEntity">
+    insert into ${prefix}ACT_BUDGET_PROJECTSOURCEITEM (ID_, REV_, IDPROJECT_,IDSOURCE_, TOTAL_, ACTUAL_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      1, 
+      #{idProject ,jdbcType=VARCHAR},
+      #{idSource ,jdbcType=VARCHAR},
+      #{total ,jdbcType=DOUBLE},
+      #{actual ,jdbcType=DOUBLE}
+    )
+  </insert>
+
+  <!-- ProjectSourceItem UPDATE -->
+  
+  <update id="updateProjectSourceItem" parameterType="org.activiti.engine.impl.persistence.entity.budget.ProjectSourceItemEntity">
+    update ${prefix}ACT_BUDGET_PROJECTSOURCEITEM set
+      REV_ = #{revisionNext ,jdbcType=INTEGER},
+      IDPROJECT_ = #{idProject ,jdbcType=VARCHAR},
+      IDSOURCE_ = #{idSource ,jdbcType=VARCHAR},
+      TOTAL_ = #{total ,jdbcType=DOUBLE},
+      ACTUAL_ = #{actual ,jdbcType=DOUBLE}
+    where ID_ = #{id}
+       and REV_ = #{revision}
+  </update>
+
+  <!-- ProjectSourceItem RESULTMAP -->
+
+  <resultMap id="projectSourceItemResultMap" type="org.activiti.engine.impl.persistence.entity.budget.ProjectSourceItemEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="revision" column="REV_" jdbcType="INTEGER" />
+    <result property="idProject" column="IDPROJECT_" jdbcType="VARCHAR" />
+    <result property="idSource" column="IDSOURCE_" jdbcType="VARCHAR" />
+    <result property="total" column="TOTAL_" jdbcType="DOUBLE" />
+    <result property="actual" column="ACTUAL_" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <!-- ProjectSourceItem SELECT -->
+
+  <select id="selectProjectSourceItemById" parameterType="string" resultMap="projectSourceItemResultMap">
+    select * from ${prefix}ACT_BUDGET_PROJECTSOURCEITEM where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+    
+  <select id="selectProjectSourceItemByQueryCriteria" parameterType="org.activiti.engine.impl.budget.ProjectSourceItemQueryImpl" resultMap="projectSourceItemResultMap">
+  	${limitBefore}
+    select RES.* ${limitBetween}
+    <include refid="selectProjectSourceItemByQueryCriteriaSql" />
+    ${orderBy}
+    ${limitAfter}
+  </select>
+  
+   <select id="selectProjectSourceItemCountByQueryCriteria" parameterType="org.activiti.engine.impl.budget.ProjectSourceItemQueryImpl" resultType="long">
+    select count(RES.ID_)
+    <include refid="selectProjectSourceItemByQueryCriteriaSql" />
+  </select>
+  
+  <sql id="selectProjectSourceItemByQueryCriteriaSql">
+    from ${prefix}ACT_BUDGET_PROJECTSOURCEITEM RES 
+    <where>
+      <if test="id != null">
+        RES.ID_ = #{id}
+      </if>
+      <if test="idProject != null">
+        and RES.IDPROJECT_ = #{idProject}
+      </if> 
+      <if test="idSource != null">
+        and RES.IDSOURCE_ = #{idSource}
+      </if> 
+      <if test="total != null">
+        and RES.TOTAL_ = #{total}
+      </if>  
+      <if test="actual != null">
+        and RES.ACTUAL_ = #{actual}
+      </if>     
+    </where>
+  </sql>
+  
+</mapper>

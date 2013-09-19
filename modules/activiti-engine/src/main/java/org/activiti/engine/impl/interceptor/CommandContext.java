@@ -54,6 +54,7 @@ import org.activiti.engine.impl.persistence.entity.budget.CostEntryEntityManager
 import org.activiti.engine.impl.persistence.entity.budget.ProgramEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProjectEntityManager;
+import org.activiti.engine.impl.persistence.entity.budget.ProjectSourceItemEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.SourceEntityManager;
 import org.activiti.engine.impl.pvm.runtime.AtomicOperation;
 import org.activiti.engine.impl.pvm.runtime.InterpretableExecution;
@@ -320,9 +321,15 @@ public class CommandContext {
 	  return getSession(ProjectCostItemEntityManager.class);
   }
   
+  public ProjectSourceItemEntityManager getProjectSourceItemEntityManager(){
+	  return getSession(ProjectSourceItemEntityManager.class);
+  }
+  
   public PropertyEntityManager getPropertyEntityManager() {
     return getSession(PropertyEntityManager.class);
   }
+  
+  
   
   public EventSubscriptionEntityManager getEventSubscriptionEntityManager() {
     return getSession(EventSubscriptionEntityManager.class);

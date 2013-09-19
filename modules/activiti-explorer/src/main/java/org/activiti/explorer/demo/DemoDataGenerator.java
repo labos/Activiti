@@ -30,6 +30,7 @@ import org.activiti.engine.budget.CostEntry;
 import org.activiti.engine.budget.Program;
 import org.activiti.engine.budget.Project;
 import org.activiti.engine.budget.ProjectCostItem;
+import org.activiti.engine.budget.ProjectSourceItem;
 import org.activiti.engine.budget.Source;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.Picture;
@@ -96,6 +97,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     initDemoProjects();
     initDemoCostEntries();
     initDemoProjectCostItems();
+    initDemoProjectSourceItems();
   }
   
   public void setProcessEngine(ProcessEngine processEngine) {
@@ -228,6 +230,27 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
 		  newProjectCostItem.setTotal(total);
 		  newProjectCostItem.setActual(actual);
 		  budgetService.saveProjectCostItem(newProjectCostItem);
+	  }
+  }
+  
+  protected void initDemoProjectSourceItems(){
+	  createProjectSourceItem("1", "progetto1", "fonte1", new Double(600), new Double(600));
+	  createProjectSourceItem("2", "progetto1", "fonte2", new Double(300), new Double(300));
+	  createProjectSourceItem("3", "progetto1", "fonte3", new Double(100), new Double(100));
+	  
+	  createProjectSourceItem("4", "progetto2", "fonte1", new Double(1400), new Double(1400));
+	  createProjectSourceItem("5", "progetto2", "fonte4", new Double(600), new Double(600));
+  }
+  
+  protected void createProjectSourceItem(String id, String idProject, String idSource, Double total, Double actual){
+	  if(budgetService.createProjectSourceItemQuery().projectSourceItemId(id).count() == 0){
+		  ProjectSourceItem newProjectSourceItem = budgetService.newProjectSourceItem(id);
+		  newProjectSourceItem.setId(id);
+		  newProjectSourceItem.setIdSource(idSource);
+		  newProjectSourceItem.setIdProject(idProject);
+		  newProjectSourceItem.setTotal(total);
+		  newProjectSourceItem.setActual(actual);
+		  budgetService.saveProjectSourceItem(newProjectSourceItem);
 	  }
   }
 

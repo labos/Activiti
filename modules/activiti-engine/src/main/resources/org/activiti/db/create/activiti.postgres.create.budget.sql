@@ -39,5 +39,15 @@ create table ACT_BUDGET_PROJECTCOSTITEM (
     primary key (ID_)
 );
 
+create table ACT_BUDGET_PROJECTSOURCEITEM (
+    ID_ varchar(64),
+    IDPROJECT_ varchar(64),
+    IDSOURCE_ varchar(64),
+    REV_ integer,
+    TOTAL_ double precision,
+    ACTUAL_ double precision,
+    primary key (ID_)
+);
+
 
 

@@ -54,6 +54,7 @@ import org.activiti.engine.impl.budget.CostEntryQueryImpl;
 import org.activiti.engine.impl.budget.ProgramQueryImpl;
 import org.activiti.engine.impl.budget.ProjectCostItemQueryImpl;
 import org.activiti.engine.impl.budget.ProjectQueryImpl;
+import org.activiti.engine.impl.budget.ProjectSourceItemQueryImpl;
 import org.activiti.engine.impl.budget.SourceQueryImpl;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.context.Context;
@@ -1205,6 +1206,10 @@ public class DbSqlSession implements Session {
   
   public ProjectCostItemQueryImpl createProjectCostItemQuery(){
 	  return new ProjectCostItemQueryImpl();
+  }
+  
+  public ProjectSourceItemQueryImpl createProjectSourceItemQuery(){
+	  return new ProjectSourceItemQueryImpl();
   }
 
   // getters and setters //////////////////////////////////////////////////////
