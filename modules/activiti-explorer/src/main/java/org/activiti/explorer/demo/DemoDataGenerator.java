@@ -10,7 +10,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.activiti.explorer.demo;
 
 import java.io.InputStream;
@@ -216,7 +215,6 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
 	  createProjectCostItem("1", "progetto1", "collaboratori", new Double(600), new Double(600));
 	  createProjectCostItem("2", "progetto1", "attrezzature", new Double(300), new Double(300));
 	  createProjectCostItem("3", "progetto1", "altro", new Double(100), new Double(100));
-	  
 	  createProjectCostItem("4", "progetto2", "collaboratori", new Double(1400), new Double(1400));
 	  createProjectCostItem("5", "progetto1", "attrezzature", new Double(600), new Double(600));
   }
@@ -237,7 +235,6 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
 	  createProjectSourceItem("1", "progetto1", "fonte1", new Double(600), new Double(600));
 	  createProjectSourceItem("2", "progetto1", "fonte2", new Double(300), new Double(300));
 	  createProjectSourceItem("3", "progetto1", "fonte3", new Double(100), new Double(100));
-	  
 	  createProjectSourceItem("4", "progetto2", "fonte1", new Double(1400), new Double(1400));
 	  createProjectSourceItem("5", "progetto2", "fonte4", new Double(600), new Double(600));
   }
@@ -393,6 +390,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
         .addClasspathResource("org/activiti/explorer/demo/process/ABS.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/autorizzazione-spesa-DG.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/determinazione-DG.bpmn")
+        .addClasspathResource("org/activiti/explorer/demo/process/nuovo-progetto.bpmn")
         .deploy();
     }
     
