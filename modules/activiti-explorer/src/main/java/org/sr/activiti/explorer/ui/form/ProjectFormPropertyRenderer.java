@@ -38,64 +38,7 @@ public class ProjectFormPropertyRenderer extends AbstractFormPropertyRenderer {
     super(ProjectFormType.class);
   }
 
-  /*
-  public Field getPropertyField(FormProperty formProperty) {
-    ComboBox comboBox = new ComboBox(getPropertyLabel(formProperty));
-    comboBox.setRequired(formProperty.isRequired());
-    comboBox.setRequiredError(getMessage(Messages.FORM_FIELD_REQUIRED, getPropertyLabel(formProperty)));
-    comboBox.setEnabled(formProperty.isWritable());
-    
-    List<BudgetRow> budgetRows = new ArrayList<BudgetRow>();
-    BudgetRow aBudgetRow = new BudgetRow();
-    aBudgetRow.setId("progetto 1");
-    aBudgetRow.setProjectName("progetto 1");
-    budgetRows.add(aBudgetRow);
-    
-    aBudgetRow = new BudgetRow();
-    aBudgetRow.setId("progetto 2");
-    aBudgetRow.setProjectName("progetto 2");
-    budgetRows.add(aBudgetRow);
-    
-    aBudgetRow = new BudgetRow();
-    aBudgetRow.setId("progetto 3");
-    aBudgetRow.setProjectName("progetto 3");
-    budgetRows.add(aBudgetRow);
-    
-    aBudgetRow = new BudgetRow();
-    aBudgetRow.setId("progetto 4");
-    aBudgetRow.setProjectName("progetto 4");
-    budgetRows.add(aBudgetRow);
-    
-    aBudgetRow = new BudgetRow();
-    aBudgetRow.setId("progetto 5");
-    aBudgetRow.setProjectName("progetto 5");
-    budgetRows.add(aBudgetRow);
-    
-    aBudgetRow.setId("progetto 6");
-    aBudgetRow.setProjectName("progetto 6");
-    budgetRows.add(aBudgetRow);
-    
-    aBudgetRow = new BudgetRow();
-    aBudgetRow.setId("progetto 7");
-    aBudgetRow.setProjectName("progetto 7");
-    budgetRows.add(aBudgetRow);
-    
-       
-    for(BudgetRow each: budgetRows){
-    	comboBox.addItem(each.getId());
-        String name = each.getProjectName() + " (" + 100 + ")";
-        comboBox.setItemCaption(each.getId(), name);
-    	
-    }
-    
-    // Select first
-    if(budgetRows.size() > 0){
-    	comboBox.setNullSelectionAllowed(false);
-        comboBox.select(budgetRows.get(0).getId());    	
-    }
-    
-    return comboBox;
-  }*/
+  
   
   public Field getPropertyField(FormProperty formProperty) {
 	    ComboBox comboBox = new ComboBox(getPropertyLabel(formProperty));
