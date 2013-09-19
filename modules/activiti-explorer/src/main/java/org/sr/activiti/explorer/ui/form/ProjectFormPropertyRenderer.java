@@ -20,7 +20,6 @@ import org.activiti.engine.budget.Project;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.explorer.Messages;
 import org.activiti.explorer.ui.form.AbstractFormPropertyRenderer;
-import org.sr.activiti.explorer.form.BudgetRow;
 import org.sr.activiti.explorer.form.ProjectFormType;
 
 import com.vaadin.ui.ComboBox;
