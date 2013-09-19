@@ -22,7 +22,7 @@
     <callActivity id="callactivity2" name="Determinazione di avvio progetto" calledElement="determinazione-DG">
       <extensionElements>
         <activiti:in sourceExpression="smaxia" target="detAssignee"></activiti:in>
-        <activiti:in sourceExpression="avvio progetto su ${project.projectName}" target="detSubject"></activiti:in>
+        <activiti:in sourceExpression="avvio progetto su ${project.name}" target="detSubject"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
         <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
       </extensionElements>
@@ -44,7 +44,7 @@
     <sequenceFlow id="flow194" sourceRef="servicetask23" targetRef="usertask61"></sequenceFlow>
     <userTask id="usertask62" name="Autorizzazione SPF" activiti:assignee="emulas">
       <extensionElements>
-        <activiti:formProperty id="project-spf" name="Progetto" type="string" default="${project.projectName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="project-spf" name="Progetto" type="string" default="${project.name}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="abs-spf" name="Importo ABS" type="long" variable="importoABS" writable="false"></activiti:formProperty>
         <activiti:formProperty id="aiuti-spf" name="Importo Aiuti" type="long" variable="importoAiuti" writable="false"></activiti:formProperty>
         <activiti:formProperty id="collab-spf" name="Importo Collaborazioni" type="long" variable="importoCollab" writable="false"></activiti:formProperty>
@@ -94,7 +94,7 @@
     </serviceTask>
     <sequenceFlow id="flow204" sourceRef="parallelgateway1" targetRef="mailtask1"></sequenceFlow>
     <userTask id="usertask67" name="Approvazione responsabile" activiti:assignee="${initiatorGroupHead}">
-      <documentation>AUTORIZZA L'AVVIO DEL PROGETTO "${project.projectName}" DA PARTE DI ${initiator}.</documentation>
+      <documentation>AUTORIZZA L'AVVIO DEL PROGETTO "${project.name}" DA PARTE DI ${initiator}.</documentation>
     </userTask>
     <sequenceFlow id="flow205" sourceRef="usertask67" targetRef="usertask62"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
@@ -168,14 +168,14 @@
         <omgdi:waypoint x="897.0" y="159.0"></omgdi:waypoint>
         <omgdi:waypoint x="970.0" y="159.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="-35.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="47.0" x="-35.0" y="-17.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow200" id="BPMNEdge_flow200">
         <omgdi:waypoint x="860.0" y="179.0"></omgdi:waypoint>
         <omgdi:waypoint x="860.0" y="230.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="67.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow201" id="BPMNEdge_flow201">
@@ -206,14 +206,14 @@
         <omgdi:waypoint x="525.0" y="67.0"></omgdi:waypoint>
         <omgdi:waypoint x="702.0" y="132.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="65.0" x="-2.0" y="-13.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="65.0" x="-2.0" y="-13.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow208" id="BPMNEdge_flow208">
         <omgdi:waypoint x="545.0" y="47.0"></omgdi:waypoint>
         <omgdi:waypoint x="650.0" y="47.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="38.0" x="-34.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="38.0" x="-34.0" y="-17.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

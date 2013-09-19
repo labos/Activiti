@@ -15,11 +15,11 @@ package org.sr.activiti.explorer.ui.form;
 import java.util.List;
 
 import org.activiti.engine.ProcessEngines;
-import org.activiti.engine.budget.ProjectCostItem;
+import org.activiti.engine.budget.ProjectSourceItem;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.explorer.Messages;
 import org.activiti.explorer.ui.form.AbstractFormPropertyRenderer;
-import org.sr.activiti.explorer.form.ProjectCostItemFormType;
+import org.sr.activiti.explorer.form.ProjectSourceItemFormType;
 
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Field;
@@ -27,12 +27,12 @@ import com.vaadin.ui.Field;
 /**
  * @author Lab Open Source
  */
-public class ProjectCostItemFormPropertyRenderer extends AbstractFormPropertyRenderer {
+public class ProjectSourceItemFormPropertyRenderer extends AbstractFormPropertyRenderer {
   
   private static final long serialVersionUID = 1L;
 
-  public ProjectCostItemFormPropertyRenderer() {
-    super(ProjectCostItemFormType.class);
+  public ProjectSourceItemFormPropertyRenderer() {
+    super(ProjectSourceItemFormType.class);
   }
 
   public Field getPropertyField(FormProperty formProperty) {
@@ -41,21 +41,21 @@ public class ProjectCostItemFormPropertyRenderer extends AbstractFormPropertyRen
     comboBox.setRequiredError(getMessage(Messages.FORM_FIELD_REQUIRED, getPropertyLabel(formProperty)));
     comboBox.setEnabled(formProperty.isWritable());
     
-    List<ProjectCostItem> costItems = ProcessEngines.getDefaultProcessEngine()
+    List<ProjectSourceItem> projectSourceItems = ProcessEngines.getDefaultProcessEngine()
     		.getBudgetService()
-    		.createProjectCostItemQuery()
+    		.createProjectSourceItemQuery()
     		.list();
     		
-    for(ProjectCostItem costItem: costItems){
-    	comboBox.addItem(costItem.getId());
-    	String name = costItem.getIdProject() + " " +  costItem.getIdCostEntry() + " (Residuo: " + costItem.getActual() + ")";
-    	comboBox.setItemCaption(costItem.getId(), name);
+    for(ProjectSourceItem projectSourceItem: projectSourceItems){
+    	comboBox.addItem(projectSourceItem.getId());
+    	String name = projectSourceItem.getIdProject() + " " +  projectSourceItem.getIdSource() + " (Residuo: " + projectSourceItem.getActual() + ")";
+    	comboBox.setItemCaption(projectSourceItem.getId(), name);
     }
     		
     // Select first
-    if (costItems.size() > 0) {
+    if (projectSourceItems.size() > 0) {
       comboBox.setNullSelectionAllowed(false);
-      comboBox.select(costItems.get(0).getId());
+      comboBox.select(projectSourceItems.get(0).getId());
     }
     
     return comboBox;

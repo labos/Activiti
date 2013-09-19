@@ -15,6 +15,8 @@ package org.sr.activiti.explorer.ui.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.budget.Project;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.explorer.Messages;
 import org.activiti.explorer.ui.form.AbstractFormPropertyRenderer;
@@ -36,6 +38,7 @@ public class ProjectFormPropertyRenderer extends AbstractFormPropertyRenderer {
     super(ProjectFormType.class);
   }
 
+  /*
   public Field getPropertyField(FormProperty formProperty) {
     ComboBox comboBox = new ComboBox(getPropertyLabel(formProperty));
     comboBox.setRequired(formProperty.isRequired());
@@ -92,6 +95,33 @@ public class ProjectFormPropertyRenderer extends AbstractFormPropertyRenderer {
     }
     
     return comboBox;
-  }
+  }*/
+  
+  public Field getPropertyField(FormProperty formProperty) {
+	    ComboBox comboBox = new ComboBox(getPropertyLabel(formProperty));
+	    comboBox.setRequired(formProperty.isRequired());
+	    comboBox.setRequiredError(getMessage(Messages.FORM_FIELD_REQUIRED, getPropertyLabel(formProperty)));
+	    comboBox.setEnabled(formProperty.isWritable());
+	    
+	    List<Project> projects = ProcessEngines.getDefaultProcessEngine()
+	    		.getBudgetService()
+	    		.createProjectQuery()
+	    		.list();
+	    		
+	    for(Project project: projects){
+	    	comboBox.addItem(project.getId());
+	    	String name = project.getName();
+	    	comboBox.setItemCaption(project.getId(), name);
+	    }
+	    		
+	    // Select first
+	    if (projects.size() > 0) {
+	      comboBox.setNullSelectionAllowed(false);
+	      comboBox.select(projects.get(0).getId());
+	    }
+	    
+	    return comboBox;
+	  }
+  
 
 }

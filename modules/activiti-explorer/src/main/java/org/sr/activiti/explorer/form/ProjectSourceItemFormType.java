@@ -16,37 +16,35 @@ package org.sr.activiti.explorer.form;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.ProcessEngines;
-import org.activiti.engine.budget.Project;
+import org.activiti.engine.budget.ProjectSourceItem;
 import org.activiti.engine.form.AbstractFormType;
-import org.activiti.engine.impl.persistence.entity.budget.ProjectEntity;
-
+import org.activiti.engine.impl.persistence.entity.budget.ProjectSourceItemEntity;
 
 /**
  * @author Lab Open Source
  */
-public class ProjectFormType extends AbstractFormType {
+public class ProjectSourceItemFormType extends AbstractFormType {
 
-  public static final String TYPE_NAME = "project";
+  public static final String TYPE_NAME = "projectSourceItem";
   
   public String getName() {
     return TYPE_NAME;
   }
 
-    
   @Override
   public Object convertFormValueToModelValue(String propertyValue) {
     if(propertyValue != null) {
-      Project project = ProcessEngines.getDefaultProcessEngine()
+      ProjectSourceItem sourceItem = ProcessEngines.getDefaultProcessEngine()
     		  .getBudgetService()
-    		  .createProjectQuery()
-    		  .projectId(propertyValue)
+    		  .createProjectSourceItemQuery()
+    		  .projectSourceItemId(propertyValue)
     		  .singleResult();
       
-      if(project == null) {
-        throw new ActivitiObjectNotFoundException("Project with id " + propertyValue + " does not exist", ProjectEntity.class);
+      if(sourceItem == null) {
+        throw new ActivitiObjectNotFoundException("Project Source Item with id " + propertyValue + " does not exist", ProjectSourceItemEntity.class);
       }
       
-      return project;
+      return sourceItem;
     }
     return null;
   }
@@ -56,12 +54,9 @@ public class ProjectFormType extends AbstractFormType {
     if (modelValue == null) {
       return null;
     }
-    if (!(modelValue instanceof Project)) {
-      throw new ActivitiIllegalArgumentException("This form type only support Projects, but is " + modelValue.getClass());
+    if (!(modelValue instanceof ProjectSourceItem)) {
+      throw new ActivitiIllegalArgumentException("This form type only support project source items, but is " + modelValue.getClass());
     }
-    return ((Project) modelValue).getId();
+    return ((ProjectSourceItem) modelValue).getId();
   }
-  
-  
-  
 }

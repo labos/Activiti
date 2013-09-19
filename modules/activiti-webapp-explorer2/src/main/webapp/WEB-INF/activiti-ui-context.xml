@@ -44,6 +44,7 @@
         <bean class="org.sr.activiti.explorer.ui.form.TextAreaFormPropertyRenderer" />
         <bean class="org.sr.activiti.explorer.ui.form.LinksFormPropertyRenderer" />
         <bean class="org.sr.activiti.explorer.ui.form.ProjectCostItemFormPropertyRenderer" />
+        <bean class="org.sr.activiti.explorer.ui.form.ProjectSourceItemFormPropertyRenderer" />
        </list>
     </property>
   </bean>

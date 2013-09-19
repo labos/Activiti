@@ -41,6 +41,19 @@ public class ProjectSourceItemQueryImpl extends AbstractQuery<ProjectSourceItemQ
 	}
 	
 	
+	
+	
+	
+
+	@Override
+	public ProjectSourceItemQuery idProject(String idProject) {
+		if (idProject == null) {
+		      throw new ActivitiIllegalArgumentException("Provided idProject is null");
+		}
+		this.idProject = idProject;
+		return this;
+	}
+
 	@Override
 	public long executeCount(CommandContext commandContext) {
 		checkQueryOk();
