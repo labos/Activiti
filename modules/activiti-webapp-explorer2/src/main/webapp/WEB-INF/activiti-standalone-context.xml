@@ -61,7 +61,8 @@
         <bean class="org.sr.activiti.explorer.form.SourceFormType"/>    
         <bean class="org.sr.activiti.explorer.form.LinksFormType"/>
         <bean class="org.sr.activiti.explorer.form.ProjectCostItemFormType"/>   
-        <bean class="org.sr.activiti.explorer.form.ProjectSourceItemFormType"/>       
+        <bean class="org.sr.activiti.explorer.form.ProjectSourceItemFormType"/>    
+        <bean class="org.sr.activiti.explorer.form.TextMessageFormType"/>     
       </list>
     </property>
   </bean>

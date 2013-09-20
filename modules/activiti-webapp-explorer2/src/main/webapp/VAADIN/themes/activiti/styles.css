@@ -987,3 +987,9 @@ div.searchbox {
     border: 10px solid #C00000;
     color: black;
 }
+input.v-textfield-readonly, textarea.v-textarea-readonly{
+	 background: none repeat scroll 0 0 transparent !important;
+    border: medium none !important;
+    font-weight: bold;
+    resize: none !important;
+}
