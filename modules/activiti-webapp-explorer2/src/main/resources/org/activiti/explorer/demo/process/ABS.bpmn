@@ -162,7 +162,7 @@
     <exclusiveGateway id="exclusivegateway17" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow116" sourceRef="servicetask13" targetRef="exclusivegateway17"></sequenceFlow>
     <userTask id="usertask42" name="Archiviazione contratto cartaceo" activiti:assignee="eangioni"></userTask>
-    <userTask id="usertask43" name="Inserimento contratto da AGI o (RUP), a seconda degli appalti di competenza" activiti:assignee="smaxia"></userTask>
+    <userTask id="usertask43" name="Inserimento contratto da AGI o (RUP), a seconda degli appalti di competenza" activiti:assignee="${initiator}"></userTask>
     <sequenceFlow id="flow122" sourceRef="exclusivegateway14" targetRef="usertask43">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${acquisizioneDurc=='true'}]]></conditionExpression>
     </sequenceFlow>
@@ -273,7 +273,7 @@
     </sequenceFlow>
     <callActivity id="callactivity3" name="Determinazione nomina Commissione di Gara" calledElement="determinazione-DG">
       <extensionElements>
-        <activiti:in sourceExpression="aatzeni" target="detAssignee"></activiti:in>
+        <activiti:in source="nominativoRUP" target="detAssignee"></activiti:in>
         <activiti:in sourceExpression="nomina Commissione di Gara" target="detSubject"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
       </extensionElements>
