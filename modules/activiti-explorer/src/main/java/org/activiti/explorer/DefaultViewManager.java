@@ -266,6 +266,7 @@ public class DefaultViewManager implements ViewManager, Serializable {
   }
   
   public void showSourcePage(String sourceId){
+	  switchView(new SourcePage(sourceId), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_SOURCES);	
   }
   
   public void showProgramPage(){

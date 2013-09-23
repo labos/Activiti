@@ -65,6 +65,7 @@
         <bean class="org.sr.activiti.explorer.form.TextMessageFormType"/>     
       </list>
     </property>
+    <property name="history" value="full" />
   </bean>
   
   <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">

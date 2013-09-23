@@ -185,7 +185,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
 	  createProject("progetto4", "Progetto 4", new Double(4000));
 	  createProject("progetto5", "Progetto 5", new Double(5000));
 	  createProject("progetto6", "Progetto 6", new Double(6000));
-	  createProject("progetto6", "Progetto 7", new Double(7000));
+	  createProject("progetto7", "Progetto 7", new Double(7000));
   }
   
   protected void createProject(String projectId,String name, Double total){
