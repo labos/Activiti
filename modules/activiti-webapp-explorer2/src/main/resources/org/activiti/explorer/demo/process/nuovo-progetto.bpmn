@@ -118,13 +118,26 @@
       <extensionElements>
         <activiti:in source="subject" target="subject"></activiti:in>
         <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
+        <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
       </extensionElements>
     </callActivity>
     <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow211" sourceRef="usertask68" targetRef="parallelgateway2"></sequenceFlow>
     <sequenceFlow id="flow213" sourceRef="parallelgateway2" targetRef="usertask68"></sequenceFlow>
-    <callActivity id="callactivity4" name="Aiuti"></callActivity>
-    <callActivity id="callactivity5" name="Collaborazioni"></callActivity>
+    <callActivity id="callactivity4" name="Aiuti">
+      <extensionElements>
+        <activiti:in source="subject" target="subject"></activiti:in>
+        <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
+        <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity5" name="Collaborazioni">
+      <extensionElements>
+        <activiti:in source="subject" target="subject"></activiti:in>
+        <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
+        <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
+      </extensionElements>
+    </callActivity>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow214" sourceRef="parallelgateway2" targetRef="exclusivegateway3"></sequenceFlow>
     <sequenceFlow id="flow215" sourceRef="exclusivegateway3" targetRef="callactivity3">
