@@ -25,7 +25,7 @@
     </sequenceFlow>
     <userTask id="usertask35" name="Inserimento Quietanza liberatoria" activiti:assignee="emulas"></userTask>
     <sequenceFlow id="flow94" sourceRef="usertask34" targetRef="usertask35"></sequenceFlow>
-    <userTask id="usertask37" name="&quot;Dichiarazione di chiusura dell'operazione&quot;" activiti:assignee="${nominativoRUP}">
+    <userTask id="usertask37" name="Dichiarazione di chiusura dell'operazione" activiti:assignee="${nominativoRUP}">
       <documentation>Il processo è CONCLUSO</documentation>
     </userTask>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -69,7 +69,7 @@
     </sequenceFlow>
     <userTask id="usertask52" name="Verifica Equitalia" activiti:assignee="emulas">
       <extensionElements>
-        <activiti:formProperty id="verificaEquitalia" name="Verificato?" expression="enum" variable="verificaEquitalia" required="true">
+        <activiti:formProperty id="verificaEquitalia" name="Verificato?" type="enum" variable="verificaEquitalia" required="true">
           <activiti:value id="false" name="NO"></activiti:value>
           <activiti:value id="true" name="OK"></activiti:value>
         </activiti:formProperty>
@@ -81,7 +81,13 @@
     </sequenceFlow>
     <sequenceFlow id="flow167" sourceRef="startevent1" targetRef="usertask28"></sequenceFlow>
     <sequenceFlow id="flow169" sourceRef="usertask31" targetRef="usertask52"></sequenceFlow>
-    <serviceTask id="servicetask18" name="Check scadenza DURC" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck"></serviceTask>
+    <serviceTask id="servicetask18" name="Check scadenza DURC" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
+      <extensionElements>
+        <activiti:field name="minAttachmentsNum">
+          <activiti:string>1</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
     <serviceTask id="servicetask19" name="Check doc. Equitalia" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
@@ -218,7 +224,7 @@
         <omgdi:waypoint x="954.0" y="70.0"></omgdi:waypoint>
         <omgdi:waypoint x="1018.0" y="70.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="-38.0" y="8.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="55.0" x="-38.0" y="8.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow94" id="BPMNEdge_flow94">
@@ -281,6 +287,9 @@
         <omgdi:waypoint x="934.0" y="90.0"></omgdi:waypoint>
         <omgdi:waypoint x="883.0" y="99.0"></omgdi:waypoint>
         <omgdi:waypoint x="934.0" y="151.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="100.0" x="-62.0" y="4.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow167" id="BPMNEdge_flow167">
         <omgdi:waypoint x="55.0" y="181.0"></omgdi:waypoint>
@@ -320,7 +329,7 @@
         <omgdi:waypoint x="1803.0" y="264.0"></omgdi:waypoint>
         <omgdi:waypoint x="1803.0" y="206.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow179" id="BPMNEdge_flow179">
