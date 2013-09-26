@@ -12,17 +12,19 @@ public class UpdateBudget implements JavaDelegate {
   
   private Expression sourceToUpdate;
   private Expression amountToDecrease;
+  private Expression actualVAT;
   //private Expression vatApplied; 
   public void execute(DelegateExecution execution) {
 	  Boolean sourceItemUpdated = false;
 //	  ProjectCostItem costItem = (ProjectCostItem) costToUpdate.getValue(execution);
 	  ProjectSourceItem sourceItem = (ProjectSourceItem) sourceToUpdate.getValue(execution);
 	  Long amount = (Long) amountToDecrease.getValue(execution);
+	  Long vat = (Long) actualVAT.getValue(execution);
 //    Boolean vatIsApplied = (Boolean) vatApplied.getValue(execution);
-//	  Double amountToApply = 0.0;
+	  Double amountToApply = 0.0;
 	  if(sourceItem!=null){
-//		  amountToApply = (vatIsApplied)? amount * (1 + 0.21) : amount;
-		  Double newActual = sourceItem.getTotal() - amount;
+		  amountToApply = (double) (amount * (1 + vat/100) / amount);
+		  Double newActual = sourceItem.getTotal() - amountToApply;
 		  sourceItem.setActual(newActual);
 		  execution.getEngineServices().getBudgetService().saveProjectSourceItem(sourceItem);
 		  sourceItemUpdated = true;
