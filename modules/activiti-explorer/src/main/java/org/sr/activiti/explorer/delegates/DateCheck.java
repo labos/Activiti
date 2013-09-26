@@ -22,6 +22,7 @@ public class DateCheck implements JavaDelegate {
 	  
 	  if(deadLine.after(today)){
 		  validDURC = true;
+		  execution.setVariable("validDURC", validDURC);
 	  }
   }
 }

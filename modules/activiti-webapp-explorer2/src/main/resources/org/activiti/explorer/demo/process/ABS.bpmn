@@ -151,6 +151,7 @@
       <extensionElements>
         <activiti:formProperty id="subject" name="Oggetto Procedura ABS" type="string" variable="subject" required="true"></activiti:formProperty>
         <activiti:formProperty id="importo" name="Imponibile" type="long" variable="importo" default="0" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vat" name="IVA (%)" type="long" variable="actualVAT" required="true"></activiti:formProperty>
         <activiti:formProperty id="projectSource" name="Fonte" type="projectSourceItem" variable="projectSource" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
@@ -162,6 +163,9 @@
         </activiti:field>
         <activiti:field name="sourceToUpdate">
           <activiti:expression>${projectSource}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="actualVAT">
+          <activiti:expression>${actualVAT}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -419,7 +423,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="956.0" y="104.0"></omgdi:waypoint>
         <omgdi:waypoint x="792.0" y="155.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="59.0" x="-30.0" y="-22.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-30.0" y="-34.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow72" id="BPMNEdge_flow72">
