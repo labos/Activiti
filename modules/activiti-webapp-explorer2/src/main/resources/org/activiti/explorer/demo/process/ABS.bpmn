@@ -147,7 +147,7 @@
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow190" sourceRef="usertask56" targetRef="callactivity4"></sequenceFlow>
-    <userTask id="usertask60" name="Oggetto, fonte ed importo" activiti:assignee="${nominativoRUP}">
+    <userTask id="usertask60" name="Proposta, oggetto, fonte ed importo" activiti:assignee="${nominativoRUP}">
       <extensionElements>
         <activiti:formProperty id="subject" name="Oggetto Procedura ABS" type="string" variable="subject" required="true"></activiti:formProperty>
         <activiti:formProperty id="importo" name="Imponibile" type="long" variable="importo" default="0" required="true"></activiti:formProperty>
@@ -236,8 +236,10 @@
     </sequenceFlow>
     <userTask id="usertask63" name="Avvio procedura di pagamento fattura" activiti:assignee="emulas"></userTask>
     <sequenceFlow id="flow231" sourceRef="usertask42" targetRef="usertask63"></sequenceFlow>
-    <sequenceFlow id="flow232" sourceRef="usertask63" targetRef="callactivity5"></sequenceFlow>
-    <sequenceFlow id="flow233" sourceRef="usertask63" targetRef="usertask63"></sequenceFlow>
+    <parallelGateway id="parallelgateway5" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow232" sourceRef="usertask63" targetRef="parallelgateway5"></sequenceFlow>
+    <sequenceFlow id="flow233" sourceRef="parallelgateway5" targetRef="usertask63"></sequenceFlow>
+    <sequenceFlow id="flow234" sourceRef="parallelgateway5" targetRef="callactivity5"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Possiamo automatizzare meglio la consegna delle lettere di invito al protocollo per la protocollazione in uscita</text>
     </textAnnotation>
@@ -251,6 +253,10 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
     </textAnnotation>
     <association id="association15" sourceRef="callactivity4" targetRef="textannotation8"></association>
     <association id="association17" sourceRef="usertask59" targetRef="textannotation9"></association>
+    <textAnnotation id="textannotation10">
+      <text>Aggiornamento del budget sulla base dell'importo effettivo</text>
+    </textAnnotation>
+    <association id="association18" sourceRef="usertask42" targetRef="textannotation10"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_idProcessoABS">
     <bpmndi:BPMNPlane bpmnElement="idProcessoABS" id="BPMNPlane_idProcessoABS">
@@ -388,6 +394,12 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask63" id="BPMNShape_usertask63">
         <omgdc:Bounds height="55.0" width="105.0" x="3450.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation10" id="BPMNShape_textannotation10">
+        <omgdc:Bounds height="73.0" width="100.0" x="3352.0" y="48.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway5" id="BPMNShape_parallelgateway5">
+        <omgdc:Bounds height="40.0" width="40.0" x="3570.0" y="89.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow59" id="BPMNEdge_flow59">
         <omgdi:waypoint x="632.0" y="248.0"></omgdi:waypoint>
@@ -653,13 +665,20 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow232" id="BPMNEdge_flow232">
         <omgdi:waypoint x="3555.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="3620.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="3590.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="3590.0" y="129.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow233" id="BPMNEdge_flow233">
+        <omgdi:waypoint x="3590.0" y="129.0"></omgdi:waypoint>
         <omgdi:waypoint x="3502.0" y="160.0"></omgdi:waypoint>
-        <omgdi:waypoint x="3499.0" y="115.0"></omgdi:waypoint>
-        <omgdi:waypoint x="3452.0" y="140.0"></omgdi:waypoint>
-        <omgdi:waypoint x="3502.0" y="160.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association18" id="BPMNEdge_association18">
+        <omgdi:waypoint x="3332.0" y="152.0"></omgdi:waypoint>
+        <omgdi:waypoint x="3402.0" y="121.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow234" id="BPMNEdge_flow234">
+        <omgdi:waypoint x="3590.0" y="129.0"></omgdi:waypoint>
+        <omgdi:waypoint x="3672.0" y="160.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
