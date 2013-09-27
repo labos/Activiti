@@ -17,6 +17,7 @@ public class DateCheck implements JavaDelegate {
   
   public void execute(DelegateExecution execution) {
 	  Boolean validDURC = false;
+	  execution.setVariable("validDURC", validDURC);
 	  Date deadLine = (Date) scadenzaDURC.getValue(execution);
 	  Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 	  
