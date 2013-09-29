@@ -43,7 +43,7 @@ public class ProjectSourceItemFormPropertyRenderer extends AbstractFormPropertyR
     
     List<ProjectSourceItem> projectSourceItems = ProcessEngines.getDefaultProcessEngine()
     		.getBudgetService()
-    		.createProjectSourceItemQuery()
+    		.createProjectSourceItemQuery().idProject(formProperty.getValue())
     		.list();
     		
     for(ProjectSourceItem projectSourceItem: projectSourceItems){

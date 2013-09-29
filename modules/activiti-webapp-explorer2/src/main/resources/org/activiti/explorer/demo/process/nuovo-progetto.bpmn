@@ -119,6 +119,7 @@
         <activiti:in source="subject" target="subject"></activiti:in>
         <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
+        <activiti:in source="project" target="project"></activiti:in>
       </extensionElements>
     </callActivity>
     <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
@@ -230,14 +231,14 @@
         <omgdi:waypoint x="897.0" y="159.0"></omgdi:waypoint>
         <omgdi:waypoint x="970.0" y="159.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="47.0" x="-35.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="47.0" x="-35.0" y="-17.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow200" id="BPMNEdge_flow200">
         <omgdi:waypoint x="860.0" y="179.0"></omgdi:waypoint>
         <omgdi:waypoint x="860.0" y="230.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="67.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="67.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow201" id="BPMNEdge_flow201">
@@ -268,14 +269,14 @@
         <omgdi:waypoint x="525.0" y="67.0"></omgdi:waypoint>
         <omgdi:waypoint x="702.0" y="132.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="65.0" x="-2.0" y="-13.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="65.0" x="-2.0" y="-13.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow208" id="BPMNEdge_flow208">
         <omgdi:waypoint x="545.0" y="47.0"></omgdi:waypoint>
         <omgdi:waypoint x="650.0" y="47.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="38.0" x="-34.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="38.0" x="-34.0" y="-17.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow209" id="BPMNEdge_flow209">
