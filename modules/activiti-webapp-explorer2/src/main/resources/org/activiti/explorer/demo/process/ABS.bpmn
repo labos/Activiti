@@ -28,10 +28,10 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow64" sourceRef="usertask12" targetRef="servicetask6"></sequenceFlow>
-    <serviceTask id="servicetask6" name="Check 5 lettere di invito" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
+    <serviceTask id="servicetask6" name="Check lettere di invito" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
-          <activiti:string>5</activiti:string>
+          <activiti:string>1</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -147,12 +147,12 @@
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow190" sourceRef="usertask56" targetRef="callactivity4"></sequenceFlow>
-    <userTask id="usertask60" name="Proposta, oggetto, fonte ed importo" activiti:assignee="${nominativoRUP}">
+    <userTask id="usertask60" name="Oggetto della procedura, fonte ed importo" activiti:assignee="${nominativoRUP}">
       <extensionElements>
         <activiti:formProperty id="subject" name="Oggetto Procedura ABS" type="string" variable="subject" required="true"></activiti:formProperty>
         <activiti:formProperty id="importo" name="Imponibile" type="long" variable="importo" default="0" required="true"></activiti:formProperty>
         <activiti:formProperty id="vat" name="IVA (%)" type="long" variable="actualVAT" required="true"></activiti:formProperty>
-        <activiti:formProperty id="projectSource" name="Fonte" type="projectSourceItem" variable="projectSource" default="${project.id}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="projectSource" name="Fonte" type="projectSourceItem" variable="projectSource" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow193" sourceRef="startevent1" targetRef="usertask60"></sequenceFlow>
@@ -357,13 +357,13 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdc:Bounds height="55.0" width="105.0" x="2118.0" y="64.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity3" id="BPMNShape_callactivity3">
-        <omgdc:Bounds height="101.0" width="105.0" x="1260.0" y="138.0"></omgdc:Bounds>
+        <omgdc:Bounds height="112.0" width="122.0" x="1252.0" y="133.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity4" id="BPMNShape_callactivity4">
-        <omgdc:Bounds height="92.0" width="105.0" x="1920.0" y="142.0"></omgdc:Bounds>
+        <omgdc:Bounds height="118.0" width="131.0" x="1910.0" y="129.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask60" id="BPMNShape_usertask60">
-        <omgdc:Bounds height="55.0" width="105.0" x="92.0" y="160.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="105.0" x="92.0" y="152.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask20" id="BPMNShape_servicetask20">
         <omgdc:Bounds height="55.0" width="105.0" x="247.0" y="160.0"></omgdc:Bounds>
@@ -413,7 +413,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="792.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="632.0" y="248.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="-35.0" y="15.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-35.0" y="15.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow64" id="BPMNEdge_flow64">
@@ -428,14 +428,14 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="956.0" y="104.0"></omgdi:waypoint>
         <omgdi:waypoint x="956.0" y="161.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="39.0" x="4.0" y="-5.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="4.0" y="-5.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow67" id="BPMNEdge_flow67">
         <omgdi:waypoint x="956.0" y="104.0"></omgdi:waypoint>
         <omgdi:waypoint x="792.0" y="155.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="-30.0" y="-34.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-30.0" y="-34.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow72" id="BPMNEdge_flow72">
@@ -450,7 +450,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="1312.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="1122.0" y="216.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="-55.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-55.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow77" id="BPMNEdge_flow77">
@@ -465,7 +465,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="3166.0" y="97.0"></omgdi:waypoint>
         <omgdi:waypoint x="2994.0" y="145.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="-50.0" y="-19.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-50.0" y="-19.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
@@ -492,14 +492,14 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="1734.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="1552.0" y="235.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="-35.0" y="18.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-35.0" y="18.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow146" id="BPMNEdge_flow146">
         <omgdi:waypoint x="1734.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="1734.0" y="235.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="39.0" x="6.0" y="-12.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="6.0" y="-12.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow167" id="BPMNEdge_flow167">
@@ -510,26 +510,26 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="792.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="792.0" y="220.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="39.0" x="-39.0" y="-6.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="-39.0" y="-6.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow188" id="BPMNEdge_flow188">
-        <omgdi:waypoint x="1365.0" y="188.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1374.0" y="189.0"></omgdi:waypoint>
         <omgdi:waypoint x="1500.0" y="188.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow189" id="BPMNEdge_flow189">
         <omgdi:waypoint x="1312.0" y="286.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1312.0" y="239.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1313.0" y="245.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="39.0" x="8.0" y="4.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="8.0" y="4.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow190" id="BPMNEdge_flow190">
         <omgdi:waypoint x="1787.0" y="188.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1920.0" y="188.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1910.0" y="188.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association15" id="BPMNEdge_association15">
-        <omgdi:waypoint x="1972.0" y="234.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1975.0" y="247.0"></omgdi:waypoint>
         <omgdi:waypoint x="1900.0" y="263.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association17" id="BPMNEdge_association17">
@@ -564,7 +564,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="3166.0" y="97.0"></omgdi:waypoint>
         <omgdi:waypoint x="3166.0" y="160.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="39.0" x="5.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="5.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow209" id="BPMNEdge_flow209">
@@ -579,14 +579,14 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="3332.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="3166.0" y="215.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="-58.0" y="2.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-58.0" y="2.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow212" id="BPMNEdge_flow212">
         <omgdi:waypoint x="3332.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="3332.0" y="223.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="39.0" x="5.0" y="-7.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="5.0" y="-7.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow213" id="BPMNEdge_flow213">
@@ -601,21 +601,21 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="2994.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="2828.0" y="215.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="-40.0" y="13.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-40.0" y="13.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow218" id="BPMNEdge_flow218">
         <omgdi:waypoint x="2342.0" y="333.0"></omgdi:waypoint>
         <omgdi:waypoint x="2512.0" y="314.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="39.0" x="-17.0" y="14.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="-17.0" y="14.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow219" id="BPMNEdge_flow219">
         <omgdi:waypoint x="2342.0" y="333.0"></omgdi:waypoint>
         <omgdi:waypoint x="2170.0" y="321.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="-23.0" y="13.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-23.0" y="13.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow222" id="BPMNEdge_flow222">
@@ -631,7 +631,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="2290.0" y="281.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow225" id="BPMNEdge_flow225">
-        <omgdi:waypoint x="2025.0" y="188.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2041.0" y="188.0"></omgdi:waypoint>
         <omgdi:waypoint x="2150.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow226" id="BPMNEdge_flow226">
@@ -656,7 +656,7 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="2994.0" y="286.0"></omgdi:waypoint>
         <omgdi:waypoint x="2994.0" y="231.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="39.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow231" id="BPMNEdge_flow231">

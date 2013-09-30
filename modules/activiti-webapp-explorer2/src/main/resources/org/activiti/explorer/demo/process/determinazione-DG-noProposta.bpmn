@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="determinazione-DG" name="Determinazione DG" isExecutable="true" activiti:candidateStarterGroups="user">
+  <process id="determinazione-DG-noProposta" name="Determinazione DG senza proposta" isExecutable="true" activiti:candidateStarterGroups="user">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
-    <userTask id="usertask1" name="Proposta di determinazione ${detSubject}" activiti:assignee="${detAssignee}"></userTask>
-    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask1" name="Nuova proposta di determinazione ${detSubject}" activiti:assignee="${detAssignee}"></userTask>
     <userTask id="usertask2" name="Approvazione DG" activiti:assignee="aatzeni">
       <extensionElements>
         <activiti:formProperty id="firmatoDG" name="Firma DG" type="enum" variable="firmatoDG" required="true">
@@ -150,11 +149,12 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow41" sourceRef="servicetask5" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow42" sourceRef="startevent1" targetRef="usertask2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_determinazione-DG">
-    <bpmndi:BPMNPlane bpmnElement="determinazione-DG" id="BPMNPlane_determinazione-DG">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_determinazione-DG-noProposta">
+    <bpmndi:BPMNPlane bpmnElement="determinazione-DG-noProposta" id="BPMNPlane_determinazione-DG-noProposta">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="160.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="460.0" y="360.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="81.0" width="105.0" x="170.0" y="137.0"></omgdc:Bounds>
@@ -216,10 +216,6 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="1176.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="45.0" y="177.0"></omgdi:waypoint>
-        <omgdi:waypoint x="170.0" y="177.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="222.0" y="218.0"></omgdi:waypoint>
         <omgdi:waypoint x="222.0" y="270.0"></omgdi:waypoint>
@@ -336,6 +332,10 @@
       <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
         <omgdi:waypoint x="1131.0" y="177.0"></omgdi:waypoint>
         <omgdi:waypoint x="1176.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="477.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="392.0" y="205.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

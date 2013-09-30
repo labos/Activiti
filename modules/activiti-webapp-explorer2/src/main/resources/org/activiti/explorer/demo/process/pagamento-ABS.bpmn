@@ -29,7 +29,7 @@
     <sequenceFlow id="flow92" name="Verifica OK" sourceRef="exclusivegateway13" targetRef="servicetask19">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${verificaEquitalia=='true'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask35" name="Inserimento Quietanza liberatoria" activiti:assignee="emulas"></userTask>
+    <userTask id="usertask35" name="Inserimento Contabile bancaria" activiti:assignee="emulas"></userTask>
     <sequenceFlow id="flow94" sourceRef="usertask34" targetRef="usertask35"></sequenceFlow>
     <userTask id="usertask37" name="Dichiarazione di chiusura dell'operazione" activiti:assignee="${nominativoRUP}">
       <documentation>Il processo è CONCLUSO</documentation>
@@ -55,7 +55,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow134" sourceRef="usertask35" targetRef="servicetask17"></sequenceFlow>
-    <serviceTask id="servicetask17" name="Check Quietanza Liberatoria" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
+    <serviceTask id="servicetask17" name="Check Contabile bancaria" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
         <activiti:field name="minAttachmentsNum">
           <activiti:string>1</activiti:string>
@@ -389,7 +389,7 @@
         <omgdi:waypoint x="924.0" y="90.0"></omgdi:waypoint>
         <omgdi:waypoint x="776.0" y="151.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="-63.0" y="-9.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-63.0" y="-9.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow187" id="BPMNEdge_flow187">
@@ -400,7 +400,7 @@
         <omgdi:waypoint x="924.0" y="90.0"></omgdi:waypoint>
         <omgdi:waypoint x="924.0" y="151.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow189" id="BPMNEdge_flow189">
