@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="idNuovoProgetto" name="Nuovo Progetto" isExecutable="true" activiti:candidateStarterGroups="pst">
+  <process id="nuovoProgetto" name="Nuovo Progetto" isExecutable="true" activiti:candidateStarterGroups="pst">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <serviceTask id="servicetask22" name="Set initiator email" activiti:class="org.sr.activiti.explorer.delegates.EmailInitiator">
       <extensionElements>
@@ -26,8 +26,8 @@
         <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
       </extensionElements>
     </callActivity>
-    <userTask id="usertask61" name="Scelta Progetto e RUP. Proposta di determinazione" activiti:exclusive="false" activiti:assignee="${initiator}">
-      <documentation>SELEZIONARE IL PROGETTO DA AVVIARE, il RUP E LE TIPOLOGIE DI INTERVENTO CON I RELATIVI IMPORTI COMPLESSIVI</documentation>
+    <userTask id="usertask61" name="Scelta Progetto e RUP. Proposta di determinazione" activiti:assignee="${initiator}">
+      <documentation>SELEZIONARE IL PROGETTO DA AVVIARE, IL RUP E LE TIPOLOGIE DI INTERVENTO CON I RELATIVI IMPORTI COMPLESSIVI. ALLEGARE LA PROPOSTA DI DETERMINAZIONE DI AVVIO PROGETTO.</documentation>
       <extensionElements>
         <activiti:formProperty id="project" name="Nuovo progetto" type="project" variable="project" required="true">
           <activiti:value id="project" name="Project"></activiti:value>
@@ -104,8 +104,9 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${initiatorJobTitle!='Responsabile'}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask68" name="Avvio procedura" activiti:assignee="${nominativoRUP}">
+      <documentation>Selezionare il tipo di procedura da avviare sul progetto ${project.name}.</documentation>
       <extensionElements>
-        <activiti:formProperty id="procedura" name="Scegli la procedura da far partire" type="enum" variable="procedura" required="true">
+        <activiti:formProperty id="procedura" name="Scegli la procedura da avviare:" type="enum" variable="procedura" required="true">
           <activiti:value id="abs" name="ABS"></activiti:value>
           <activiti:value id="aiuti" name="Aiuti"></activiti:value>
           <activiti:value id="collab" name="Collaborazione"></activiti:value>
@@ -165,8 +166,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_idNuovoProgetto">
-    <bpmndi:BPMNPlane bpmnElement="idNuovoProgetto" id="BPMNPlane_idNuovoProgetto">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_nuovoProgetto">
+    <bpmndi:BPMNPlane bpmnElement="nuovoProgetto" id="BPMNPlane_nuovoProgetto">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="142.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
