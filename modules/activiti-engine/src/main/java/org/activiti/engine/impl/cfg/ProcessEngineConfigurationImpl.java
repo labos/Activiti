@@ -106,6 +106,7 @@ import org.activiti.engine.impl.event.MessageEventHandler;
 import org.activiti.engine.impl.event.SignalEventHandler;
 import org.activiti.engine.impl.form.BooleanFormType;
 import org.activiti.engine.impl.form.DateFormType;
+import org.activiti.engine.impl.form.DoubleFormType;
 import org.activiti.engine.impl.form.FormEngine;
 import org.activiti.engine.impl.form.FormTypes;
 import org.activiti.engine.impl.form.JuelFormEngine;
@@ -1053,6 +1054,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       formTypes = new FormTypes();
       formTypes.addFormType(new StringFormType());
       formTypes.addFormType(new LongFormType());
+      formTypes.addFormType(new DoubleFormType());
       formTypes.addFormType(new DateFormType("dd/MM/yyyy"));
       formTypes.addFormType(new BooleanFormType());
     }
