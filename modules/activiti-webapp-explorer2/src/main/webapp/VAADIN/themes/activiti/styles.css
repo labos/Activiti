@@ -992,4 +992,7 @@ input.v-textfield-readonly, textarea.v-textarea-readonly{
     border: medium none !important;
     font-weight: bold;
     resize: none !important;
+    font-size:14px;
+    line-height:16px;
+    width:100%;
 }
