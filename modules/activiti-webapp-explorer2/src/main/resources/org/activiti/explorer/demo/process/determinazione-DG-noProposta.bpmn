@@ -136,7 +136,7 @@
     <sequenceFlow id="flow29" sourceRef="parallelgateway3" targetRef="servicetask4"></sequenceFlow>
     <serviceTask id="servicetask5" name="Copia allegati a processo chiamante" activiti:class="org.sr.activiti.explorer.delegates.CopyAttachmentsToParent"></serviceTask>
     <sequenceFlow id="flow31" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
-    <userTask id="usertask6" name="AGI - Inserimento determinazione firmata e archiviazione" activiti:async="true" activiti:assignee="smaxia">
+    <userTask id="usertask6" name="AGI - Inserimento determinazione firmata e archiviazione" activiti:assignee="smaxia">
       <documentation>Allegare la scansione con le firme della determinazione di ${detSubject}.</documentation>
     </userTask>
     <sequenceFlow id="flow32" sourceRef="usertask3" targetRef="usertask6"></sequenceFlow>

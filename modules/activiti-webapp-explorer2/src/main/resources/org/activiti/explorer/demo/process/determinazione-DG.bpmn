@@ -65,7 +65,7 @@
     <sequenceFlow id="flow16" name="Non archiviato" sourceRef="exclusivegateway4" targetRef="parallelgateway1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isArchived}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask5" name="Problema archiviazione" activiti:async="true" activiti:assignee="smaxia">
+    <userTask id="usertask5" name="Problema archiviazione" activiti:assignee="smaxia">
       <documentation>ATTENZIONE: SI È VERIFICATO UN PROBLEMA NEL SALVATAGGIO DEI FILE NEL DOCUMENTALE. AVVISARE I SISTEMISTI E COMPLETARE IL TASK APPENA AVER RISOLTO IL PROBLEMA</documentation>
     </userTask>
     <serviceTask id="mailtask1" name="Notifica problema archiviazione" activiti:type="mail">
@@ -134,7 +134,7 @@
     <sequenceFlow id="flow29" sourceRef="parallelgateway3" targetRef="servicetask4"></sequenceFlow>
     <serviceTask id="servicetask5" name="Copia allegati a processo chiamante" activiti:class="org.sr.activiti.explorer.delegates.CopyAttachmentsToParent"></serviceTask>
     <sequenceFlow id="flow31" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
-    <userTask id="usertask6" name="AGI - Inserimento determinazione firmata e archiviazione" activiti:async="true" activiti:assignee="smaxia"></userTask>
+    <userTask id="usertask6" name="AGI - Inserimento determinazione firmata e archiviazione" activiti:assignee="smaxia"></userTask>
     <sequenceFlow id="flow32" sourceRef="usertask3" targetRef="usertask6"></sequenceFlow>
     <sequenceFlow id="flow33" sourceRef="usertask6" targetRef="servicetask3"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>

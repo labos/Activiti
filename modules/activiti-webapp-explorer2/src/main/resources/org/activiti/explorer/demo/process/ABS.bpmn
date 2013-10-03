@@ -83,7 +83,7 @@
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow112" sourceRef="parallelgateway3" targetRef="usertask39"></sequenceFlow>
-    <userTask id="usertask40" name="SAG protocolla lettere di comunicazione" activiti:async="true" activiti:assignee="acorda"></userTask>
+    <userTask id="usertask40" name="SAG protocolla lettere di comunicazione" activiti:assignee="acorda"></userTask>
     <userTask id="usertask41" name="Invio lettere di comunicazione dal RUP" activiti:assignee="${nominativoRUP}"></userTask>
     <serviceTask id="servicetask13" name="Check lettere di comunicazione" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
@@ -96,9 +96,9 @@
     <userTask id="usertask42" name="Archiviazione contratto cartaceo e inserimento metadati" activiti:assignee="eangioni">
       <extensionElements>
         <activiti:formProperty id="oggettoContratto" name="Oggetto Contratto" type="string" variable="oggettoContratto" required="true"></activiti:formProperty>
-        <activiti:formProperty id="fornitore" name="Nome fornitore" type="string" variable="fornitore" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fornitore" name="Fornitore - Denominazione" type="string" variable="fornitore" required="true"></activiti:formProperty>
         <activiti:formProperty id="dataContratto" name="Data Contratto" type="date" variable="dataContratto" required="true"></activiti:formProperty>
-        <activiti:formProperty id="importoContratto" name="Importo Contratto" type="long" variable="importoContratto" required="true"></activiti:formProperty>
+        <activiti:formProperty id="importoContratto" name="Importo Contratto" type="double" variable="importoContratto" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow140" sourceRef="usertask18" targetRef="servicetask19"></sequenceFlow>
@@ -150,13 +150,13 @@
     <userTask id="usertask60" name="Oggetto della procedura, fonte ed importo" activiti:assignee="${nominativoRUP}">
       <extensionElements>
         <activiti:formProperty id="subject" name="Oggetto Procedura ABS" type="string" variable="subject" required="true"></activiti:formProperty>
-        <activiti:formProperty id="importo" name="Imponibile" type="long" variable="importo" default="0" required="true"></activiti:formProperty>
-        <activiti:formProperty id="vat" name="IVA (%)" type="long" variable="actualVAT" required="true"></activiti:formProperty>
-        <activiti:formProperty id="projectSource" name="Fonte" type="projectSourceItem" variable="projectSource" required="true"></activiti:formProperty>
+        <activiti:formProperty id="importo" name="Imponibile" type="double" variable="importo" default="0" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vat" name="IVA (%)" type="double" variable="actualVAT" required="true"></activiti:formProperty>
+        <activiti:formProperty id="projectSource" name="Fonte" type="projectSourceItem" variable="projectSource" default="${project.id}" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow193" sourceRef="startevent1" targetRef="usertask60"></sequenceFlow>
-    <serviceTask id="servicetask20" name="Aggiornamento Budget" activiti:class="org.sr.activiti.explorer.delegates.UpdateBudget">
+    <serviceTask id="updateEstimatedBudget" name="Aggiornamento Budget presunto" activiti:class="org.sr.activiti.explorer.delegates.UpdateBudget">
       <extensionElements>
         <activiti:field name="amountToDecrease">
           <activiti:expression>${importo}</activiti:expression>
@@ -169,9 +169,9 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow194" sourceRef="usertask60" targetRef="servicetask20"></sequenceFlow>
+    <sequenceFlow id="flow194" sourceRef="usertask60" targetRef="updateEstimatedBudget"></sequenceFlow>
     <sequenceFlow id="flow197" sourceRef="usertask10" targetRef="usertask11"></sequenceFlow>
-    <sequenceFlow id="flow198" sourceRef="servicetask20" targetRef="usertask10"></sequenceFlow>
+    <sequenceFlow id="flow198" sourceRef="updateEstimatedBudget" targetRef="usertask10"></sequenceFlow>
     <sequenceFlow id="flow199" sourceRef="usertask14" targetRef="usertask16"></sequenceFlow>
     <callActivity id="callactivity5" name="Pagamento" calledElement="idPagamentoABS">
       <extensionElements>
@@ -179,6 +179,7 @@
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
         <activiti:in sourceExpression="emulas" target="payAssignee"></activiti:in>
         <activiti:in source="scadenzaDURC" target="scadenzaDURC"></activiti:in>
+        <activiti:in source="cig" target="cig"></activiti:in>
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow202" sourceRef="callactivity5" targetRef="endevent1"></sequenceFlow>
@@ -235,28 +236,29 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask63" name="Avvio procedura di pagamento fattura" activiti:assignee="emulas"></userTask>
-    <sequenceFlow id="flow231" sourceRef="usertask42" targetRef="usertask63"></sequenceFlow>
     <parallelGateway id="parallelgateway5" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow232" sourceRef="usertask63" targetRef="parallelgateway5"></sequenceFlow>
     <sequenceFlow id="flow233" sourceRef="parallelgateway5" targetRef="usertask63"></sequenceFlow>
     <sequenceFlow id="flow234" sourceRef="parallelgateway5" targetRef="callactivity5"></sequenceFlow>
-    <textAnnotation id="textannotation1">
-      <text>Possiamo automatizzare meglio la consegna delle lettere di invito al protocollo per la protocollazione in uscita</text>
-    </textAnnotation>
-    <association id="association1" sourceRef="textannotation1" targetRef="usertask14"></association>
+    <serviceTask id="updateActualBudget" name="Aggiornamento Budget effettivo" activiti:class="org.sr.activiti.explorer.delegates.UpdateBudgetContract">
+      <extensionElements>
+        <activiti:field name="sourceToUpdate">
+          <activiti:expression>${sourceEstimated}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="estimatedAmount">
+          <activiti:expression>${estimatedAmount}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="actualAmount">
+          <activiti:expression>${importoContratto}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow235" sourceRef="usertask42" targetRef="updateActualBudget"></sequenceFlow>
+    <sequenceFlow id="flow236" sourceRef="updateActualBudget" targetRef="usertask63"></sequenceFlow>
     <textAnnotation id="textannotation8">
       <text>in base ai limiti di spesa al resp o dirigente</text>
     </textAnnotation>
-    <textAnnotation id="textannotation9">
-      <text>documento esito della gara da cds sul sito. Le lettere di comunicazione dal rup dopo essere protocollate da sag.
-Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono loro</text>
-    </textAnnotation>
     <association id="association15" sourceRef="callactivity4" targetRef="textannotation8"></association>
-    <association id="association17" sourceRef="usertask59" targetRef="textannotation9"></association>
-    <textAnnotation id="textannotation10">
-      <text>Aggiornamento del budget sulla base dell'importo effettivo</text>
-    </textAnnotation>
-    <association id="association18" sourceRef="usertask42" targetRef="textannotation10"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_idProcessoABS">
     <bpmndi:BPMNPlane bpmnElement="idProcessoABS" id="BPMNPlane_idProcessoABS">
@@ -314,14 +316,8 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="3655.0" y="270.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="95.0" width="125.0" x="894.0" y="240.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation8" id="BPMNShape_textannotation8">
         <omgdc:Bounds height="50.0" width="100.0" x="1850.0" y="263.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation9" id="BPMNShape_textannotation9">
-        <omgdc:Bounds height="81.0" width="224.0" x="1850.0" y="37.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="parallelgateway3" id="BPMNShape_parallelgateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="2150.0" y="167.0"></omgdc:Bounds>
@@ -365,9 +361,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNShape bpmnElement="usertask60" id="BPMNShape_usertask60">
         <omgdc:Bounds height="71.0" width="105.0" x="92.0" y="152.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask20" id="BPMNShape_servicetask20">
-        <omgdc:Bounds height="55.0" width="105.0" x="247.0" y="160.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity5" id="BPMNShape_callactivity5">
         <omgdc:Bounds height="55.0" width="105.0" x="3620.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -395,11 +388,14 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNShape bpmnElement="usertask63" id="BPMNShape_usertask63">
         <omgdc:Bounds height="55.0" width="105.0" x="3450.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation10" id="BPMNShape_textannotation10">
-        <omgdc:Bounds height="73.0" width="100.0" x="3352.0" y="48.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="parallelgateway5" id="BPMNShape_parallelgateway5">
         <omgdc:Bounds height="40.0" width="40.0" x="3570.0" y="89.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="updateActualBudget" id="BPMNShape_updateActualBudget">
+        <omgdc:Bounds height="55.0" width="105.0" x="3360.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="updateEstimatedBudget" id="BPMNShape_updateEstimatedBudget">
+        <omgdc:Bounds height="55.0" width="105.0" x="247.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow59" id="BPMNEdge_flow59">
         <omgdi:waypoint x="632.0" y="248.0"></omgdi:waypoint>
@@ -468,10 +464,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
           <omgdc:Bounds height="13.0" width="59.0" x="-50.0" y="-19.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
-        <omgdi:waypoint x="956.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="956.0" y="216.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow112" id="BPMNEdge_flow112">
         <omgdi:waypoint x="2190.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="2290.0" y="187.0"></omgdi:waypoint>
@@ -531,10 +523,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
       <bpmndi:BPMNEdge bpmnElement="association15" id="BPMNEdge_association15">
         <omgdi:waypoint x="1975.0" y="247.0"></omgdi:waypoint>
         <omgdi:waypoint x="1900.0" y="263.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association17" id="BPMNEdge_association17">
-        <omgdi:waypoint x="2118.0" y="91.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2074.0" y="77.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow193" id="BPMNEdge_flow193">
         <omgdi:waypoint x="55.0" y="187.0"></omgdi:waypoint>
@@ -659,10 +647,6 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
           <omgdc:Bounds height="13.0" width="39.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow231" id="BPMNEdge_flow231">
-        <omgdi:waypoint x="3385.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="3450.0" y="187.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow232" id="BPMNEdge_flow232">
         <omgdi:waypoint x="3555.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="3590.0" y="187.0"></omgdi:waypoint>
@@ -672,13 +656,17 @@ Se nella sezione appalti, va ad AGI per la pubblicazione per quelle che seguono 
         <omgdi:waypoint x="3590.0" y="129.0"></omgdi:waypoint>
         <omgdi:waypoint x="3502.0" y="160.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association18" id="BPMNEdge_association18">
-        <omgdi:waypoint x="3332.0" y="152.0"></omgdi:waypoint>
-        <omgdi:waypoint x="3402.0" y="121.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow234" id="BPMNEdge_flow234">
         <omgdi:waypoint x="3590.0" y="129.0"></omgdi:waypoint>
         <omgdi:waypoint x="3672.0" y="160.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow235" id="BPMNEdge_flow235">
+        <omgdi:waypoint x="3332.0" y="152.0"></omgdi:waypoint>
+        <omgdi:waypoint x="3412.0" y="105.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow236" id="BPMNEdge_flow236">
+        <omgdi:waypoint x="3412.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="3502.0" y="160.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

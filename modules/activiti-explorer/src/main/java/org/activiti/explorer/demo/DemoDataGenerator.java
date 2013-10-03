@@ -134,7 +134,12 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   protected void createGroup(String groupId, String type) {
     if (identityService.createGroupQuery().groupId(groupId).count() == 0) {
       Group newGroup = identityService.newGroup(groupId);
-      newGroup.setName(groupId.substring(0, 1).toUpperCase() + groupId.substring(1));
+      if (groupId.equals("responsabili") || groupId.equals("dirigenti") || type.equals("security-role")) {
+    	  newGroup.setName(groupId.substring(0, 1).toUpperCase() + groupId.substring(1));
+      }
+      else {
+		newGroup.setName(groupId.toUpperCase());
+	}
       newGroup.setType(type);
       identityService.saveGroup(newGroup);
     }
@@ -283,7 +288,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
             Arrays.asList("agi", "responsabili", "user"),
             Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
                     "phone", "", "twitterName", "", "skype", ""));
-    createUser("acorda", "Alessandra", "corda", "corda", "labopensource+SAG-responsabile@gmail.com", 
+    createUser("acorda", "Alessandra", "Corda", "corda", "labopensource+SAG-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
             Arrays.asList("sag", "responsabili", "user"),
             Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",

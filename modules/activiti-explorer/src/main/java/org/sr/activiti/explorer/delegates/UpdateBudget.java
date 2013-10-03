@@ -1,5 +1,6 @@
 package org.sr.activiti.explorer.delegates;
 
+import org.activiti.engine.EngineServices;
 import org.activiti.engine.budget.ProjectSourceItem;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -18,12 +19,12 @@ public class UpdateBudget implements JavaDelegate {
 	  Boolean sourceItemUpdated = false;
 //	  ProjectCostItem costItem = (ProjectCostItem) costToUpdate.getValue(execution);
 	  ProjectSourceItem sourceItem = (ProjectSourceItem) sourceToUpdate.getValue(execution);
-	  Long amount = (Long) amountToDecrease.getValue(execution);
-	  Long vat = (Long) actualVAT.getValue(execution);
+	  Double amount = (Double) amountToDecrease.getValue(execution);
+	  Double vat = (Double) actualVAT.getValue(execution);
 //    Boolean vatIsApplied = (Boolean) vatApplied.getValue(execution);
 	  Double amountToApply = 0.0;
 	  if(sourceItem!=null){
-		  amountToApply = (double) (amount * (1.0 + (double)vat/100));
+		  amountToApply = amount * (1.0 + vat/100);
 		  Double newActual = sourceItem.getActual() - amountToApply;
 		  sourceItem.setActual(newActual);
 		  execution.getEngineServices().getBudgetService().saveProjectSourceItem(sourceItem);
@@ -33,6 +34,10 @@ public class UpdateBudget implements JavaDelegate {
 //	  Double newTotal = project.getTotal() - amount;
 //	  project.setTotal(newTotal);
 //	  execution.getEngineServices().getBudgetService().saveProject(project);
+	 
+	  
+	  execution.setVariable("estimatedAmount",amountToApply);
+	  execution.setVariable("sourceEstimated",sourceItem);
 	  execution.setVariable("sourceItemUpdated",sourceItemUpdated);
   }
   
