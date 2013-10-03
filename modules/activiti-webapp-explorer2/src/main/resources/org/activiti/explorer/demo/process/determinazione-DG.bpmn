@@ -15,8 +15,8 @@
     </userTask>
     <userTask id="usertask3" name="AGI - Assegnazione numero e data" activiti:assignee="smaxia">
       <extensionElements>
-        <activiti:formProperty id="datadeterminazione" name="Data determinazione" type="date" variable="datadeterminazione" required="true"></activiti:formProperty>
-        <activiti:formProperty id="numerodeterminazione" name="Numero determinazione" type="long" variable="numerodeterminazione" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data_determinazione" name="Data determinazione" type="date" variable="data_determinazione" required="true"></activiti:formProperty>
+        <activiti:formProperty id="numero_determinazione" name="Numero determinazione" type="long" variable="numero_determinazione" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <serviceTask id="servicetask1" name="Check proposta" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
@@ -49,10 +49,10 @@
           <activiti:string>DeterminazioniDG</activiti:string>
         </activiti:field>
         <activiti:field name="suffixId">
-          <activiti:expression>${numerodeterminazione}</activiti:expression>
+          <activiti:expression>${numero_determinazione}</activiti:expression>
         </activiti:field>
         <activiti:field name="suffixDate">
-          <activiti:expression>${datadeterminazione}</activiti:expression>
+          <activiti:expression>${data_determinazione}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -80,7 +80,10 @@
           <activiti:string>Problema archiviazione documentale</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string>Si è verificato un problema nell'archiviazione del documento.</activiti:string>
+          <activiti:string>Si è verificato un problema nell'archiviazione del documento. Contattare i sistemisti e completare il task una volto risolto il problema.</activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:string>Si è verificato un problema nell'archiviazione del documento. Contattare i sistemisti e completare il task una volto risolto il problema.</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -97,7 +100,7 @@
     <serviceTask id="mailtask2" name="Notifica mancata Approvazione DG" activiti:type="mail">
       <extensionElements>
         <activiti:field name="subject">
-          <activiti:string>DG non ha approvato la tua proposta</activiti:string>
+          <activiti:string>Il DG non ha approvato la tua proposta di determinazione</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${emailInitiator}</activiti:expression>
@@ -109,7 +112,8 @@
           <activiti:string>Il Direttore non ha approvato la tua proposta.</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>Il Direttore non ha approvato la tua proposta: ${motivazioneDG}</activiti:expression>
+          <activiti:expression>Il DG non ha approvato la tua proposta di determinazione di ${detSubject}.
+Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -126,6 +130,9 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:string>La determinazione n°</activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>La determinazione di ${detSubject} è stata approvata, datata, numerata e firmata dal DG.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

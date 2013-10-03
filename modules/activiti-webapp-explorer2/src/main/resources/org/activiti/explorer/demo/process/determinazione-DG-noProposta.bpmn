@@ -17,8 +17,8 @@
     <userTask id="usertask3" name="AGI - Assegnazione numero e data" activiti:assignee="smaxia">
       <documentation>Assegnare numero e data alla determinazione di ${detSubject}.</documentation>
       <extensionElements>
-        <activiti:formProperty id="datadeterminazione" name="Data determinazione" type="date" variable="datadeterminazione" required="true"></activiti:formProperty>
-        <activiti:formProperty id="numerodeterminazione" name="Numero determinazione" type="long" variable="numerodeterminazione" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data_determinazione" name="Data determinazione" type="date" variable="data_determinazione" required="true"></activiti:formProperty>
+        <activiti:formProperty id="numero_determinazione" name="Numero determinazione" type="long" variable="numero_determinazione" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <serviceTask id="servicetask1" name="Check proposta" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
@@ -51,10 +51,10 @@
           <activiti:string>DeterminazioniDG</activiti:string>
         </activiti:field>
         <activiti:field name="suffixId">
-          <activiti:expression>${numerodeterminazione}</activiti:expression>
+          <activiti:expression>${numero_determinazione}</activiti:expression>
         </activiti:field>
         <activiti:field name="suffixDate">
-          <activiti:expression>${datadeterminazione}</activiti:expression>
+          <activiti:expression>${data_determinazione}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -68,7 +68,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isArchived}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask5" name="Problema archiviazione" activiti:async="true" activiti:assignee="smaxia">
-      <documentation>ATTENZIONE: SI È VERIFICATO UN PROBLEMA NEL SALVATAGGIO DEI FILE NEL DOCUMENTALE. AVVISARE I SISTEMISTI E COMPLETARE IL TASK APPENA AVER RISOLTO IL PROBLEMA</documentation>
+      <documentation>ATTENZIONE: SI È VERIFICATO UN PROBLEMA NELL'ARCHIVIAZIONE DEI FILE NEL DOCUMENTALE. CONTATTARE I SISTEMISTI E COMPLETARE IL TASK APPENA RISOLTO IL PROBLEMA.</documentation>
     </userTask>
     <serviceTask id="mailtask1" name="Notifica problema archiviazione" activiti:type="mail">
       <extensionElements>
@@ -82,7 +82,10 @@
           <activiti:string>Problema archiviazione documentale</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string>Si è verificato un problema nell'archiviazione del documento.</activiti:string>
+          <activiti:string>Si è verificato un problema nell'archiviazione del documento. Contattare i sistemisti e completare il task una volto risolto il problema.</activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:string>Si è verificato un problema nell'archiviazione del documento. Contattare i sistemisti e completare il task una volto risolto il problema.</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -99,7 +102,7 @@
     <serviceTask id="mailtask2" name="Notifica mancata Approvazione DG" activiti:type="mail">
       <extensionElements>
         <activiti:field name="subject">
-          <activiti:string>DG non ha approvato la tua proposta</activiti:string>
+          <activiti:string>Il DG non ha approvato la tua proposta di determinazione</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${emailInitiator}</activiti:expression>
@@ -111,7 +114,8 @@
           <activiti:string>Il Direttore non ha approvato la tua proposta.</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>Il Direttore non ha approvato la tua proposta di determinazione di ${detSubject}: ${motivazioneDG}</activiti:expression>
+          <activiti:expression>Il DG non ha approvato la tua proposta di determinazione di ${detSubject}.
+Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -124,10 +128,13 @@
           <activiti:string>responsabile@sardegnaricerche.it</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Determinazione firmata dal DG ed archiviata</activiti:string>
+          <activiti:string>Determinazione firmata dal DG</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>La determinazione di ${detSubject} è stata approvata, datata, numerata e firmata dal DG</activiti:expression>
+          <activiti:expression>La determinazione di ${detSubject} è stata approvata, datata, numerata e firmata dal DG.</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>La determinazione di ${detSubject} è stata approvata, datata, numerata e firmata dal DG.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
