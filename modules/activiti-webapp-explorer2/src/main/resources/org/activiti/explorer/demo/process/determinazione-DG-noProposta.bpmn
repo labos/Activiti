@@ -147,7 +147,7 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
     <userTask id="usertask6" name="AGI - Inserimento determinazione firmata e archiviazione" activiti:assignee="smaxia">
       <documentation>Allegare la scansione con le firme della determinazione di ${detSubject}.</documentation>
       <extensionElements>
-        <activiti:formProperty id="ro_data_determinazione" name="Data Determinazione" type="date" default="${data_determinazione}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ro_data_determinazione" name="Data Determinazione" type="date" variable="data_determinazione" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ro_numero_determinazione" name="Numero Determinazione" type="textmessage" default="${numero_determinazione}" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>

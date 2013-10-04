@@ -143,7 +143,7 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
     <sequenceFlow id="flow31" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
     <userTask id="usertask6" name="AGI - Inserimento determinazione firmata e archiviazione" activiti:assignee="smaxia">
       <extensionElements>
-        <activiti:formProperty id="ro_data_determinazione" name="Data Determinazione" type="date" default="${data_determinazione}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ro_data_determinazione" name="Data Determinazione" type="date" variable="data_determinazione" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ro_numero_determinazione" name="Numero Determinazione" type="textmessage" default="${numero_determinazione}"></activiti:formProperty>
       </extensionElements>
     </userTask>
