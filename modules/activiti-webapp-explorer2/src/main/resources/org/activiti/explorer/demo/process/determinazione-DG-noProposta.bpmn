@@ -82,10 +82,11 @@
           <activiti:string>Problema archiviazione documentale</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string>Si è verificato un problema nell'archiviazione del documento. Contattare i sistemisti e completare il task una volto risolto il problema.</activiti:string>
+          <activiti:string>Si è verificato un problema nell'archiviazione dei documenti. Contattare i sistemisti e completare il task una volto risolto il problema.</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:string>Si è verificato un problema nell'archiviazione del documento. Contattare i sistemisti e completare il task una volto risolto il problema.</activiti:string>
+          <activiti:string>Si è verificato un problema nell'archiviazione dei documenti. Contattare i sistemisti e completare il task una volto risolto il problema.
+</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -131,10 +132,10 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
           <activiti:string>Determinazione firmata dal DG</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>La determinazione di ${detSubject} è stata approvata, datata, numerata e firmata dal DG.</activiti:expression>
+          <activiti:expression>La determinazione n. ${numero_determinazione} del ${data_determinazione} di ${detSubject} è stata approvata e firmata dal DG.</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>La determinazione di ${detSubject} è stata approvata, datata, numerata e firmata dal DG.</activiti:expression>
+          <activiti:expression>La determinazione n. ${numero_determinazione} del ${data_determinazione} di ${detSubject} è stata approvata e firmata dal DG.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -145,6 +146,10 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
     <sequenceFlow id="flow31" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
     <userTask id="usertask6" name="AGI - Inserimento determinazione firmata e archiviazione" activiti:assignee="smaxia">
       <documentation>Allegare la scansione con le firme della determinazione di ${detSubject}.</documentation>
+      <extensionElements>
+        <activiti:formProperty id="ro_data_determinazione" name="Data Determinazione" type="date" default="${data_determinazione}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ro_numero_determinazione" name="Numero Determinazione" type="textmessage" default="${numero_determinazione}" writable="false"></activiti:formProperty>
+      </extensionElements>
     </userTask>
     <sequenceFlow id="flow32" sourceRef="usertask3" targetRef="usertask6"></sequenceFlow>
     <sequenceFlow id="flow33" sourceRef="usertask6" targetRef="servicetask3"></sequenceFlow>
@@ -240,14 +245,14 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="392.0" y="277.0"></omgdi:waypoint>
         <omgdi:waypoint x="222.0" y="218.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="59.0" x="-59.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="59.0" x="-59.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="392.0" y="277.0"></omgdi:waypoint>
         <omgdi:waypoint x="392.0" y="217.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="38.0" x="-40.0" y="-4.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="38.0" x="-40.0" y="-4.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
@@ -258,14 +263,14 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="966.0" y="177.0"></omgdi:waypoint>
         <omgdi:waypoint x="1026.0" y="177.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="46.0" x="-30.0" y="5.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="46.0" x="-30.0" y="5.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
         <omgdi:waypoint x="946.0" y="157.0"></omgdi:waypoint>
         <omgdi:waypoint x="946.0" y="100.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="68.0" x="9.0" y="1.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="68.0" x="9.0" y="1.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
@@ -323,14 +328,14 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="678.0" y="277.0"></omgdi:waypoint>
         <omgdi:waypoint x="678.0" y="217.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="60.0" x="11.0" y="-9.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="60.0" x="11.0" y="-9.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
         <omgdi:waypoint x="698.0" y="297.0"></omgdi:waypoint>
         <omgdi:waypoint x="796.0" y="297.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="39.0" x="-45.0" y="-20.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="38.0" x="-45.0" y="-20.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
@@ -338,7 +343,7 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="532.0" y="70.0"></omgdi:waypoint>
         <omgdi:waypoint x="532.0" y="150.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="51.0" x="-92.0" y="4.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="49.0" x="-92.0" y="4.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">

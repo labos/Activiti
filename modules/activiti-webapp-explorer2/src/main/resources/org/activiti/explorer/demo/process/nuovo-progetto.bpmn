@@ -44,9 +44,9 @@
     <userTask id="usertask62" name="Autorizzazione SPF" activiti:assignee="emulas">
       <extensionElements>
         <activiti:formProperty id="project-spf" name="Progetto" type="textmessage" default="${project.name}"></activiti:formProperty>
-        <activiti:formProperty id="abs-spf" name="Importo ABS" type="textmessage" variable="importoABS"></activiti:formProperty>
-        <activiti:formProperty id="aiuti-spf" name="Importo Aiuti" type="textmessage" variable="importoAiuti"></activiti:formProperty>
-        <activiti:formProperty id="collab-spf" name="Importo Collaborazioni" type="textmessage" variable="importoCollab"></activiti:formProperty>
+        <activiti:formProperty id="abs-spf" name="Importo ABS" type="textmessage" default="${importoABS}"></activiti:formProperty>
+        <activiti:formProperty id="aiuti-spf" name="Importo Aiuti" type="textmessage" default="${importoAiuti}"></activiti:formProperty>
+        <activiti:formProperty id="collab-spf" name="Importo Collaborazioni" type="textmessage" default="${importoCollab}"></activiti:formProperty>
         <activiti:formProperty id="autorizzaSpesa" name="Autorizza?" type="enum" variable="autorizzaSpesa" default="true" required="true">
           <activiti:value id="true" name="Sì"></activiti:value>
           <activiti:value id="false" name="No"></activiti:value>
