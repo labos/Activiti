@@ -27,9 +27,9 @@ public class BudgetMenuBar extends ToolBar {
   
   private static final long serialVersionUID = 1L;
   
-  public static final String ENTRY_SOURCES = "sources";
   public static final String ENTRY_PROGRAMS = "programs";
   public static final String ENTRY_PROJECTS = "projects";
+  public static final String ENTRY_SOURCES = "sources";
   public static final String ENTRY_COSTENTRIES = "costEntries";
 
   protected I18nManager i18nManager;
@@ -45,12 +45,6 @@ public class BudgetMenuBar extends ToolBar {
   protected void init() {
     setWidth("100%");
 
-    addToolbarEntry(ENTRY_SOURCES, i18nManager.getMessage(Messages.BUDGET_MENU_SOURCES), new ToolbarCommand() {
-      public void toolBarItemSelected() {
-        viewManager.showSourcePage();
-      }
-    });
-    
     addToolbarEntry(ENTRY_PROGRAMS, i18nManager.getMessage(Messages.BUDGET_MENU_PROGRAMS), new ToolbarCommand() {
       public void toolBarItemSelected() {
         viewManager.showProgramPage();
@@ -62,6 +56,12 @@ public class BudgetMenuBar extends ToolBar {
         viewManager.showProjectPage();
       }
     });
+    
+    addToolbarEntry(ENTRY_SOURCES, i18nManager.getMessage(Messages.BUDGET_MENU_SOURCES), new ToolbarCommand() {
+        public void toolBarItemSelected() {
+          viewManager.showSourcePage();
+        }
+      });
     
     addToolbarEntry(ENTRY_COSTENTRIES, i18nManager.getMessage(Messages.BUDGET_MENU_COSTENTRIES), new ToolbarCommand() {
         public void toolBarItemSelected() {

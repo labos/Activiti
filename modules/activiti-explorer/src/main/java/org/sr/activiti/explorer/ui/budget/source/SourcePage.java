@@ -87,13 +87,5 @@ public class SourcePage extends BudgetPage{
 	    return sourceTable;
 	  }
 	  
-	  public void notifyGroupChanged(String sourceId) {
-	    // Clear cache
-	    sourceTable.removeAllItems();
-	    sourceListContainer.removeAllItems();
-	    
-	    // select changed group
-	    sourceTable.select(sourceListContainer.getIndexForObjectId(sourceId));
-	  }
-
+	 
 }

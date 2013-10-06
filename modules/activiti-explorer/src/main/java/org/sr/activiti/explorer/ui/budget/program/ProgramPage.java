@@ -3,10 +3,12 @@ package org.sr.activiti.explorer.ui.budget.program;
 import org.activiti.explorer.ExplorerApp;
 import org.activiti.explorer.data.LazyLoadingContainer;
 import org.activiti.explorer.data.LazyLoadingQuery;
+import org.activiti.explorer.navigation.ProcessNavigator;
 import org.activiti.explorer.navigation.UriFragment;
 import org.sr.activiti.explorer.navigation.budget.ProgramNavigator;
 import org.activiti.explorer.ui.Images;
 import org.sr.activiti.explorer.ui.budget.BudgetPage;
+import org.activiti.explorer.ui.process.ProcessDefinitionDetailPanel;
 import org.activiti.explorer.ui.util.ThemeImageColumnGenerator;
 
 import com.vaadin.data.Item;
@@ -70,12 +72,10 @@ public class ProgramPage extends BudgetPage{
 	        Item item = programTable.getItem(event.getProperty().getValue()); // the value of the property is the itemId of the table entry
 	        if(item != null) {
 	          String programId = (String) item.getItemProperty("id").getValue();
-	          setDetailComponent(new ProgramDetailPanel(ProgramPage.this, programId));
-	          
+	          setDetailComponent(new ProgramDetailPanel(ProgramPage.this, programId));          
 	          
 	          // Update URL
-	          ExplorerApp.get().setCurrentUriFragment(
-	            new UriFragment(ProgramNavigator.PROGRAM_URI_PART, programId));
+	          ExplorerApp.get().setCurrentUriFragment(new UriFragment(ProgramNavigator.PROGRAM_URI_PART, programId));
 	        } else {
 	          // Nothing is selected
 	          setDetailComponent(null);
@@ -87,13 +87,5 @@ public class ProgramPage extends BudgetPage{
 	    return programTable;
 	  }
 	  
-	  public void notifyGroupChanged(String programId) {
-	    // Clear cache
-	    programTable.removeAllItems();
-	    programListContainer.removeAllItems();
-	    
-	    // select changed group
-	    programTable.select(programListContainer.getIndexForObjectId(programId));
-	  }
-
+	 
 }

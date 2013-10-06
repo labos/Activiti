@@ -87,13 +87,5 @@ public class ProjectPage extends BudgetPage{
 	    return projectTable;
 	  }
 	  
-	  public void notifyGroupChanged(String projectId) {
-	    // Clear cache
-	    projectTable.removeAllItems();
-	    projectListContainer.removeAllItems();
-	    
-	    // select changed group
-	    projectTable.select(projectListContainer.getIndexForObjectId(projectId));
-	  }
-
+	
 }

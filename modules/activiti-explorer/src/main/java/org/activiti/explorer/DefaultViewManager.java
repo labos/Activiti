@@ -274,6 +274,7 @@ public class DefaultViewManager implements ViewManager, Serializable {
   }
   
   public void showProgramPage(String programId){
+	  switchView(new ProgramPage(programId), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_PROGRAMS);	
   }
   
   public void showProjectPage(){
@@ -281,6 +282,7 @@ public class DefaultViewManager implements ViewManager, Serializable {
   }
   
   public void showProjectPage(String projectId){
+	  switchView(new ProjectPage(projectId), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_PROJECTS);
   }
   
   public void showCostEntryPage(){
@@ -288,6 +290,7 @@ public class DefaultViewManager implements ViewManager, Serializable {
   }
   
   public void showCostEntryPage(String costEntryId){
+	  switchView(new CostEntryPage(costEntryId), ViewManager.MAIN_NAVIGATION_BUDGET, BudgetMenuBar.ENTRY_COSTENTRIES);
   }
   
   // Management

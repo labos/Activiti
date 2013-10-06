@@ -20,6 +20,10 @@ import java.util.Map;
 import org.activiti.explorer.ui.management.admin.AdministrationNavigator;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
+import org.sr.activiti.explorer.navigation.budget.CostEntryNavigator;
+import org.sr.activiti.explorer.navigation.budget.ProgramNavigator;
+import org.sr.activiti.explorer.navigation.budget.ProjectNavigator;
+import org.sr.activiti.explorer.navigation.budget.SourceNavigator;
 
 /**
  * @author Frederik Heremans
@@ -70,6 +74,11 @@ public class NavigatorManager implements InitializingBean, Serializable {
     addNavigator(new MyProcessesNavigator());
     addNavigator(new SavedReportNavigator());
     addNavigator(new ReportNavigator());
+    addNavigator(new ProgramNavigator());
+    addNavigator(new ProjectNavigator());
+    addNavigator(new SourceNavigator());
+    addNavigator(new CostEntryNavigator());    
+    
   }
 
 }

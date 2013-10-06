@@ -85,15 +85,6 @@ public class CostEntryPage extends BudgetPage{
 	    });
 	    
 	    return costEntryTable;
-	  }
-	  
-	  public void notifyGroupChanged(String costEntryId) {
-	    // Clear cache
-	    costEntryTable.removeAllItems();
-	    costEntryListContainer.removeAllItems();
-	    
-	    // select changed group
-	    costEntryTable.select(costEntryListContainer.getIndexForObjectId(costEntryId));
-	  }
+	  }	  
 
 }
