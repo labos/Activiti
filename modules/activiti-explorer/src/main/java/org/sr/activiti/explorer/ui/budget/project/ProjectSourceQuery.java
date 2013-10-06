@@ -37,7 +37,7 @@ import com.vaadin.ui.themes.Reindeer;
 /**
  * Lab Open Source
  */
-public class ProjectSourcesQuery extends AbstractLazyLoadingQuery {
+public class ProjectSourceQuery extends AbstractLazyLoadingQuery {
   
   protected transient BudgetService budgetService;
 
@@ -45,7 +45,7 @@ public class ProjectSourcesQuery extends AbstractLazyLoadingQuery {
   protected String sortby;
   protected boolean ascending;
   
-  public ProjectSourcesQuery(String idProject) {
+  public ProjectSourceQuery(String idProject) {
     this.idProject = idProject;
     this.budgetService = ProcessEngines.getDefaultProcessEngine().getBudgetService();
   }
@@ -83,9 +83,6 @@ public class ProjectSourcesQuery extends AbstractLazyLoadingQuery {
     private static final long serialVersionUID = 1L;
 
     public ProjectSourceItemItem(final ProjectSourceItem projectSourceItem) {
-    	
-    	
-    	
     	
       // id
       addItemProperty("id", new ObjectProperty<String>(projectSourceItem.getId(), String.class));

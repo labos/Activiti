@@ -81,7 +81,7 @@ public class ProjectDetailPanel extends DetailPanel {
 
 		initPageTitle();
 		initProjectDetails();
-		initSources();
+		initProjectSources();
 
 	}
 
@@ -170,7 +170,7 @@ public class ProjectDetailPanel extends DetailPanel {
 
 	}
 
-	protected void initSources() {
+	protected void initProjectSources() {
 		HorizontalLayout sourcesHeader = new HorizontalLayout();
 		sourcesHeader.setSpacing(true);
 		sourcesHeader.setWidth(100, UNITS_PERCENTAGE);
@@ -182,7 +182,7 @@ public class ProjectDetailPanel extends DetailPanel {
 		sourcesLayout = new HorizontalLayout();
 		sourcesLayout.setWidth(100, UNITS_PERCENTAGE);
 		addDetailComponent(sourcesLayout);
-		initSourcesTable();
+		initProjectSourceTable();
 	}
 
 	protected void initSourcesTitle(HorizontalLayout sourcesHeader) {
@@ -192,8 +192,8 @@ public class ProjectDetailPanel extends DetailPanel {
 		sourcesHeader.addComponent(label);
 	}
 
-	protected void initSourcesTable() {
-		LazyLoadingQuery query = new ProjectSourcesQuery(project.getId());
+	protected void initProjectSourceTable() {
+		LazyLoadingQuery query = new ProjectSourceQuery(project.getId());
 		if (query.size() > 0) {
 			sourcesTable = new Table();
 			sourcesTable.setWidth(100, UNITS_PERCENTAGE);
@@ -201,7 +201,7 @@ public class ProjectDetailPanel extends DetailPanel {
 
 			sourcesTable.setEditable(false);
 			sourcesTable.setSelectable(false);
-			sourcesTable.setSortDisabled(false);
+			sourcesTable.setSortDisabled(true);
 
 			LazyLoadingContainer container = new LazyLoadingContainer(query, 30);
 			sourcesTable.setContainerDataSource(container);

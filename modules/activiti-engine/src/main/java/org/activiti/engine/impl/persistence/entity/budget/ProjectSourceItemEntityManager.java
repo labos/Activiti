@@ -46,25 +46,20 @@ public class ProjectSourceItemEntityManager extends AbstractManager {
 	}
 
 	public ProjectSourceItemEntity findProjectSourceItemById(String id) {
-		return (ProjectSourceItemEntity) getDbSqlSession().selectOne("selectProjectSourceItemById",
-				id);
+		return (ProjectSourceItemEntity) getDbSqlSession().selectOne("selectProjectSourceItemById",	id);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ProjectSourceItem> findProjectSourceItemByQueryCriteria(ProjectSourceItemQueryImpl query,
-			Page page) {
-		return getDbSqlSession().selectList("selectProjectSourceItemByQueryCriteria",
-				query, page);
+	public List<ProjectSourceItem> findProjectSourceItemByQueryCriteria(ProjectSourceItemQueryImpl query, Page page) {
+		return getDbSqlSession().selectList("selectProjectSourceItemByQueryCriteria", query, page);
 	}
 
 	public long findProjectSourceItemCountByQueryCriteria(ProjectSourceItemQueryImpl query) {
-		return (Long) getDbSqlSession().selectOne(
-				"selectProjectSourceItemCountByQueryCriteria", query);
+		return (Long) getDbSqlSession().selectOne("selectProjectSourceItemCountByQueryCriteria", query);
 	}
 
 	public ProjectSourceItemQuery createNewProjectSourceItemQuery() {
-		return new ProjectSourceItemQueryImpl(Context.getProcessEngineConfiguration()
-				.getCommandExecutorTxRequired());
+		return new ProjectSourceItemQueryImpl(Context.getProcessEngineConfiguration().getCommandExecutorTxRequired());
 	}
 
 }

@@ -38,11 +38,7 @@ public class ProjectSourceItemQueryImpl extends AbstractQuery<ProjectSourceItemQ
 		}
 		this.id = id;
 		return this;
-	}
-	
-	
-	
-	
+	}	
 	
 
 	@Override
