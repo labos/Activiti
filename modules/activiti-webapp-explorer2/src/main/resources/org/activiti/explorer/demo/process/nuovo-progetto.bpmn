@@ -111,10 +111,11 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
     <userTask id="usertask68" name="Avvio procedura" activiti:assignee="${nominativoRUP}">
       <documentation>Selezionare il tipo di procedura da avviare sul progetto ${project.name}.</documentation>
       <extensionElements>
-        <activiti:formProperty id="procedura" name="Scegli la procedura da avviare:" type="enum" variable="procedura" required="true">
+        <activiti:formProperty id="procedura" name="Scegli la procedura da avviare o termina il progetto:" type="enum" variable="procedura" required="true">
           <activiti:value id="abs" name="ABS"></activiti:value>
           <activiti:value id="aiuti" name="Aiuti"></activiti:value>
           <activiti:value id="collab" name="Collaborazione"></activiti:value>
+          <activiti:value id="fine_progetto" name="Fine Progetto"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
     </userTask>
@@ -129,7 +130,6 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
       </extensionElements>
     </callActivity>
     <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
-    <sequenceFlow id="flow211" sourceRef="usertask68" targetRef="parallelgateway2"></sequenceFlow>
     <sequenceFlow id="flow213" sourceRef="parallelgateway2" targetRef="usertask68"></sequenceFlow>
     <callActivity id="callactivity4" name="Aiuti">
       <extensionElements>
@@ -171,6 +171,15 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
     </sequenceFlow>
     <sequenceFlow id="flow221" name="Allegato" sourceRef="exclusivegateway4" targetRef="exclusivegateway2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isAttached}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow225" sourceRef="usertask68" targetRef="exclusivegateway6"></sequenceFlow>
+    <sequenceFlow id="flow226" sourceRef="exclusivegateway6" targetRef="parallelgateway2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${procedura!='fine_progetto'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow227" sourceRef="exclusivegateway6" targetRef="endevent2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${procedura=='fine_progetto'}]]></conditionExpression>
     </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_nuovoProgetto">
@@ -221,7 +230,7 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <omgdc:Bounds height="55.0" width="105.0" x="1380.0" y="47.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="1138.0" y="54.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="1219.0" y="237.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity4" id="BPMNShape_callactivity4">
         <omgdc:Bounds height="55.0" width="105.0" x="1380.0" y="132.0"></omgdc:Bounds>
@@ -237,6 +246,12 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
         <omgdc:Bounds height="40.0" width="40.0" x="380.0" y="54.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway6" id="BPMNShape_exclusivegateway6">
+        <omgdc:Bounds height="40.0" width="40.0" x="1138.0" y="237.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="1051.0" y="240.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow177" id="BPMNEdge_flow177">
         <omgdi:waypoint x="37.0" y="142.0"></omgdi:waypoint>
@@ -259,14 +274,14 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <omgdi:waypoint x="897.0" y="159.0"></omgdi:waypoint>
         <omgdi:waypoint x="930.0" y="159.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="44.0" x="-35.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="44.0" x="-35.0" y="-17.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow200" id="BPMNEdge_flow200">
         <omgdi:waypoint x="820.0" y="179.0"></omgdi:waypoint>
         <omgdi:waypoint x="818.0" y="230.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="66.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="66.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow201" id="BPMNEdge_flow201">
@@ -293,32 +308,27 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <omgdi:waypoint x="510.0" y="94.0"></omgdi:waypoint>
         <omgdi:waypoint x="672.0" y="132.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="64.0" x="-2.0" y="-13.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="64.0" x="-2.0" y="-13.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow208" id="BPMNEdge_flow208">
         <omgdi:waypoint x="510.0" y="94.0"></omgdi:waypoint>
         <omgdi:waypoint x="510.0" y="132.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="38.0" x="-45.0" y="-7.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="38.0" x="-45.0" y="-7.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow209" id="BPMNEdge_flow209">
         <omgdi:waypoint x="1045.0" y="159.0"></omgdi:waypoint>
         <omgdi:waypoint x="1106.0" y="159.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow211" id="BPMNEdge_flow211">
-        <omgdi:waypoint x="1158.0" y="132.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1158.0" y="94.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow213" id="BPMNEdge_flow213">
-        <omgdi:waypoint x="1138.0" y="74.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1135.0" y="95.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1158.0" y="132.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1239.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1158.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow214" id="BPMNEdge_flow214">
-        <omgdi:waypoint x="1158.0" y="94.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1279.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1239.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1279.0" y="179.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow215" id="BPMNEdge_flow215">
         <omgdi:waypoint x="1279.0" y="139.0"></omgdi:waypoint>
@@ -346,15 +356,27 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <omgdi:waypoint x="400.0" y="94.0"></omgdi:waypoint>
         <omgdi:waypoint x="283.0" y="124.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="59.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow221" id="BPMNEdge_flow221">
         <omgdi:waypoint x="420.0" y="74.0"></omgdi:waypoint>
         <omgdi:waypoint x="490.0" y="74.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="38.0" x="-20.0" y="-18.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="38.0" x="-20.0" y="-18.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow225" id="BPMNEdge_flow225">
+        <omgdi:waypoint x="1158.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1158.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow226" id="BPMNEdge_flow226">
+        <omgdi:waypoint x="1178.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1219.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow227" id="BPMNEdge_flow227">
+        <omgdi:waypoint x="1138.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1086.0" y="257.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
