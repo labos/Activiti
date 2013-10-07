@@ -996,3 +996,18 @@ input.v-textfield-readonly, textarea.v-textarea-readonly{
     line-height:16px;
     width:100%;
 }
+
+.v-disabled.v-datefield-popupcalendar {
+    cursor: default;
+    opacity: 0.9;
+}
+.v-disabled.v-datefield-popupcalendar .v-datefield-textfield {
+    font-size: 14px;
+    border:none;
+    background:none;
+    font-weight:bold;
+}
+
+.v-disabled.v-datefield-popupcalendar button.v-datefield-button {
+    visibility: hidden;
+}
