@@ -29,4 +29,7 @@ public interface ProjectSourceItemQuery extends Query<ProjectSourceItemQuery, Pr
   /** Only select ProjectSourceItems with the given idProject/ */
   ProjectSourceItemQuery idProject(String idProject);
   
+  /** Only select ProjectSourceItems with the given idSource/ */
+  ProjectSourceItemQuery idSource(String idSource);
+  
 }

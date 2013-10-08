@@ -19,11 +19,15 @@ import org.activiti.engine.budget.Source;
 import org.activiti.explorer.ExplorerApp;
 import org.activiti.explorer.I18nManager;
 import org.activiti.explorer.Messages;
+import org.activiti.explorer.data.LazyLoadingContainer;
+import org.activiti.explorer.data.LazyLoadingQuery;
 import org.activiti.explorer.ui.Images;
 import org.activiti.explorer.ui.custom.DetailPanel;
 import org.activiti.explorer.ui.mainlayout.ExplorerLayout;
+import org.sr.activiti.explorer.ui.budget.project.ProjectSourceQuery;
 
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.GridLayout;
@@ -37,7 +41,6 @@ import com.vaadin.ui.themes.Reindeer;
 /**
  * @author Lab Open Source
  */
-//public class SourceDetailPanel extends DetailPanel implements MemberShipChangeListener {
 public class SourceDetailPanel extends DetailPanel {
 
   private static final long serialVersionUID = 1L;
@@ -54,10 +57,9 @@ public class SourceDetailPanel extends DetailPanel {
   protected HorizontalLayout detailLayout;
   protected GridLayout detailsGrid;
   protected TextField nameTextField;
-  protected ComboBox typeCombobox;
-  protected HorizontalLayout membersLayout;
-  protected Table membersTable;
-  protected Label noMembersTable;
+  protected HorizontalLayout projectsLayout;
+  protected Table projectsTable;
+  protected Label noProjectsTable;
   
   public SourceDetailPanel(SourcePage sourcePage, String sourceId) {
 	    this.sourcePage = sourcePage;
@@ -74,8 +76,7 @@ public class SourceDetailPanel extends DetailPanel {
     
     initPageTitle();
     initSourceDetails();
-   // initMembers();
-    
+    initProjects();   
    
   }
   
@@ -161,76 +162,56 @@ public class SourceDetailPanel extends DetailPanel {
     detailsGrid.addComponent(typeValueLabel);
     
   }
-   
-  /*
-  protected void initMembers() {
-    HorizontalLayout membersHeader = new HorizontalLayout();
-    membersHeader.setSpacing(true);
-    membersHeader.setWidth(100, UNITS_PERCENTAGE);
-    membersHeader.addStyleName(ExplorerLayout.STYLE_DETAIL_BLOCK);
-    addDetailComponent(membersHeader);
-    
-    initMembersTitle(membersHeader);
-    
-    
-    membersLayout = new HorizontalLayout();
-    membersLayout.setWidth(100, UNITS_PERCENTAGE);
-    addDetailComponent(membersLayout);
-    initMembersTable();
-  }
   
-  protected void initMembersTitle(HorizontalLayout membersHeader) {
-    Label usersHeader = new Label(i18nManager.getMessage(Messages.GROUP_HEADER_USERS));
-    usersHeader.addStyleName(ExplorerLayout.STYLE_H3);
-    membersHeader.addComponent(usersHeader);
-  }
-  
-    
-  // Hacky - must be put in custom service
-  protected List<String> getCurrentMembers() {
-    List<User> users = identityService.createUserQuery().memberOfGroup(group.getId()).list();
-    List<String> userIds = new ArrayList<String>();
-    for (User user : users) {
-      userIds.add(user.getId());
-    }
-    return userIds;
-  }
-  
-  protected void initMembersTable() {
-    LazyLoadingQuery query = new GroupMembersQuery(group.getId(), this);
-    if (query.size() > 0) {
-      membersTable = new Table();
-      membersTable.setWidth(100, UNITS_PERCENTAGE);
-      membersTable.setHeight(400, UNITS_PIXELS);
-      
-      membersTable.setEditable(false);
-      membersTable.setSelectable(false);
-      membersTable.setSortDisabled(false);
-      
-      LazyLoadingContainer container = new LazyLoadingContainer(query, 30);
-      membersTable.setContainerDataSource(container);
-      
-      membersTable.addContainerProperty("id", Button.class, null);
-      membersTable.addContainerProperty("firstName", String.class, null);
-      membersTable.addContainerProperty("lastName", String.class, null);
-      membersTable.addContainerProperty("email", String.class, null);
-      membersTable.addContainerProperty("actions", Component.class, null);
-      
-      membersLayout.addComponent(membersTable);
-    } else {
-      noMembersTable = new Label(i18nManager.getMessage(Messages.GROUP_NO_MEMBERS));
-      membersLayout.addComponent(noMembersTable);
-    }
-  }
-  */
-  
-  /*
-  public void notifyMembershipChanged() {
-    membersLayout.removeAllComponents();
-    initMembersTable();
-    
-  
-  }
-  */
+  protected void initProjects() {
+		HorizontalLayout sourcesHeader = new HorizontalLayout();
+		sourcesHeader.setSpacing(true);
+		sourcesHeader.setWidth(100, UNITS_PERCENTAGE);
+		sourcesHeader.addStyleName(ExplorerLayout.STYLE_DETAIL_BLOCK);
+		addDetailComponent(sourcesHeader);
 
+		initProjectsTitle(sourcesHeader);
+
+		projectsLayout = new HorizontalLayout();
+		projectsLayout.setWidth(100, UNITS_PERCENTAGE);
+		addDetailComponent(projectsLayout);
+		initProjectsTable();
+	}
+
+	protected void initProjectsTitle(HorizontalLayout sourcesHeader) {
+		//Label usersHeader = new Label(i18nManager.getMessage(Messages.GROUP_HEADER_USERS));
+		Label label = new Label("Progetti");
+		label.addStyleName(ExplorerLayout.STYLE_H3);
+		sourcesHeader.addComponent(label);
+	}
+
+	protected void initProjectsTable() {
+		LazyLoadingQuery query = new SourceProjectQuery(source.getId());
+		if (query.size() > 0) {
+			projectsTable = new Table();
+			projectsTable.setWidth(100, UNITS_PERCENTAGE);
+			projectsTable.setHeight(400, UNITS_PIXELS);
+
+			projectsTable.setEditable(false);
+			projectsTable.setSelectable(false);
+			projectsTable.setSortDisabled(true);
+
+			LazyLoadingContainer container = new LazyLoadingContainer(query, 30);
+			projectsTable.setContainerDataSource(container);
+
+			projectsTable.addContainerProperty("id", String.class, null);
+			projectsTable.addContainerProperty("idSource", String.class, null);
+			projectsTable.addContainerProperty("idProject", Button.class, null);
+			projectsTable.addContainerProperty("total", Double.class, null);
+			projectsTable.addContainerProperty("actual", Double.class, null);
+			
+			projectsLayout.addComponent(projectsTable);
+		} else {
+			noProjectsTable = new Label("Nessuna fonte per il progetto selezionato" );
+			projectsLayout.addComponent(noProjectsTable);
+		}
+	}
+  
+  
+  
 }
