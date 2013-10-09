@@ -83,4 +83,6 @@
     <property name="identityService" ref="identityService" />
   </bean>
   
+  <bean id="dateFormatUtil" class="org.sr.activiti.bean.DateFormatUtil" />
+  
 </beans>

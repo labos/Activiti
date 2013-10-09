@@ -39,6 +39,10 @@ public class CmisUtil {
     parameter.put(SessionParameter.ATOMPUB_URL, url);
     parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
 
+
+ // Set the alfresco object factory
+ parameter.put(SessionParameter.OBJECT_FACTORY_CLASS, "org.alfresco.cmis.client.impl.AlfrescoObjectFactoryImpl");
+
     Repository repository = sessionFactory.getRepositories(parameter).get(0);
     return repository.createSession();
   }
@@ -56,7 +60,7 @@ public class CmisUtil {
     return null;
   }
 
-	private Folder getFolderAndCreate(Session session,String folderName, String parentFolderName) {
+	public static Folder getFolderAndCreate(Session session,String folderName, String parentFolderName) {
 		Folder parentFolder = CmisUtil.getFolder(session, parentFolderName );
 		Folder folder = CmisUtil.containsFolderWithName(folderName, parentFolder);
 		if (folder == null) {

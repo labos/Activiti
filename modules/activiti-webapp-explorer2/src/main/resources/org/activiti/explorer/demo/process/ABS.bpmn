@@ -132,6 +132,7 @@
         <activiti:in sourceExpression="nomina Commissione di Gara" target="detSubject"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
         <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
+        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow188" sourceRef="callactivity3" targetRef="usertask18"></sequenceFlow>
@@ -144,6 +145,7 @@
         <activiti:in sourceExpression="Aggiudicazione definitiva" target="detSubject"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
         <activiti:in source="nominativoRUP" target="detAssignee"></activiti:in>
+        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow190" sourceRef="usertask56" targetRef="callactivity4"></sequenceFlow>
@@ -180,6 +182,7 @@
         <activiti:in source="scadenzaDURC" target="scadenzaDURC"></activiti:in>
         <activiti:in source="cig" target="cig"></activiti:in>
         <activiti:in source="nome_fornitore" target="nome_fornitore"></activiti:in>
+        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow202" sourceRef="callactivity5" targetRef="endevent1"></sequenceFlow>
@@ -734,7 +737,7 @@
         <omgdi:waypoint x="1142.0" y="84.0"></omgdi:waypoint>
         <omgdi:waypoint x="1183.0" y="84.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="100.0" x="-20.0" y="-20.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="38.0" x="-20.0" y="-20.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

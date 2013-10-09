@@ -100,6 +100,7 @@
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
         <activiti:in sourceExpression="smaxia" target="detAssignee"></activiti:in>
         <activiti:in sourceExpression="Autorizzazione_Spesa" target="detSubject"></activiti:in>
+        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
       </extensionElements>
     </callActivity>
     <sequenceFlow id="flow68" sourceRef="servicetask6" targetRef="callactivity1"></sequenceFlow>
