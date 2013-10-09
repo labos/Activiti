@@ -27,9 +27,7 @@ public class CreateProjectQueryCmd implements Command<ProjectQuery>, Serializabl
   private static final long serialVersionUID = 1L;
 
   public ProjectQuery execute(CommandContext commandContext) {
-    return commandContext
-      .getProjectEntityManager()
-      .createNewProjectQuery();
+    return commandContext.getProjectEntityManager().createNewProjectQuery();
   }
 
 }

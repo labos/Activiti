@@ -184,20 +184,19 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoProjects(){
-	  createProject("progetto1", "Progetto 1", new Double(1000));
-	  createProject("progetto2", "Progetto 2", new Double(2000));
-	  createProject("progetto3", "Progetto 3", new Double(3000));
-	  createProject("progetto4", "Progetto 4", new Double(4000));
-	  createProject("progetto5", "Progetto 5", new Double(5000));
-	  createProject("progetto6", "Progetto 6", new Double(6000));
-	  createProject("progetto7", "Progetto 7", new Double(7000));
+	  createProject("progetto1", "Progetto 1");
+	  createProject("progetto2", "Progetto 2");
+	  createProject("progetto3", "Progetto 3");
+	  createProject("progetto4", "Progetto 4");
+	  createProject("progetto5", "Progetto 5");
+	  createProject("progetto6", "Progetto 6");
+	  createProject("progetto7", "Progetto 7");
   }
   
-  protected void createProject(String projectId,String name, Double total){
+  protected void createProject(String projectId,String name){
 	  if(budgetService.createProjectQuery().projectId(projectId).count() == 0){
 		  Project newProject = budgetService.newProject(projectId);
 		  newProject.setName(name);
-		  newProject.setTotal(total);
 		  budgetService.saveProject(newProject);
 	  }
   }

@@ -11,5 +11,8 @@ public interface Project extends Serializable{
 	
 	Double getTotal();
 	void setTotal(Double total);
+	
+	Double getActual();
+	void setActual(Double actual);
 
 }

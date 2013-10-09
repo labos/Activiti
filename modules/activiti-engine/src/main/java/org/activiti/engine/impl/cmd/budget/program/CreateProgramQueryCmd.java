@@ -28,9 +28,7 @@ public class CreateProgramQueryCmd implements Command<ProgramQuery>, Serializabl
   private static final long serialVersionUID = 1L;
 
   public ProgramQuery execute(CommandContext commandContext) {
-    return commandContext
-      .getProgramEntityManager()
-      .createNewProgramQuery();
+    return commandContext.getProgramEntityManager().createNewProgramQuery();
   }
 
 }

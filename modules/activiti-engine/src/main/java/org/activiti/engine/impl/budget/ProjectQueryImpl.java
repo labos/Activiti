@@ -18,8 +18,7 @@ public class ProjectQueryImpl extends AbstractQuery<ProjectQuery, Project> imple
 	private static final long serialVersionUID = 1L;
 	protected String id;
 	protected String name;
-	protected Double total;
-	
+		
 	public ProjectQueryImpl(){
 	}
 	
@@ -43,16 +42,12 @@ public class ProjectQueryImpl extends AbstractQuery<ProjectQuery, Project> imple
 	@Override
 	public long executeCount(CommandContext commandContext) {
 		checkQueryOk();
-	    return commandContext
-	      .getProjectEntityManager()
-	      .findProjectCountByQueryCriteria(this);
+	    return commandContext.getProjectEntityManager().findProjectCountByQueryCriteria(this);
 	}
 	@Override
 	public List<Project> executeList(CommandContext commandContext, Page page) {
 		 checkQueryOk();
-		 return commandContext
-		   .getProjectEntityManager()
-		   .findProjectByQueryCriteria(this, page);
+		 return commandContext.getProjectEntityManager().findProjectByQueryCriteria(this, page);
 	}
 	
 	public String getId() {
@@ -66,12 +61,6 @@ public class ProjectQueryImpl extends AbstractQuery<ProjectQuery, Project> imple
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Double getTotal() {
-		return total;
-	}
-	public void setTotal(Double total) {
-		this.total = total;
 	}
 	
 }

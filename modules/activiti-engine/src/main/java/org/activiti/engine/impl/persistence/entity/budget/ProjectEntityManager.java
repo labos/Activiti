@@ -44,23 +44,29 @@ public class ProjectEntityManager extends AbstractManager {
 		dbSqlSession.update(updatedProject);
 	}
 
-	public ProjectEntity findProjectById(String projectId) {
-		return (ProjectEntity) getDbSqlSession().selectOne("selectProjectById",	projectId);
+	public Project findProjectById(String projectId) {
+		Project ret = null;
+		
+		ret = (Project) getDbSqlSession().selectOne("selectProjectById",	projectId);
+		ret.setTotal(345.0);
+		ret.setActual(345.0);
+		return ret;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Project> findProjectByQueryCriteria(ProjectQueryImpl query,Page page) {
-		return getDbSqlSession().selectList("selectProjectByQueryCriteria",	query, page);
+		List<Project> ret = null;
+		
+		ret = getDbSqlSession().selectList("selectProjectByQueryCriteria",	query, page);
+		return ret;
 	}
 
 	public long findProjectCountByQueryCriteria(ProjectQueryImpl query) {
-		return (Long) getDbSqlSession().selectOne(
-				"selectProjectCountByQueryCriteria", query);
+		return (Long) getDbSqlSession().selectOne("selectProjectCountByQueryCriteria", query);
 	}
 
 	public ProjectQuery createNewProjectQuery() {
-		return new ProjectQueryImpl(Context.getProcessEngineConfiguration()
-				.getCommandExecutorTxRequired());
+		return new ProjectQueryImpl(Context.getProcessEngineConfiguration().getCommandExecutorTxRequired());
 	}
 
 }

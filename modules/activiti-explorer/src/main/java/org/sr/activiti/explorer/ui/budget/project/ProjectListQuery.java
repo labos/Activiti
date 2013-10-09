@@ -65,10 +65,9 @@ public class ProjectListQuery extends AbstractLazyLoadingQuery {
     public ProjectListItem(Project project) {
       addItemProperty("id", new ObjectProperty<String>(project.getId(), String.class));
       if (project.getName() != null) {
-        addItemProperty("name", new ObjectProperty<String>(project.getName()
-                + " (" + project.getTotal() + ")", String.class));
+        addItemProperty("name", new ObjectProperty<String>(project.getName(), String.class));
       } else {
-        addItemProperty("name", new ObjectProperty<String>("(" + project.getId() + ")", String.class));
+        addItemProperty("name", new ObjectProperty<String>(project.getId(), String.class));
       }
     }
 

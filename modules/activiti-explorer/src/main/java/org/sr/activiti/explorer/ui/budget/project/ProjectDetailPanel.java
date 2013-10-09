@@ -19,6 +19,7 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.budget.BudgetService;
 import org.activiti.engine.budget.Project;
+import org.activiti.engine.budget.ProjectSourceItem;
 import org.activiti.engine.identity.User;
 import org.activiti.explorer.ExplorerApp;
 import org.activiti.explorer.I18nManager;
@@ -55,24 +56,35 @@ public class ProjectDetailPanel extends DetailPanel {
 
 	protected ProjectPage projectPage;
 	protected Project project;
-	protected VerticalLayout panelLayout;
-
-	protected boolean editingDetails;
+	
 	protected HorizontalLayout detailLayout;
 	protected GridLayout detailsGrid;
-	protected TextField nameTextField;
 	protected HorizontalLayout sourcesLayout;
 	protected Table sourcesTable;
 	protected Label noSourcesTable;
 
 	public ProjectDetailPanel(ProjectPage projectPage, String projectId) {
 		this.projectPage = projectPage;
-		this.budgetService = ProcessEngines.getDefaultProcessEngine()
-				.getBudgetService();
+		this.budgetService = ProcessEngines.getDefaultProcessEngine().getBudgetService();
 		this.project = budgetService.createProjectQuery().projectId(projectId).singleResult();
+		this.initTotalAndActual();
 		this.i18nManager = ExplorerApp.get().getI18nManager();
 
 		init();
+	}
+	
+	private void initTotalAndActual(){
+		List<ProjectSourceItem> projectSourceItems = null;
+		Double total = 0.0;
+		Double actual = 0.0;
+		
+		projectSourceItems = this.budgetService.createProjectSourceItemQuery().idProject(this.project.getId()).list();
+		for(ProjectSourceItem each: projectSourceItems){
+			total = total + each.getTotal();
+			actual = actual + each.getActual();
+		}
+		
+		this.project.setTotal(total);
 	}
 
 	protected void init() {
@@ -139,34 +151,28 @@ public class ProjectDetailPanel extends DetailPanel {
 		detailLayout.addComponent(detailsGrid);
 
 		// id
-		Label idLabel = new Label(i18nManager.getMessage(Messages.GROUP_ID)
-				+ ": ");
+		Label idLabel = new Label(i18nManager.getMessage(Messages.GROUP_ID)	+ ": ");
 		idLabel.addStyleName(ExplorerLayout.STYLE_LABEL_BOLD);
 		detailsGrid.addComponent(idLabel);
 		Label idValueLabel = new Label(project.getId());
 		detailsGrid.addComponent(idValueLabel);
 
 		// name
-		Label nameLabel = new Label(i18nManager.getMessage(Messages.GROUP_NAME)
-				+ ": ");
+		Label nameLabel = new Label(i18nManager.getMessage(Messages.GROUP_NAME)	+ ": ");
 		nameLabel.addStyleName(ExplorerLayout.STYLE_LABEL_BOLD);
 		detailsGrid.addComponent(nameLabel);
-		if (!editingDetails) {
-			Label nameValueLabel = new Label(project.getName());
-			detailsGrid.addComponent(nameValueLabel);
-		} else {
-			nameTextField = new TextField(null, project.getName());
-			detailsGrid.addComponent(nameTextField);
-		}
-
+		
+		Label nameValueLabel = new Label(project.getName());
+		detailsGrid.addComponent(nameValueLabel);
+		
 		// Total
 		// Label totalLabel = new
 		// Label(i18nManager.getMessage(Messages.GROUP_TYPE) + ": ");
 		Label totalLabel = new Label("Total" + ": ");
 		totalLabel.addStyleName(ExplorerLayout.STYLE_LABEL_BOLD);
 		detailsGrid.addComponent(totalLabel);
-		Label typeValueLabel = new Label(project.getTotal().toString());
-		detailsGrid.addComponent(typeValueLabel);
+		Label totalValueLabel = new Label(project.getTotal().toString());
+		detailsGrid.addComponent(totalValueLabel);
 
 	}
 

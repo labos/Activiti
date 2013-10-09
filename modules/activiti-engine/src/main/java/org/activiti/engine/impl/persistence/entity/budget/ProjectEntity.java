@@ -31,6 +31,7 @@ public class ProjectEntity implements Project, Serializable, PersistentObject, H
 	protected int revision;
 	protected String name;
 	protected Double total;
+	protected Double actual;
 
 	public ProjectEntity() {
 	}
@@ -42,7 +43,6 @@ public class ProjectEntity implements Project, Serializable, PersistentObject, H
 	public Object getPersistentState() {
 		Map<String, Object> persistentState = new HashMap<String, Object>();
 		persistentState.put("name", name);
-		persistentState.put("total", total);
 		return persistentState;
 	}
 
@@ -77,4 +77,11 @@ public class ProjectEntity implements Project, Serializable, PersistentObject, H
 		this.total = total;
 	}
 
+	public Double getActual() {
+		return actual;
+	}
+
+	public void setActual(Double actual) {
+		this.actual = actual;
+	}
 }
