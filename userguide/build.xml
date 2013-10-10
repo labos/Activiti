@@ -103,8 +103,8 @@
 		<xslt style="${html.stylesheet}" extension=".html" basedir="target/prepared-src" destdir="target/html">
 			<include name="en/index.xml" />
 			<param name="html.stylesheet" expression="style.css" />
-			<!-- <classpath refid="xslt.classpath" /> 
-			      Does not work -> known bug!! 
+<classpath refid="xslt.classpath" /> 
+			<!--       Does not work -> known bug!! 
 			      Will NEVER use the xalan libs, but always the com.sun.xslt stuff (==crap). 
 			      Call the 'install.xalan.libs' first to get it working.-->
 		</xslt>

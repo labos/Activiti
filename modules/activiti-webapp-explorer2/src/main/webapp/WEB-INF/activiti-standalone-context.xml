@@ -85,4 +85,9 @@
   
   <bean id="dateFormatUtil" class="org.sr.activiti.bean.DateFormatUtil" />
   
+  <bean id="alfrescoProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:alfresco.properties" />
+    <!-- Allow other PropertyPlaceholderConfigurer to run as well -->
+    <property name="ignoreUnresolvablePlaceholders" value="true" />
+  </bean>
 </beans>

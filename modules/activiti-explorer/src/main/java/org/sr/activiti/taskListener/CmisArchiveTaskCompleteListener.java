@@ -121,7 +121,7 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 					Document aDocument = this.saveDocumentToFolder(IoUtil
 							.readInputStream(aStream, "stream attachment"),
 							archiveFolder.getId(),
-							suffixName + "_" + indexAttachment.toString(),
+							suffixName + indexAttachment.toString(),
 							contentTypeValues[1], contentTypeValues[0]);
 					indexAttachment++;
 					if (aDocument == null) {
