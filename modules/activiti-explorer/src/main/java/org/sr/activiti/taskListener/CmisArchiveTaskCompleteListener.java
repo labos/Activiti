@@ -1,10 +1,10 @@
 package org.sr.activiti.taskListener;
 
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateTask;
@@ -13,6 +13,7 @@ import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.impl.util.IoUtil;
 import org.activiti.engine.task.Attachment;
 import org.activiti.explorer.ExplorerApp;
+import org.alfresco.cmis.client.AlfrescoDocument;
 import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.Session;
@@ -45,16 +46,27 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 		String suffixName = "";
 		String documentCategoryName = "documento";
 		Folder archiveFolder;
-
+		// set a map key->tagName to tag document in Alfresco
+		Map<String, String> tagsMap = new HashMap<String, String>();
+		tagsMap.put("determinazione",
+				"workspace://SpacesStore/de905af4-3ae6-415a-ab54-45de7393571b");
+		tagsMap.put("contratto",
+				"workspace://SpacesStore/cde09f2a-cac7-4082-a878-3534b22c6e50");
+		tagsMap.put("letterainvito",
+				"workspace://SpacesStore/bb695981-b9e1-4b3d-878c-1f7ae78a24ff");
+		tagsMap.put("fattura",
+				"workspace://SpacesStore/361b6d8d-b8ce-4c1e-a234-80cbc3e47c26");
+		
 		ArrayList<String> alfrescoPageLinks = new ArrayList<String>();
 		attachmentList = delegateTask.getExecution().getEngineServices()
 				.getTaskService().getTaskAttachments(delegateTask.getId());
-
+		// set minAttachments to archive
 		if (minAttachmentsNum.getValue(delegateTask.getExecution()) != null) {
 			numAttachments = Integer.parseInt((String) minAttachmentsNum
 					.getValue(delegateTask.getExecution()));
 		}
-
+		
+		// check required attachments
 		if (attachmentList.size() < numAttachments.intValue()) {
 			isAttached = false;
 			Integer numRequiredAttachments = numAttachments.intValue()
@@ -77,16 +89,16 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 
 				// create a new CMIS session
 				this.createCmisSession();
-				// set parent folder name
+				// set parent folder name (in this case processInstanceId of the root process)
 				this.parentFolderName = (String) parentFolder
 						.getValue(delegateTask.getExecution());
 				// set a new folder name for current process instance
 				suffixName = (String) suffix.getValue(delegateTask
 						.getExecution());
-
+				// get root folder for procedure
 				archiveFolder = CmisUtil.getFolderAndCreate(session,
 						this.parentFolderName, "Procedure");
-
+				// check and set document category to tag documents
 				if (documentCategory != null
 						&& documentCategory.getValue(delegateTask
 								.getExecution()) != null) {
@@ -103,11 +115,11 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 								delegateTask.getExecution()
 										.getProcessInstanceId());
 
-				System.out.println("*** cartella parent:"
+				System.out.println("*** parent folder:"
 						+ this.parentFolderName);
-				System.out.println("*** suffisso:" + suffixName);
+				System.out.println("*** using suffix:" + suffixName);
 
-				// store each file in the new folder
+				// store each file in the new parent folder
 				for (Attachment attachment : attachmentList) {
 					// set content type
 					String[] contentTypeValues = attachment.getType()
@@ -116,7 +128,7 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 					InputStream aStream = delegateTask.getExecution()
 							.getEngineServices().getTaskService()
 							.getAttachmentContent(attachment.getId());
-					System.out.println("*** tipo di content:"
+					System.out.println("*** type of content in attachement:"
 							+ contentTypeValues[0]);
 					Document aDocument = this.saveDocumentToFolder(IoUtil
 							.readInputStream(aStream, "stream attachment"),
@@ -127,6 +139,23 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 					if (aDocument == null) {
 						isArchived = false;
 						break;
+					}
+					
+					// set tag to saved document
+					AlfrescoDocument alfDocument = (AlfrescoDocument) aDocument;
+					// check for taggable aspect in document
+					if (!alfDocument.hasAspect("P:cm:taggable")) {
+						alfDocument.addAspect("P:cm:taggable");
+					}
+
+					if (alfDocument.hasAspect("P:cm:taggable")) {
+						System.out.println("It's a taggable document ");
+						List<String> tags = new ArrayList<String>();
+						tags.add(tagsMap.get(documentCategoryName));
+
+						Map<String, Object> properties = new HashMap<String, Object>();
+						properties.put("cm:taggable", tags);
+						alfDocument.addAspect("P:cm:taggable", properties);
 					}
 
 					isArchived = true;
