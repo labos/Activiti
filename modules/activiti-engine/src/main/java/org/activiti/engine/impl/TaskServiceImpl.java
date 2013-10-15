@@ -318,4 +318,11 @@ public class TaskServiceImpl extends ServiceImpl implements TaskService {
     return commandExecutor.execute(new GetSubTasksCmd(parentTaskId));
   }
 
+  public Attachment createAttachment(String attachmentType, String taskId,
+		String processInstanceId, String attachmentName,
+		String attachmentDescription, InputStream content, String categoryId) {
+    return commandExecutor.execute(new CreateAttachmentCmd(attachmentType, taskId, processInstanceId, attachmentName, attachmentDescription, content, null, categoryId));
+
+}
+
 }

@@ -377,6 +377,9 @@ public interface TaskService {
   /** Add a new attachment to a task and/or a process instance and use an input stream to provide the content */
   Attachment createAttachment(String attachmentType, String taskId, String processInstanceId, String attachmentName, String attachmentDescription, InputStream content);
 
+  /** Add a new attachment to a task and/or a process instance and use an input stream to provide the content (with categoryId) */
+  Attachment createAttachment(String attachmentType, String taskId, String processInstanceId, String attachmentName, String attachmentDescription, InputStream content, String categoryId);
+
   /** Add a new attachment to a task and/or a process instance and use an url as the content */
   Attachment createAttachment(String attachmentType, String taskId, String processInstanceId, String attachmentName, String attachmentDescription, String url);
   

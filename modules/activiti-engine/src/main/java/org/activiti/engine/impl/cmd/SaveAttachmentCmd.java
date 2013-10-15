@@ -40,6 +40,7 @@ public class SaveAttachmentCmd implements Command<Object>, Serializable {
     
     updateAttachment.setName(attachment.getName());
     updateAttachment.setDescription(attachment.getDescription());
+    updateAttachment.setCategoryId(attachment.getCategoryId());
     
     return null;
   }

@@ -39,11 +39,13 @@ public class AttachmentEntity implements Attachment, PersistentObject, HasRevisi
   protected String url;
   protected String contentId;
   protected ByteArrayEntity content;
+  protected String categoryId;
 
   public Object getPersistentState() {
     Map<String, Object> persistentState = new HashMap<String, Object>();
     persistentState.put("name", name);
     persistentState.put("description", description);
+    persistentState.put("categoryId", categoryId); 
     return persistentState;
   }
 
@@ -146,5 +148,13 @@ public class AttachmentEntity implements Attachment, PersistentObject, HasRevisi
 
   public void setContent(ByteArrayEntity content) {
     this.content = content;
+  }
+
+  public String getCategoryId() {
+	  return categoryId;
+  }
+
+  public void setCategoryId(String categoryId) {
+	  this.categoryId = categoryId;
   }
 }

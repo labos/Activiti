@@ -45,6 +45,7 @@ public class CreateAttachmentCmd implements Command<Attachment> {
   protected String attachmentDescription;
   protected InputStream content;
   protected String url;
+  protected String categoryId;
   
   public CreateAttachmentCmd(String attachmentType, String taskId, String processInstanceId, String attachmentName, String attachmentDescription, InputStream content, String url) {
     this.attachmentType = attachmentType;
@@ -55,6 +56,17 @@ public class CreateAttachmentCmd implements Command<Attachment> {
     this.content = content;
     this.url = url;
   }
+  
+  public CreateAttachmentCmd(String attachmentType, String taskId, String processInstanceId, String attachmentName, String attachmentDescription, InputStream content, String url, String categoryId) {
+	    this.attachmentType = attachmentType;
+	    this.taskId = taskId;
+	    this.processInstanceId = processInstanceId;
+	    this.attachmentName = attachmentName;
+	    this.attachmentDescription = attachmentDescription;
+	    this.content = content;
+	    this.url = url;
+	    this.categoryId = categoryId;
+	  }
   
   public Attachment execute(CommandContext commandContext) {
 
@@ -67,6 +79,7 @@ public class CreateAttachmentCmd implements Command<Attachment> {
     attachment.setTaskId(taskId);
     attachment.setProcessInstanceId(processInstanceId);
     attachment.setUrl(url);
+    attachment.setCategoryId(categoryId);
     
     DbSqlSession dbSqlSession = commandContext.getDbSqlSession();
     dbSqlSession.insert(attachment);

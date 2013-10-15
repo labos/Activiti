@@ -429,6 +429,8 @@ public interface Messages {
   String RELATED_CONTENT_NAME_REQUIRED = "related.content.name.required";
   String RELATED_CONTENT_DESCRIPTION = "related.content.description";
   String RELATED_CONTENT_CREATE = "related.content.create";
+  String RELATED_CONTENT_CATEGORY = "related.content.category";
+  String RELATED_CONTENT_CATEGORY_REQUIRED =   "related.content.category.required";
   
   String RELATED_CONTENT_TYPE_URL = "related.content.type.url";
   String RELATED_CONTENT_TYPE_URL_URL = "related.content.type.url.url";

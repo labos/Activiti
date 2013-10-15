@@ -52,4 +52,11 @@ public interface Attachment {
    * {@link TaskService#createAttachment(String, String, String, String, String, java.io.InputStream) uploaded with an input stream}, 
    * then this method returns null and the content can be fetched with {@link TaskService#getAttachmentContent(String)}. */
   String getUrl();
+  
+  /** reference to the category id (max 64 chars) category for this attachment */
+  String getCategoryId();
+
+  /** reference to the category id (max 64 chars) category for this attachment */
+  void setCategoryId(String categoryId);
+  
 }

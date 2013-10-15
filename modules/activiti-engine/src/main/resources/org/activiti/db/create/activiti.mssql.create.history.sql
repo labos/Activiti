@@ -113,6 +113,7 @@ create table ACT_HI_ATTACHMENT (
     PROC_INST_ID_ nvarchar(64),
     URL_ nvarchar(4000),
     CONTENT_ID_ nvarchar(64),
+    CATEGORY_ID_ nvarchar(64),
     primary key (ID_)
 );
 

@@ -16,9 +16,12 @@ package org.activiti.explorer.ui.content.file;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.budget.ProjectSourceItem;
 import org.activiti.engine.task.Attachment;
 import org.activiti.explorer.ExplorerApp;
 import org.activiti.explorer.I18nManager;
@@ -28,8 +31,10 @@ import org.activiti.explorer.ui.content.AttachmentEditorComponent;
 import org.activiti.explorer.ui.custom.UploadComponent;
 
 import com.vaadin.data.Validator.InvalidValueException;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Select;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Upload.FinishedEvent;
@@ -84,6 +89,7 @@ public class FileAttachmentEditorComponent extends VerticalLayout implements Att
     initFileUpload();
     initName();
     initDescription();
+    initCategoryId();
   }
 
   protected void initSuccessIndicator() {
@@ -174,6 +180,31 @@ public class FileAttachmentEditorComponent extends VerticalLayout implements Att
     form.addField("name", nameField);
   }
 
+  protected void initCategoryId() {
+	    ComboBox comboBoxSelect = new ComboBox(i18nManager.getMessage(Messages.RELATED_CONTENT_CATEGORY));
+
+	    comboBoxSelect.setRequired(true);
+	    comboBoxSelect.setRequiredError(i18nManager.getMessage(Messages.RELATED_CONTENT_CATEGORY_REQUIRED));
+
+	    List<String> categoryList = new ArrayList<String>(); 
+	    categoryList.add("generico");
+	    categoryList.add("determinazione");
+	    categoryList.add("contratto");	    
+	    categoryList.add("fattura");
+	    categoryList.add("letterainvito");
+	    
+	    for(String category: categoryList){
+	    	comboBoxSelect.addItem(category);
+	    	comboBoxSelect.setItemCaption(category, category);
+	    }
+	    // Select first
+	    if (categoryList.size() > 0) {
+	    	comboBoxSelect.setNullSelectionAllowed(false);
+	    	comboBoxSelect.select(categoryList.get(0));
+	    }
+	    form.addField("categoryId", comboBoxSelect);
+	  }
+  
   public Attachment getAttachment() throws InvalidValueException {
     // Force validation of the fields
     form.commit();
@@ -191,7 +222,7 @@ public class FileAttachmentEditorComponent extends VerticalLayout implements Att
       // Create new attachment based on values
       // TODO: use explorerApp to get services
       attachment = taskService.createAttachment(mimeType, taskId, processInstanceId, 
-          getAttachmentName(), getAttachmentDescription(), new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+          getAttachmentName(), getAttachmentDescription(), new ByteArrayInputStream(byteArrayOutputStream.toByteArray()),getAttachmentCategoryId());
     }
     return attachment;
   }
@@ -204,6 +235,10 @@ public class FileAttachmentEditorComponent extends VerticalLayout implements Att
     return (String) form.getField("name").getValue();
   }
   
+  protected String getAttachmentCategoryId() {
+	    return (String) form.getField("categoryId").getValue();
+	  }
+  
   protected String getAttachmentDescription() {
     return (String) form.getField("description").getValue();
   }
@@ -211,6 +246,7 @@ public class FileAttachmentEditorComponent extends VerticalLayout implements Att
   private void applyValuesToAttachment() {
     attachment.setName(getAttachmentName());
     attachment.setDescription(getAttachmentDescription());
+    attachment.setCategoryId(getAttachmentCategoryId());
   }
   
 }
