@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity">
+
+  <!-- ATTACHMENTCATEGORY INSERT -->
+
+  <insert id="insertAttachmentCategory" parameterType="org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity">
+    insert into ${prefix}ACT_BUDGET_ATTACHMENTCATEGORY (ID_, REV_, NAME_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      1, 
+      #{name ,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <!-- ATTACHMENTCATEGORY UPDATE -->
+  
+  <update id="updateAttachmentCategory" parameterType="org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity">
+    update ${prefix}ACT_BUDGET_ATTACHMENTCATEGORY set
+      REV_ = #{revisionNext ,jdbcType=INTEGER},
+      NAME_ = #{name ,jdbcType=VARCHAR}
+    where ID_ = #{id}
+       and REV_ = #{revision}
+  </update>
+
+  <!-- ATTACHMENTCATEGORY RESULTMAP -->
+
+  <resultMap id="attachmentCategoryResultMap" type="org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="revision" column="REV_" jdbcType="INTEGER" />
+    <result property="name" column="NAME_" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- ATTACHMENTCATEGORY SELECT -->
+
+  <select id="selectAttachmentCategoryById" parameterType="string" resultMap="attachmentCategoryResultMap">
+    select * from ${prefix}ACT_BUDGET_ATTACHMENTCATEGORY where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+    
+  <select id="selectAttachmentCategoryByQueryCriteria" parameterType="org.activiti.engine.impl.budget.AttachmentCategoryQueryImpl" resultMap="attachmentCategoryResultMap">
+  	${limitBefore}
+    select RES.* ${limitBetween}
+    <include refid="selectAttachmentCategoryByQueryCriteriaSql" />
+    ${orderBy}
+    ${limitAfter}
+  </select>
+  
+   <select id="selectAttachmentCategoryCountByQueryCriteria" parameterType="org.activiti.engine.impl.budget.AttachmentCategoryQueryImpl" resultType="long">
+    select count(RES.ID_)
+    <include refid="selectAttachmentCategoryByQueryCriteriaSql" />
+  </select>
+  
+  <sql id="selectAttachmentCategoryByQueryCriteriaSql">
+    from ${prefix}ACT_BUDGET_ATTACHMENTCATEGORY RES 
+    <where>
+      <if test="id != null">
+        RES.ID_ = #{id}
+      </if>
+      <if test="name != null">
+        and RES.NAME_ = #{name}
+      </if>       
+    </where>
+  </sql>
+  
+</mapper>

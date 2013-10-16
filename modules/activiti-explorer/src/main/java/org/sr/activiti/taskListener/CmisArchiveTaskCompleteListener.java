@@ -26,8 +26,8 @@ import org.sr.activiti.explorer.delegates.cmis.CmisUtil;
 public class CmisArchiveTaskCompleteListener implements TaskListener {
 	private Expression parentFolder;
 	private Expression suffix;
-	private Expression documentCategory;
 	private Expression minAttachmentsNum;
+	private Expression documentCategory;
 	private Session session;
 	private String parentFolderName;
 	private static final long serialVersionUID = 1L;
@@ -44,18 +44,20 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 		Integer numAttachments = 1;
 		Integer indexAttachment = 1;
 		String suffixName = "";
-		String documentCategoryName = "documento";
 		Folder archiveFolder;
 		// set a map key->tagName to tag document in Alfresco
 		Map<String, String> tagsMap = new HashMap<String, String>();
 		tagsMap.put("determinazione",
-				"workspace://SpacesStore/de905af4-3ae6-415a-ab54-45de7393571b");
+				"workspace://SpacesStore/ca1571e7-edee-4ad6-824d-da065c693f60");
 		tagsMap.put("contratto",
-				"workspace://SpacesStore/cde09f2a-cac7-4082-a878-3534b22c6e50");
+				"workspace://SpacesStore/ddc47ca2-29ac-41a8-825d-7429192b968c");
 		tagsMap.put("letterainvito",
-				"workspace://SpacesStore/bb695981-b9e1-4b3d-878c-1f7ae78a24ff");
+				"workspace://SpacesStore/34dc803d-b51c-46ab-8e5d-279cf1490412");
 		tagsMap.put("fattura",
-				"workspace://SpacesStore/361b6d8d-b8ce-4c1e-a234-80cbc3e47c26");
+				"workspace://SpacesStore/78312eab-8034-4454-b153-b157ed672ccb");
+		tagsMap.put("generico",
+				"workspace://SpacesStore/8cdde542-5078-4305-b5a6-76576ba7b6e6");
+		
 		
 		ArrayList<String> alfrescoPageLinks = new ArrayList<String>();
 		attachmentList = delegateTask.getExecution().getEngineServices()
@@ -98,13 +100,6 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 				// get root folder for procedure
 				archiveFolder = CmisUtil.getFolderAndCreate(session,
 						this.parentFolderName, "Procedure");
-				// check and set document category to tag documents
-				if (documentCategory != null
-						&& documentCategory.getValue(delegateTask
-								.getExecution()) != null) {
-					documentCategoryName = (String) documentCategory
-							.getValue(delegateTask.getExecution());
-				}
 
 				// get all attachments
 				List<Attachment> attachmentList = delegateTask
@@ -151,7 +146,7 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 					if (alfDocument.hasAspect("P:cm:taggable")) {
 						System.out.println("It's a taggable document ");
 						List<String> tags = new ArrayList<String>();
-						tags.add(tagsMap.get(documentCategoryName));
+						tags.add(tagsMap.get(attachment.getCategoryId()));
 
 						Map<String, Object> properties = new HashMap<String, Object>();
 						properties.put("cm:taggable", tags);

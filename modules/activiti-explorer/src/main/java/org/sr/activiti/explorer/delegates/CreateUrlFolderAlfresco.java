@@ -16,7 +16,8 @@ public class CreateUrlFolderAlfresco implements JavaDelegate {
 					.getValue(execution);
 		}
 		 execution.getEngineServices().getTaskService().createAttachment("url", null, execution.getProcessInstanceId(),
-				 urlNameString, "ARCHIVIO DELLA DOCUMENTAZIONE DELLA PROCEDURA","http://alfrescotest.consorzio21.it:8080/share/page/repository#filter=path%7C%2FProcedure%2F" + execution.getProcessInstanceId() + "%7C&page=1");
+				 urlNameString, "ARCHIVIO DELLA DOCUMENTAZIONE DELLA PROCEDURA",""
+				 		+ "http://alfrescotest.consorzio21.it:8080/share/page/site/sardegna-ricerche/documentlibrary#filter=path|%2FProcedure%2F" + execution.getProcessInstanceId() + "|&page=1");
    
 
 	}

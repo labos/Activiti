@@ -42,13 +42,15 @@ public class CmisTest {
 
 		Map<String, String> tagsMap = new HashMap<String, String>();
 		tagsMap.put("determinazione",
-				"workspace://SpacesStore/de905af4-3ae6-415a-ab54-45de7393571b");
+				"workspace://SpacesStore/ca1571e7-edee-4ad6-824d-da065c693f60");
 		tagsMap.put("contratto",
-				"workspace://SpacesStore/cde09f2a-cac7-4082-a878-3534b22c6e50");
+				"workspace://SpacesStore/ddc47ca2-29ac-41a8-825d-7429192b968c");
 		tagsMap.put("letterainvito",
-				"workspace://SpacesStore/bb695981-b9e1-4b3d-878c-1f7ae78a24ff");
+				"workspace://SpacesStore/34dc803d-b51c-46ab-8e5d-279cf1490412");
 		tagsMap.put("fattura",
-				"workspace://SpacesStore/361b6d8d-b8ce-4c1e-a234-80cbc3e47c26");
+				"workspace://SpacesStore/78312eab-8034-4454-b153-b157ed672ccb");
+		tagsMap.put("generico",
+				"workspace://SpacesStore/8cdde542-5078-4305-b5a6-76576ba7b6e6");
 		AlfrescoDocument alfDoc = (AlfrescoDocument) document;
 
 		if (!alfDoc.hasAspect("P:cm:taggable")) {
