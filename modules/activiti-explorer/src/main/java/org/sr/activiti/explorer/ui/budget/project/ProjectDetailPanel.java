@@ -85,6 +85,7 @@ public class ProjectDetailPanel extends DetailPanel {
 		}
 		
 		this.project.setTotal(total);
+		this.project.setActual(actual);
 	}
 
 	protected void init() {
@@ -173,6 +174,15 @@ public class ProjectDetailPanel extends DetailPanel {
 		detailsGrid.addComponent(totalLabel);
 		Label totalValueLabel = new Label(project.getTotal().toString());
 		detailsGrid.addComponent(totalValueLabel);
+		
+		
+		// Actual
+		Label actualLabel = new Label("Actual" + ": ");
+		actualLabel.addStyleName(ExplorerLayout.STYLE_LABEL_BOLD);
+		detailsGrid.addComponent(actualLabel);
+		Label actualValueLabel = new Label(project.getActual().toString());
+		detailsGrid.addComponent(actualValueLabel);
+		
 
 	}
 
