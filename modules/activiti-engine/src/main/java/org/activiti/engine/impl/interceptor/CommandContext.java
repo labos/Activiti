@@ -50,7 +50,7 @@ import org.activiti.engine.impl.persistence.entity.TableDataManager;
 import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
 import org.activiti.engine.impl.persistence.entity.UserEntityManager;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
-import org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntityManager;
+import org.activiti.engine.impl.persistence.entity.attachment.AttachmentCategoryEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.CostEntryEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProgramEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntityManager;
@@ -330,10 +330,10 @@ public class CommandContext {
     return getSession(PropertyEntityManager.class);
   }
   
-  public AttachmentCategoryEntityManager getAttachmentCategoryEntityManager() {
-	   return getSession(AttachmentCategoryEntityManager.class);
-	}
-	  
+  public AttachmentCategoryEntityManager getAttachmentCategoryEntityManager(){
+	  return getSession(AttachmentCategoryEntityManager.class);
+  }
+  
   
   public EventSubscriptionEntityManager getEventSubscriptionEntityManager() {
     return getSession(EventSubscriptionEntityManager.class);

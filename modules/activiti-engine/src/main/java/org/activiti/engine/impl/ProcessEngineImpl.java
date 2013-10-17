@@ -23,6 +23,7 @@ import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.attachment.AttachmentService;
 import org.activiti.engine.budget.BudgetService;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.cfg.TransactionContextFactory;
@@ -52,6 +53,8 @@ public class ProcessEngineImpl implements ProcessEngine {
   protected ManagementService managementService;
   //Budget
   protected BudgetService budgetService;
+  //Attachment
+  protected AttachmentService attachmentService;
   protected String databaseSchemaUpdate;
   protected JobExecutor jobExecutor;
   protected CommandExecutor commandExecutor;
@@ -72,6 +75,8 @@ public class ProcessEngineImpl implements ProcessEngine {
     this.managementService = processEngineConfiguration.getManagementService();
     //Budget
     this.budgetService = processEngineConfiguration.getBudgetService();
+    this.attachmentService = processEngineConfiguration.getAttachmentService();
+
     this.databaseSchemaUpdate = processEngineConfiguration.getDatabaseSchemaUpdate();
     this.jobExecutor = processEngineConfiguration.getJobExecutor();
     this.commandExecutor = processEngineConfiguration.getCommandExecutorTxRequired();
@@ -156,11 +161,18 @@ public class ProcessEngineImpl implements ProcessEngine {
   	
   	return budgetService;
   }
+  
+  //Attachment
+  @Override
+  public AttachmentService getAttachmentService() {
+  	
+  	return attachmentService;
+  }
+
 
   public ProcessEngineConfigurationImpl getProcessEngineConfiguration() {
     return processEngineConfiguration;
   }
-  
   
   
 }

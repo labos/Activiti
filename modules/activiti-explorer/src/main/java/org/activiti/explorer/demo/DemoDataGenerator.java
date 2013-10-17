@@ -24,6 +24,8 @@ import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.attachment.AttachmentCategory;
+import org.activiti.engine.attachment.AttachmentService;
 import org.activiti.engine.budget.BudgetService;
 import org.activiti.engine.budget.CostEntry;
 import org.activiti.engine.budget.Program;
@@ -58,6 +60,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   protected transient IdentityService identityService;
   protected transient RepositoryService repositoryService;
   protected transient BudgetService budgetService;
+  protected transient AttachmentService attachmentService;
   
   protected boolean createDemoUsersAndGroups;
   protected boolean createDemoProcessDefinitions;
@@ -68,6 +71,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     this.identityService = processEngine.getIdentityService();
     this.repositoryService = processEngine.getRepositoryService();
     this.budgetService = processEngine.getBudgetService();
+    this.attachmentService = processEngine.getAttachmentService();
     
     if (createDemoUsersAndGroups) {
       LOGGER.info("Initializing demo groups");
@@ -97,6 +101,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     initDemoCostEntries();
     initDemoProjectCostItems();
     initDemoProjectSourceItems();
+    initDemoAttachmentCategory();
   }
   
   public void setProcessEngine(ProcessEngine processEngine) {
@@ -252,6 +257,22 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
 		  newProjectSourceItem.setTotal(total);
 		  newProjectSourceItem.setActual(actual);
 		  budgetService.saveProjectSourceItem(newProjectSourceItem);
+	  }
+  }
+  
+  protected void initDemoAttachmentCategory(){
+	  createAttachmentCategory("generico", "Generico");
+	  createAttachmentCategory("determinazione", "Determinazione");
+	  createAttachmentCategory("fattura", "Fattura");
+	  createAttachmentCategory("letterainvito", "Lettera Invito");
+	  createAttachmentCategory("contratto", "Contratto");
+  }
+  
+  protected void createAttachmentCategory(String attachmentCategoryId,String name){
+	  if(attachmentService.createAttachmentCategoryQuery().attachmentCategoryId(attachmentCategoryId).count()== 0){
+		  AttachmentCategory newAttachmentCategory = attachmentService.newAttachmentCategory(attachmentCategoryId);
+		  newAttachmentCategory.setName(name);
+		  attachmentService.saveAttachmentCategory(newAttachmentCategory);
 	  }
   }
 

@@ -1,10 +1,10 @@
-package org.activiti.engine.impl.budget;
+package org.activiti.engine.impl.attachment;
 
 import java.util.List;
 
 import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.budget.AttachmentCategory;
-import org.activiti.engine.budget.AttachmentCategoryQuery;
+import org.activiti.engine.attachment.AttachmentCategory;
+import org.activiti.engine.attachment.AttachmentCategoryQuery;
 import org.activiti.engine.impl.AbstractQuery;
 import org.activiti.engine.impl.Page;
 import org.activiti.engine.impl.interceptor.CommandContext;

@@ -1,4 +1,4 @@
-package org.activiti.engine.budget;
+package org.activiti.engine.attachment;
 
 import org.activiti.engine.query.Query;
 

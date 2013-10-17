@@ -40,6 +40,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.budget.BudgetService;
+import org.activiti.engine.attachment.AttachmentService;
 import org.activiti.engine.form.AbstractFormType;
 import org.activiti.engine.impl.FormServiceImpl;
 import org.activiti.engine.impl.HistoryServiceImpl;
@@ -50,6 +51,7 @@ import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.RuntimeServiceImpl;
 import org.activiti.engine.impl.ServiceImpl;
 import org.activiti.engine.impl.TaskServiceImpl;
+import org.activiti.engine.impl.attachment.AttachmentServiceImpl;
 import org.activiti.engine.impl.bpmn.data.ItemInstance;
 import org.activiti.engine.impl.bpmn.deployer.BpmnDeployer;
 import org.activiti.engine.impl.bpmn.parser.BpmnParseHandlers;
@@ -168,6 +170,7 @@ import org.activiti.engine.impl.persistence.entity.TableDataManager;
 import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
 import org.activiti.engine.impl.persistence.entity.UserEntityManager;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
+import org.activiti.engine.impl.persistence.entity.attachment.AttachmentCategoryEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.CostEntryEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProgramEntityManager;
 import org.activiti.engine.impl.persistence.entity.budget.ProjectCostItemEntityManager;
@@ -239,6 +242,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected ManagementService managementService = new ManagementServiceImpl();
   //Budget
   protected BudgetService budgetService = new BudgetServiceImpl();
+  //Attachment
+  protected AttachmentService attachmentService = new AttachmentServiceImpl();
   
   // COMMAND EXECUTORS ////////////////////////////////////////////////////////
   
@@ -503,6 +508,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     initService(managementService);
     //Budget
     initService(budgetService);
+    //Attachment
+    initService(attachmentService);
   }
 
   protected void initService(Object service) {
@@ -719,6 +726,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       addSessionFactory(new GenericManagerFactory(CostEntryEntityManager.class));
       addSessionFactory(new GenericManagerFactory(ProjectCostItemEntityManager.class));
       addSessionFactory(new GenericManagerFactory(ProjectSourceItemEntityManager.class));
+      //Attachment
+      addSessionFactory(new GenericManagerFactory(AttachmentCategoryEntityManager.class));
+
       
      
     }
@@ -1310,6 +1320,17 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
 	public ProcessEngineConfigurationImpl setBudgetService(BudgetService budgetService) {
 		this.budgetService = budgetService;
+		return this;
+	}
+	
+	//Attachment
+
+	public AttachmentService getAttachmentService() {
+		return attachmentService;
+	}
+
+	public ProcessEngineConfigurationImpl setAttachmentService(AttachmentService attachmentService) {
+		this.attachmentService = attachmentService;
 		return this;
 	}
   

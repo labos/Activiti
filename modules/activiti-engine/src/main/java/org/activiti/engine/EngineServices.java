@@ -12,6 +12,7 @@
  */
 package org.activiti.engine;
 
+import org.activiti.engine.attachment.AttachmentService;
 import org.activiti.engine.budget.BudgetService;
 
 /**
@@ -36,5 +37,7 @@ public interface EngineServices {
   ManagementService getManagementService();
   
   BudgetService getBudgetService();
+
+  AttachmentService getAttachmentService();
   
 }

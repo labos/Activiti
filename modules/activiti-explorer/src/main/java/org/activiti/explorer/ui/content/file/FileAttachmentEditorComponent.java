@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.attachment.AttachmentCategory;
+import org.activiti.engine.attachment.AttachmentService;
 import org.activiti.engine.budget.ProjectSourceItem;
 import org.activiti.engine.task.Attachment;
 import org.activiti.explorer.ExplorerApp;
@@ -185,22 +187,19 @@ public class FileAttachmentEditorComponent extends VerticalLayout implements Att
 
 	    comboBoxSelect.setRequired(true);
 	    comboBoxSelect.setRequiredError(i18nManager.getMessage(Messages.RELATED_CONTENT_CATEGORY_REQUIRED));
-
-	    List<String> categoryList = new ArrayList<String>(); 
-	    categoryList.add("generico");
-	    categoryList.add("determinazione");
-	    categoryList.add("contratto");	    
-	    categoryList.add("fattura");
-	    categoryList.add("letterainvito");
+	   AttachmentService attachmentService = ProcessEngines.getDefaultProcessEngine().getAttachmentService();
+	    List<AttachmentCategory> attachmentCategories =attachmentService.createAttachmentCategoryQuery().list();
 	    
-	    for(String category: categoryList){
-	    	comboBoxSelect.addItem(category);
-	    	comboBoxSelect.setItemCaption(category, category);
+	    for(AttachmentCategory attachmentCategory: attachmentCategories){
+	    	comboBoxSelect.addItem(attachmentCategory.getId());
+	    	comboBoxSelect.setItemCaption(attachmentCategory.getId(), attachmentCategory.getName());
 	    }
+	    
+
 	    // Select first
-	    if (categoryList.size() > 0) {
+	    if (attachmentCategories.size() > 0) {
 	    	comboBoxSelect.setNullSelectionAllowed(false);
-	    	comboBoxSelect.select(categoryList.get(0));
+	    	comboBoxSelect.select(attachmentCategories.get(0));
 	    }
 	    form.addField("categoryId", comboBoxSelect);
 	  }

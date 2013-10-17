@@ -11,11 +11,11 @@
  * limitations under the License.
  */
 
-package org.activiti.engine.impl.cmd.budget.attachmentCategory;
+package org.activiti.engine.impl.cmd.attachment.attachmentCategory;
 
 import java.io.Serializable;
 
-import org.activiti.engine.budget.AttachmentCategoryQuery;
+import org.activiti.engine.attachment.AttachmentCategoryQuery;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 

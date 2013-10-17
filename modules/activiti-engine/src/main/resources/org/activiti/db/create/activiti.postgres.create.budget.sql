@@ -48,7 +48,7 @@ create table ACT_BUDGET_PROJECTSOURCEITEM (
     primary key (ID_)
 );
 
-create table ACT_BUDGET_ATTACHMENTCATEGORY (
+create table ACT_ATTACHMENT_CATEGORY (
     ID_ varchar(64),
     REV_ integer,
     NAME_ varchar(255),

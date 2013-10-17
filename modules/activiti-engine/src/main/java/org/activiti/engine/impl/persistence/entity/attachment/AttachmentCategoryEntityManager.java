@@ -11,17 +11,14 @@
  * limitations under the License.
  */
 
-package org.activiti.engine.impl.persistence.entity.budget;
+package org.activiti.engine.impl.persistence.entity.attachment;
 
 import java.util.List;
 
-import org.activiti.engine.budget.AttachmentCategory;
-import org.activiti.engine.budget.AttachmentCategoryQuery;
-import org.activiti.engine.budget.Project;
-import org.activiti.engine.budget.ProjectQuery;
+import org.activiti.engine.attachment.AttachmentCategory;
+import org.activiti.engine.attachment.AttachmentCategoryQuery;
 import org.activiti.engine.impl.Page;
-import org.activiti.engine.impl.budget.AttachmentCategoryQueryImpl;
-import org.activiti.engine.impl.budget.ProjectQueryImpl;
+import org.activiti.engine.impl.attachment.AttachmentCategoryQueryImpl;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.db.DbSqlSession;
 import org.activiti.engine.impl.db.PersistentObject;
@@ -67,8 +64,7 @@ public class AttachmentCategoryEntityManager extends AbstractManager {
 	}
 
 	public AttachmentCategoryQuery createNewAttachmentCategoryQuery() {
-		return null;
-		//return new AttachmentCategoryQueryImpl(Context.getProcessEngineConfiguration().getCommandExecutorTxRequired());
+		return new AttachmentCategoryQueryImpl(Context.getProcessEngineConfiguration().getCommandExecutorTxRequired());
 	}
 
 }

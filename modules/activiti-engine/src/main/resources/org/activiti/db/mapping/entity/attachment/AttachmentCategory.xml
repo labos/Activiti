@@ -2,12 +2,12 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
   
-<mapper namespace="org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity">
+<mapper namespace="org.activiti.engine.impl.persistence.entity.attachment.AttachmentCategoryEntity">
 
   <!-- ATTACHMENTCATEGORY INSERT -->
 
-  <insert id="insertAttachmentCategory" parameterType="org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity">
-    insert into ${prefix}ACT_BUDGET_ATTACHMENTCATEGORY (ID_, REV_, NAME_)
+  <insert id="insertAttachmentCategory" parameterType="org.activiti.engine.impl.persistence.entity.attachment.AttachmentCategoryEntity">
+    insert into ${prefix}ACT_ATTACHMENT_CATEGORY (ID_, REV_, NAME_)
     values (
       #{id ,jdbcType=VARCHAR},
       1, 
@@ -17,8 +17,8 @@
 
   <!-- ATTACHMENTCATEGORY UPDATE -->
   
-  <update id="updateAttachmentCategory" parameterType="org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity">
-    update ${prefix}ACT_BUDGET_ATTACHMENTCATEGORY set
+  <update id="updateAttachmentCategory" parameterType="org.activiti.engine.impl.persistence.entity.attachment.AttachmentCategoryEntity">
+    update ${prefix}ACT_ATTACHMENT_CATEGORY set
       REV_ = #{revisionNext ,jdbcType=INTEGER},
       NAME_ = #{name ,jdbcType=VARCHAR}
     where ID_ = #{id}
@@ -27,7 +27,7 @@
 
   <!-- ATTACHMENTCATEGORY RESULTMAP -->
 
-  <resultMap id="attachmentCategoryResultMap" type="org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity">
+  <resultMap id="attachmentCategoryResultMap" type="org.activiti.engine.impl.persistence.entity.attachment.AttachmentCategoryEntity">
     <id property="id" column="ID_" jdbcType="VARCHAR" />
     <result property="revision" column="REV_" jdbcType="INTEGER" />
     <result property="name" column="NAME_" jdbcType="VARCHAR" />
@@ -36,10 +36,10 @@
   <!-- ATTACHMENTCATEGORY SELECT -->
 
   <select id="selectAttachmentCategoryById" parameterType="string" resultMap="attachmentCategoryResultMap">
-    select * from ${prefix}ACT_BUDGET_ATTACHMENTCATEGORY where ID_ = #{id,jdbcType=VARCHAR}
+    select * from ${prefix}ACT_ATTACHMENT_CATEGORY where ID_ = #{id,jdbcType=VARCHAR}
   </select>
     
-  <select id="selectAttachmentCategoryByQueryCriteria" parameterType="org.activiti.engine.impl.budget.AttachmentCategoryQueryImpl" resultMap="attachmentCategoryResultMap">
+  <select id="selectAttachmentCategoryByQueryCriteria" parameterType="org.activiti.engine.impl.attachment.AttachmentCategoryQueryImpl" resultMap="attachmentCategoryResultMap">
   	${limitBefore}
     select RES.* ${limitBetween}
     <include refid="selectAttachmentCategoryByQueryCriteriaSql" />
@@ -47,13 +47,13 @@
     ${limitAfter}
   </select>
   
-   <select id="selectAttachmentCategoryCountByQueryCriteria" parameterType="org.activiti.engine.impl.budget.AttachmentCategoryQueryImpl" resultType="long">
+   <select id="selectAttachmentCategoryCountByQueryCriteria" parameterType="org.activiti.engine.impl.attachment.AttachmentCategoryQueryImpl" resultType="long">
     select count(RES.ID_)
     <include refid="selectAttachmentCategoryByQueryCriteriaSql" />
   </select>
   
   <sql id="selectAttachmentCategoryByQueryCriteriaSql">
-    from ${prefix}ACT_BUDGET_ATTACHMENTCATEGORY RES 
+    from ${prefix}ACT_ATTACHMENT_CATEGORY RES 
     <where>
       <if test="id != null">
         RES.ID_ = #{id}

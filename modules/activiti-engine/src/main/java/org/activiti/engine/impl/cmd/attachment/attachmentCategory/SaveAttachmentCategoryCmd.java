@@ -10,15 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.activiti.engine.impl.cmd.budget.attachmentCategory;
+package org.activiti.engine.impl.cmd.attachment.attachmentCategory;
 
 import java.io.Serializable;
 
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.impl.persistence.entity.budget.AttachmentCategoryEntity;
-import org.activiti.engine.impl.persistence.entity.budget.ProjectEntity;
+import org.activiti.engine.impl.persistence.entity.attachment.AttachmentCategoryEntity;
 
 /**
  * @author Lab Open Source

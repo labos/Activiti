@@ -5,8 +5,7 @@ import java.util.List;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
-import org.activiti.engine.impl.cmd.CreateAttachmentCmd;
-import org.activiti.engine.impl.cmd.sr.CopyAttachmentCmd;
+import org.activiti.engine.impl.cmd.attachment.CopyAttachmentCmd;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.task.Attachment;
