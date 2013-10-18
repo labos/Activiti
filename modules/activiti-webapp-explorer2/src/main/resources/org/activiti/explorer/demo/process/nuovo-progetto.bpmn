@@ -128,6 +128,7 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
         <activiti:in source="project" target="project"></activiti:in>
         <activiti:in source="estimatedAmount" target="estimatedAmount"></activiti:in>
+        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
       </extensionElements>
     </callActivity>
     <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
@@ -137,6 +138,7 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <activiti:in source="subject" target="subject"></activiti:in>
         <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
+        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
       </extensionElements>
     </callActivity>
     <callActivity id="callactivity5" name="Collaborazioni">
@@ -144,6 +146,7 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <activiti:in source="subject" target="subject"></activiti:in>
         <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
+        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
       </extensionElements>
     </callActivity>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
