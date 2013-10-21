@@ -102,7 +102,7 @@ public class CmisArchive implements JavaDelegate {
 						archiveFolder.getId(), documentCategoryName
 								+ indexAttachment.toString(), suffixIdString
 								+ "_" + suffixDateString + "."
-								+ contentTypeValues[1], contentTypeValues[0]);
+								+ contentTypeValues[1], "application/octet-stream");
 				indexAttachment++;
 				if (aDocument == null) {
 					isArchived = false;

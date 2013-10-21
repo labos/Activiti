@@ -128,8 +128,8 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 					Document aDocument = this.saveDocumentToFolder(IoUtil
 							.readInputStream(aStream, "stream attachment"),
 							archiveFolder.getId(),
-							suffixName + indexAttachment.toString(),
-							contentTypeValues[1], contentTypeValues[0]);
+							suffixName + "_" +indexAttachment.toString(),
+							contentTypeValues[1], "application/octet-stream");
 					indexAttachment++;
 					if (aDocument == null) {
 						isArchived = false;
@@ -187,7 +187,7 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 		try {
 			byte[] content = documentStreamByteArray;
 			Folder folder = (Folder) session.getObject(folderId);
-			return CmisUtil.createDocument(session, folder, name + "_"
+			return CmisUtil.createDocument(session, folder, name + "."
 					+ fileSuffix, mimeType, content);
 		} catch (Exception e) {
 			throw new ActivitiException(
