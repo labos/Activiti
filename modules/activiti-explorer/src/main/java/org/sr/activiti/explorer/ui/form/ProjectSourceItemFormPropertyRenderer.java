@@ -48,7 +48,10 @@ public class ProjectSourceItemFormPropertyRenderer extends AbstractFormPropertyR
     		
     for(ProjectSourceItem projectSourceItem: projectSourceItems){
     	comboBox.addItem(projectSourceItem.getId());
-    	String name = projectSourceItem.getIdProject() + " " +  projectSourceItem.getIdSource() + " (Residuo: " + projectSourceItem.getActual() + ")";
+    	String projectName = this.getProjectName(projectSourceItem);
+    	String sourceName = this.getSourceName(projectSourceItem);    	
+    	
+    	String name = projectName + " " +  sourceName + " (Residuo: " + projectSourceItem.getActual() + ")";
     	comboBox.setItemCaption(projectSourceItem.getId(), name);
     }
     		
@@ -59,6 +62,32 @@ public class ProjectSourceItemFormPropertyRenderer extends AbstractFormPropertyR
     }
     
     return comboBox;
+  }
+  
+  private String getProjectName(ProjectSourceItem projectSourceItem){
+	  String ret = null;	  
+	  
+	  ret = ProcessEngines.getDefaultProcessEngine()
+				 .getBudgetService()
+				 .createProjectQuery()
+				 .projectId(projectSourceItem.getIdProject())
+				 .singleResult()
+				 .getName();
+	  return ret;
+	  
+  }
+  
+  private String getSourceName(ProjectSourceItem projectSourceItem){
+	  String ret = null;	  
+	  
+	  ret = ProcessEngines.getDefaultProcessEngine()
+				 .getBudgetService()
+				 .createSourceQuery()
+				 .sourceId(projectSourceItem.getIdSource())
+				 .singleResult()
+				 .getName();
+	  return ret;
+	  
   }
 
 }
