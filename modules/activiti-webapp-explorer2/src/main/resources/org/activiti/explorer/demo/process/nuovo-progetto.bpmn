@@ -2,6 +2,7 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="nuovoProgetto" name="Nuovo Progetto" isExecutable="true" activiti:candidateStarterGroups="user">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
+    <sequenceFlow id="flow177" sourceRef="startevent1" targetRef="servicetask22"></sequenceFlow>
     <serviceTask id="servicetask22" name="Set initiator email" activiti:class="org.sr.activiti.explorer.delegates.EmailInitiator">
       <extensionElements>
         <activiti:field name="idInitiator">
@@ -16,7 +17,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow177" sourceRef="startevent1" targetRef="servicetask22"></sequenceFlow>
     <sequenceFlow id="flow178" sourceRef="servicetask22" targetRef="servicetask23"></sequenceFlow>
     <callActivity id="callactivity2" name="Determinazione di avvio progetto" calledElement="determinazione-DG-noProposta">
       <extensionElements>
@@ -141,7 +141,7 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
       </extensionElements>
     </callActivity>
-    <callActivity id="callactivity5" name="Collaborazioni">
+    <callActivity id="callactivity5" name="Collaborazioni" calledElement="idProcessoCollaborazioni">
       <extensionElements>
         <activiti:in source="subject" target="subject"></activiti:in>
         <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
