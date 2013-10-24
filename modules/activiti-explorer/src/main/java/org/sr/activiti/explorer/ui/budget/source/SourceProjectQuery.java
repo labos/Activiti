@@ -25,6 +25,7 @@ import org.activiti.explorer.data.AbstractLazyLoadingQuery;
 import org.activiti.explorer.data.LazyLoadingQuery;
 import org.activiti.explorer.ui.management.identity.GroupDetailPanel;
 
+
 import com.vaadin.data.Item;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;
@@ -55,18 +56,35 @@ public class SourceProjectQuery extends AbstractLazyLoadingQuery {
   }
 
   
-  public List<Item> loadItems(int start, int count) {
-	  ProjectSourceItemQuery query = budgetService.createProjectSourceItemQuery().idSource(idSource); 
-     
-        
-    List<ProjectSourceItem> projectSourceItems = query.listPage(start, count);
-    
-    List<Item> items = new ArrayList<Item>();
-    for (ProjectSourceItem projectSourceItem : projectSourceItems) {
-      items.add(new ProjectSourceItemItem(projectSourceItem));
-    }
-    return items;
-  }
+	public List<Item> loadItems(int start, int count) {
+		ProjectSourceItemQuery query = budgetService.createProjectSourceItemQuery().idSource(idSource);
+
+		List<ProjectSourceItem> projectSourceItems = query.listPage(start,count);
+
+		List<Item> items = new ArrayList<Item>();
+		for (ProjectSourceItem projectSourceItem : projectSourceItems) {
+			ProjectSourceItemItem projectSourceItemItem = new ProjectSourceItemItem(projectSourceItem);
+
+			// Source
+			String sourceName = this.getSourceName(projectSourceItem);
+			projectSourceItemItem.addItemProperty("source", new ObjectProperty<String>(sourceName, String.class));
+
+			// Project
+			String projectName = this.getProjectName(projectSourceItem);
+			Button projectButton = new Button(projectName);
+			projectButton.addStyleName(Reindeer.BUTTON_LINK);
+			final String idProject = projectSourceItem.getIdProject();
+			projectButton.addListener(new ClickListener() {
+				public void buttonClick(ClickEvent event) {
+					ExplorerApp.get().getViewManager().showProjectPage(idProject);
+				}
+			});
+			projectSourceItemItem.addItemProperty("project",	new ObjectProperty<Button>(projectButton, Button.class));
+
+			items.add(projectSourceItemItem);
+		}
+		return items;
+	}
 
   public Item loadSingleResult(String id) {
     throw new UnsupportedOperationException();
@@ -79,6 +97,30 @@ public class SourceProjectQuery extends AbstractLazyLoadingQuery {
     }
   }
   
+  private String getProjectName(ProjectSourceItem projectSourceItem){
+	  String ret = null;	  
+	  
+	  ret = this.budgetService
+			  .createProjectQuery()
+			  .projectId(projectSourceItem.getIdProject())
+			  .singleResult()
+			  .getName();
+	  return ret;
+	  
+  }
+  
+  private String getSourceName(ProjectSourceItem projectSourceItem){
+	  String ret = null;	  
+	  
+	  ret = this.budgetService
+			  .createSourceQuery()
+			  .sourceId(projectSourceItem.getIdSource())
+			  .singleResult()
+			  .getName();
+	  return ret;
+	  
+  }
+  
   class ProjectSourceItemItem extends PropertysetItem {
     
     private static final long serialVersionUID = 1L;
@@ -88,22 +130,7 @@ public class SourceProjectQuery extends AbstractLazyLoadingQuery {
       // id
       addItemProperty("id", new ObjectProperty<String>(projectSourceItem.getId(), String.class));
       
-      // idProject
-      if (projectSourceItem.getIdProject() != null) {
-    	  Button idProjectButton = new Button(projectSourceItem.getIdProject());
-    	  idProjectButton.addStyleName(Reindeer.BUTTON_LINK);
-    	  idProjectButton.addListener(new ClickListener() {
-            public void buttonClick(ClickEvent event) {
-              ExplorerApp.get().getViewManager().showProjectPage(projectSourceItem.getIdProject());
-            }
-          });
-        addItemProperty("idProject", new ObjectProperty<Button>(idProjectButton, Button.class));  
-      }
-      // idSource
-      if (projectSourceItem.getIdSource() != null) {
-    	addItemProperty("idSource", new ObjectProperty<String>(projectSourceItem.getIdSource(), String.class));  
-      }
-      
+         
       // total
       if (projectSourceItem.getTotal() != null) {
         addItemProperty("total", new ObjectProperty<Double>(projectSourceItem.getTotal(), Double.class));

@@ -62,9 +62,51 @@ public class ProjectSourceQuery extends AbstractLazyLoadingQuery {
     
     List<Item> items = new ArrayList<Item>();
     for (ProjectSourceItem projectSourceItem : projectSourceItems) {
-      items.add(new ProjectSourceItemItem(projectSourceItem));
+    	ProjectSourceItemItem projectSourceItemItem = new ProjectSourceItemItem(projectSourceItem);
+    	
+    	// Project
+    	String projectName = this.getProjectName(projectSourceItem);
+        projectSourceItemItem.addItemProperty("project", new ObjectProperty<String>(projectName, String.class));
+        
+        // Source
+        String sourceName = this.getSourceName(projectSourceItem);
+        Button sourceButton = new Button(sourceName);
+        sourceButton.addStyleName(Reindeer.BUTTON_LINK);
+        final String idSource = projectSourceItem.getIdSource();
+        sourceButton.addListener(new ClickListener() {
+            public void buttonClick(ClickEvent event) {
+               ExplorerApp.get().getViewManager().showSourcePage(idSource);
+             }
+            });
+        projectSourceItemItem.addItemProperty("source", new ObjectProperty<Button>(sourceButton, Button.class));  
+                
+    	items.add(projectSourceItemItem);
     }
     return items;
+  }
+  
+  private String getProjectName(ProjectSourceItem projectSourceItem){
+	  String ret = null;	  
+	  
+	  ret = this.budgetService
+			  .createProjectQuery()
+			  .projectId(projectSourceItem.getIdProject())
+			  .singleResult()
+			  .getName();
+	  return ret;
+	  
+  }
+  
+  private String getSourceName(ProjectSourceItem projectSourceItem){
+	  String ret = null;	  
+	  
+	  ret = this.budgetService
+			  .createSourceQuery()
+			  .sourceId(projectSourceItem.getIdSource())
+			  .singleResult()
+			  .getName();
+	  return ret;
+	  
   }
 
   public Item loadSingleResult(String id) {
@@ -87,23 +129,7 @@ public class ProjectSourceQuery extends AbstractLazyLoadingQuery {
       // id
       addItemProperty("id", new ObjectProperty<String>(projectSourceItem.getId(), String.class));
       
-      // idProject
-      if (projectSourceItem.getIdProject() != null) {
-        addItemProperty("idProject", new ObjectProperty<String>(projectSourceItem.getIdProject(), String.class));
-      }
-      // idSource
-      if (projectSourceItem.getIdSource() != null) {
-    	  Button idSourceButton = new Button(projectSourceItem.getIdSource());
-          idSourceButton.addStyleName(Reindeer.BUTTON_LINK);
-          idSourceButton.addListener(new ClickListener() {
-            public void buttonClick(ClickEvent event) {
-              ExplorerApp.get().getViewManager().showSourcePage(projectSourceItem.getIdSource());
-            }
-          });
-        addItemProperty("idSource", new ObjectProperty<Button>(idSourceButton, Button.class));  
-        
-      }
-      
+           
       // total
       if (projectSourceItem.getTotal() != null) {
         addItemProperty("total", new ObjectProperty<Double>(projectSourceItem.getTotal(), Double.class));

@@ -223,8 +223,8 @@ public class ProjectDetailPanel extends DetailPanel {
 			sourcesTable.setContainerDataSource(container);
 
 			sourcesTable.addContainerProperty("id", String.class, null);
-			sourcesTable.addContainerProperty("idProject", String.class, null);
-			sourcesTable.addContainerProperty("idSource", Button.class, null);
+			sourcesTable.addContainerProperty("project", String.class, null);
+			sourcesTable.addContainerProperty("source", Button.class, null);
 			sourcesTable.addContainerProperty("total", Double.class, null);
 			sourcesTable.addContainerProperty("actual", Double.class, null);
 			
