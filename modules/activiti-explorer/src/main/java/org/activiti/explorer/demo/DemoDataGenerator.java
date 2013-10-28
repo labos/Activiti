@@ -151,13 +151,15 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoSources(){
-	  createSource("fonte1", "Fonte 1", new Double(100000));
-	  createSource("fonte2", "Fonte 2", new Double(200000));
-	  createSource("fonte3", "Fonte 3", new Double(300000));
-	  createSource("fonte4", "Fonte 4", new Double(400000));
-	  createSource("fonte5", "Fonte 5", new Double(500000));
-	  createSource("fonte6", "Fonte 6", new Double(600000));
-	  createSource("fonte7", "Fonte 7", new Double(700000));
+	  createSource("000", "F. Cons. ap. 2009", 		new Double(100000));
+	  createSource("002", "POR 2007/2013", 			new Double(200000));
+	  createSource("003", "Residui Mis. 3.13", 		new Double(300000));
+	  createSource("009", "PDL 2009", 				new Double(400000));
+	  createSource("010", "PDL 2010", 				new Double(500000));
+	  createSource("011", "PDL 2011", 				new Double(600000));
+	  createSource("012", "PDL 2012", 				new Double(700000));
+	  createSource("014", "Risorse UE", 			new Double(700000));
+	  createSource("711", "L.R. 7/07 Disc. 2011", 	new Double(700000));
   }
   
   protected void createSource(String sourceId,String name, Double total){
@@ -170,13 +172,21 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoPrograms(){
-	  createProgram("programma1", "Programma 1", new Double(10000));
-	  createProgram("programma2", "Programma 2", new Double(20000));
-	  createProgram("programma3", "Programma 3", new Double(30000));
-	  createProgram("programma4", "Programma 4", new Double(40000));
-	  createProgram("programma5", "Programma 5", new Double(50000));
-	  createProgram("programma6", "Programma 6", new Double(60000));
-	  createProgram("programma7", "Programma 7", new Double(70000));
+	  createProgram("AMMICT", "Ammodernamento infrastrutture ICT (AMMICT) 1", 											new Double(10000));
+	  createProgram("AMMIMP", "Ammodernamento impianti PST (AMMIMP)", 													new Double(20000));
+	  createProgram("ASSIMP", "Assistenza alle Imprese (ASSIMP)", 														new Double(30000));
+	  createProgram("BIOMED", "Distretto Biomed (BIOMED)", 																new Double(40000));
+	  createProgram("CLUSER", "Cluster Materiali (CLUSMT)", 															new Double(50000));
+	  createProgram("CLUSMT", "Cluster Energie Rinnovabili (CLUSER)", 													new Double(60000));
+	  createProgram("DISICT", "Sardegna District (DISICT)", 															new Double(70000));
+	  createProgram("DIVULG", "Divulgazione (DIVULG)", 																	new Double(70000));
+	  createProgram("LI311A", "Aiuti alle imprese per la produzione di energia da FER (LI311A)", 						new Double(70000));
+	  createProgram("LI311C", "Impianti sperimentali di solare termodinamico (LI311C)", 								new Double(70000));
+	  createProgram("LI312B", "Smart City (LI312B)", 																	new Double(70000));
+	  createProgram("LI312C", "Promozione utilizzo, da parte delle imprese, di tecnologie ad alta efficienza (LI312C)", new Double(70000));
+	  createProgram("LI611A", "Promozione e sostegno all'attività di R&S dei poli di innovazione (LI611A)", 			new Double(70000));
+	  createProgram("LI621A", "INNOVA.RE (LI621A)", 																	new Double(70000));
+	  createProgram("LI621B", "Sostegno alla creazione e sviluppo di nuove imprese innovative (LI621B)", 				new Double(70000));
   }
   
   protected void createProgram(String programId,String name, Double total){
@@ -189,13 +199,50 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoProjects(){
-	  createProject("progetto1", "Progetto 1");
-	  createProject("progetto2", "Progetto 2");
-	  createProject("progetto3", "Progetto 3");
-	  createProject("progetto4", "Progetto 4");
-	  createProject("progetto5", "Progetto 5");
-	  createProject("progetto6", "Progetto 6");
-	  createProject("progetto7", "Progetto 7");
+	  createProject("1nii", 		"1° call bando aiuti Nuove Imprese Innovative (1NII)");
+	  createProject("1sup", 		"1° call bando aiuti Start Up Innovative (1SUP)");
+	  createProject("2nii", 		"2° call bando aiuti Nuove Imprese Innovative (2NII)");
+	  createProject("2sup", 		"2° call bando aiuti Start Up Innovative (2SUP)");
+	  createProject("aras", 		"Assistenza tecnica RAS per bandi aiuti imprese (ARAS)");
+	  createProject("atec", 		"Assistenza tecnica RAS per tecnologie ad alta efficienza (ATEC)");
+	  createProject("bapi", 		"Bando Aiuti Premi e Incentivi (BAPI)");
+	  createProject("bibl", 		"Biblioteca (BIBL)");
+	  createProject("bioe", 		"Centro Bioetica del Mediterraneo (BIOE)");
+	  createProject("bisr", 		"Biblioteca Scientifica Regionale (BISR)");
+	  createProject("bott", 		"Azioni cluster Bottom Up (BOTT)");
+	  createProject("bres", 		"Bando aiuti per progetti R&S (BRES)");
+	  createProject("cine", 		"Progetto CINEMA (CINE)");
+	  createProject("city", 		"Servizi Smart City (CITY)");
+	  createProject("cpro", 		"Centro Prototipazione (CPRO)");
+	  createProject("cult", 		"Divulgazione Cultura scientifica (CULT)");
+	  createProject("disa", 		"Progetto ICT Disabilità (DISA)");
+	  createProject("down", 		"Azioni cluster Top Down (DOWN)");
+	  createProject("farm", 		"Cluster R&S Farmaco (FARM)");
+	  createProject("form", 		"Borse Formazione imprese (FORM)");
+	  createProject("gest_cluser", 	"Gestione piattaforme E.R. (GEST)");
+	  createProject("gest_disict", 	"Gestione e sviluppo Distretto (GEST)");
+	  createProject("inno", 		"Innovazione e T.T. (INNO)");
+	  createProject("irpo", 		"Incentivo Ricerca Polaris (IRPO)");
+	  createProject("itli", 		"Impianti Tecnologici Laboratorio Idrogeno (ITLI)");
+	  createProject("lcab", 		"Laboratorio Camera Bianca (LCAB)");
+	  createProject("lnmr", 		"Laboratorio NMR (LNMR)");
+	  createProject("mate", 		"Attività piattaforme Materiali (MATE)");
+	  createProject("nano_biomed", 	"Laboratorio Nanobiotecnologie (NANO)");
+	  createProject("nano_divulg", 	"Workshop Nanobiotecnologie (NANO)");
+	  createProject("parc", 		"Rinnovo impianti PST (PARC)");
+	  createProject("pear", 		"Supporto redazione PEAR (PEAR)");
+	  createProject("quru", 		"Qualificazione Risorse Umane (QURU)");
+	  createProject("reti", 		"Bando Aiuti Innovaz. Reti PMI (RETI)");
+	  createProject("rict", 		"Rinnovo infrastrutture ICT (RICT)");
+	  createProject("sbre", 		"Sportello Brevetti (SBRE)");
+	  createProject("semi", 		"Seminari scientifici (SEMI)");
+	  createProject("sinn", 		"Servizi per l'Innovazione (SINN)");
+	  createProject("smmo", 		"Smart Mobility (SMMO)");
+	  createProject("spap", 		"Sportello Appalti (SPAP)");
+	  createProject("spen", 		"Sportello Energia (SPEN)");
+	  createProject("spre", 		"Sportello Ricerca Europea (SPRE)");
+	  createProject("stab", 		"Laboratorio Stabulazione (STAB)");
+	  createProject("svis", 		"Servizio Valutazione  Impianti Sperimentali solari/termodinamici (SVIS)");
   }
   
   protected void createProject(String projectId,String name){
@@ -221,11 +268,11 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoProjectCostItems(){
-	  createProjectCostItem("1", "progetto1", "collaboratori", new Double(600), new Double(600));
-	  createProjectCostItem("2", "progetto1", "attrezzature", new Double(300), new Double(300));
-	  createProjectCostItem("3", "progetto1", "altro", new Double(100), new Double(100));
-	  createProjectCostItem("4", "progetto2", "collaboratori", new Double(1400), new Double(1400));
-	  createProjectCostItem("5", "progetto1", "attrezzature", new Double(600), new Double(600));
+	  createProjectCostItem("1", "down", "collaboratori", new Double(600), new Double(600));
+	  createProjectCostItem("2", "down", "attrezzature", new Double(300), new Double(300));
+	  createProjectCostItem("3", "down", "altro", new Double(100), new Double(100));
+	  createProjectCostItem("4", "bott", "collaboratori", new Double(1400), new Double(1400));
+	  createProjectCostItem("5", "bott", "attrezzature", new Double(600), new Double(600));
   }
   
   protected void createProjectCostItem(String id, String idProject, String idCostEntry, Double total, Double actual){
@@ -241,11 +288,67 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   }
   
   protected void initDemoProjectSourceItems(){
-	  createProjectSourceItem("1", "progetto1", "fonte1", new Double(600), new Double(600));
-	  createProjectSourceItem("2", "progetto1", "fonte2", new Double(300), new Double(300));
-	  createProjectSourceItem("3", "progetto1", "fonte3", new Double(100), new Double(100));
-	  createProjectSourceItem("4", "progetto2", "fonte1", new Double(1400), new Double(1400));
-	  createProjectSourceItem("5", "progetto2", "fonte4", new Double(600), new Double(600));
+	  createProjectSourceItem("1", "down", 				"002", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("2", "bott", 				"002", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("3", "reti", 				"002", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("5", "inno", 				"002", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("6", "1sup", 				"002", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("7", "2sup", 				"002", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("8", "bres", 				"002", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("9", "1nii", 				"002", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("10", "2nii", 			"002", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("11", "aras", 			"002", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("12", "svis", 			"002", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("13", "city", 			"002", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("14", "atec", 			"002", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("15", "gest_disict",		"003", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("16", "disa", 			"009", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("17", "cpro", 			"009", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("18", "cpro", 			"011", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("19", "cpro", 			"012", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("20", "gest_cluser", 		"003", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("21", "gest_cluser", 		"012", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("22", "itli", 			"009", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("23", "spen", 			"012", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("24", "smmo", 			"012", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("25", "pear", 			"002", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("26", "mate", 			"003", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("27", "nano_biomed", 		"003", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("28", "nano_biomed", 		"012", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("29", "stab", 			"003", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("30", "stab", 			"012", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("31", "lnmr", 			"010", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("32", "lnmr", 			"012", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("33", "lcab", 			"003", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("34", "lcab", 			"012", 	new Double(600),	new Double(600));
+	  createProjectSourceItem("35", "semi", 			"009", 	new Double(300), 	new Double(300));
+	  createProjectSourceItem("36", "bioe", 			"003", 	new Double(100), 	new Double(100));
+	  createProjectSourceItem("37", "farm", 			"011", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("38", "irpo", 			"011", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("39", "irpo", 			"012", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("40", "form", 			"010", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("41", "quru", 			"009", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("42", "sinn", 			"010", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("43", "sinn", 			"011", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("44", "sinn", 			"012", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("45", "spre", 			"010", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("46", "spre", 			"011", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("47", "bisr", 			"711", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("48", "bapi", 			"012", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("49", "sbre", 			"010", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("50", "sbre", 			"011", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("51", "sbre", 			"012", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("52", "bibl", 			"012", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("53", "spap", 			"010", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("54", "spap", 			"011", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("55", "cine", 			"014", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("56", "nano_divulg", 		"711", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("57", "cult", 			"711", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("58", "rict", 			"000", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("59", "rict", 			"009", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("60", "rict", 			"003", 	new Double(1400), 	new Double(1400));
+	  createProjectSourceItem("61", "parc", 			"003", 	new Double(1400), 	new Double(1400));
+	  
   }
   
   protected void createProjectSourceItem(String id, String idProject, String idSource, Double total, Double actual){
@@ -397,22 +500,22 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
   
   protected void initProcessDefinitions() {
     
-    String deploymentName = "Demo processes";
+    String deploymentName = "Procedure avviabili";
     List<Deployment> deploymentList = repositoryService.createDeploymentQuery().deploymentName(deploymentName).list();
     
     if (deploymentList == null || deploymentList.size() == 0) {
       repositoryService.createDeployment()
         .name(deploymentName)
-        .addClasspathResource("org/activiti/explorer/demo/process/createTimersProcess.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/VacationRequest.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/VacationRequest.png")
-        .addClasspathResource("org/activiti/explorer/demo/process/FixSystemFailureProcess.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/FixSystemFailureProcess.png")
-        .addClasspathResource("org/activiti/explorer/demo/process/simple-approval.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/Helpdesk.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/Helpdesk.png")
-        .addClasspathResource("org/activiti/explorer/demo/process/reviewSalesLead.bpmn20.xml")
         .addClasspathResource("org/activiti/explorer/demo/process/nuovo-progetto.bpmn")
+        .deploy();
+    }
+    
+    deploymentName = "Sottoprocedure";
+    deploymentList = repositoryService.createDeploymentQuery().deploymentName(deploymentName).list();
+    
+    if (deploymentList == null || deploymentList.size() == 0) {
+      repositoryService.createDeployment()
+        .name(deploymentName)
         .addClasspathResource("org/activiti/explorer/demo/process/ABS.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/determinazione-DG.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/determinazione-DG-noProposta.bpmn")
@@ -422,17 +525,17 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
         .deploy();
     }
     
-    String reportDeploymentName = "Demo reports";
-    deploymentList = repositoryService.createDeploymentQuery().deploymentName(reportDeploymentName).list();
-    if (deploymentList == null || deploymentList.size() == 0) {
-      repositoryService.createDeployment()
-        .name(reportDeploymentName)
-        .addClasspathResource("org/activiti/explorer/demo/process/reports/taskDurationForProcessDefinition.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/reports/processInstanceOverview.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/reports/helpdeskFirstLineVsEscalated.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/reports/employeeProductivity.bpmn20.xml")
-        .deploy();
-    }
+//    String reportDeploymentName = "Demo reports";
+//    deploymentList = repositoryService.createDeploymentQuery().deploymentName(reportDeploymentName).list();
+//    if (deploymentList == null || deploymentList.size() == 0) {
+//      repositoryService.createDeployment()
+//        .name(reportDeploymentName)
+////        .addClasspathResource("org/activiti/explorer/demo/process/reports/taskDurationForProcessDefinition.bpmn20.xml")
+////        .addClasspathResource("org/activiti/explorer/demo/process/reports/processInstanceOverview.bpmn20.xml")
+////        .addClasspathResource("org/activiti/explorer/demo/process/reports/helpdeskFirstLineVsEscalated.bpmn20.xml")
+////        .addClasspathResource("org/activiti/explorer/demo/process/reports/employeeProductivity.bpmn20.xml")
+//        .deploy();
+//    }
     
   }
 
