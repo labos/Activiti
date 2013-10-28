@@ -45,8 +45,12 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 		Integer indexAttachment = 1;
 		String suffixName = "";
 		Folder archiveFolder;
+		// set a map mimetype-activiti->mimetype-alfresco to match mime-types used in alfresco
+		Map<String, String> mimeTypesMap = new HashMap<String, String>();
 		// set a map key->tagName to tag document in Alfresco
 		Map<String, String> tagsMap = new HashMap<String, String>();
+		mimeTypesMap.put("application/vnd.ms-word", "application/msword");
+		mimeTypesMap.put("application/x-zip-compressed", "application/zip");
 		tagsMap.put("determinazione",
 				"workspace://SpacesStore/ca1571e7-edee-4ad6-824d-da065c693f60");
 		tagsMap.put("contratto",
@@ -119,17 +123,19 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 					// set content type
 					String[] contentTypeValues = attachment.getType()
 							.split(";");
+					String mimeType = mimeTypesMap.containsKey(contentTypeValues[0])?  mimeTypesMap.get(contentTypeValues[0]) :contentTypeValues[0]; 
 
 					InputStream aStream = delegateTask.getExecution()
 							.getEngineServices().getTaskService()
 							.getAttachmentContent(attachment.getId());
+					
 					System.out.println("*** type of content in attachement:"
 							+ contentTypeValues[0]);
 					Document aDocument = this.saveDocumentToFolder(IoUtil
 							.readInputStream(aStream, "stream attachment"),
 							archiveFolder.getId(),
 							suffixName + "_" +indexAttachment.toString(),
-							contentTypeValues[1], "application/octet-stream");
+							contentTypeValues[1], mimeType);
 					indexAttachment++;
 					if (aDocument == null) {
 						isArchived = false;
