@@ -70,13 +70,15 @@ public class MyProcessInstancesListQuery extends AbstractLazyLoadingQuery {
 					.startedBy(ExplorerApp.get().getLoggedInUser().getId())
 					.unfinished().list());
 
-			List<ProcessInstance> processListInstancesRup = ProcessEngines
+			HashSet<ProcessInstance> processInstancesRup = new HashSet<ProcessInstance>();
+			processInstancesRup.addAll(
+					ProcessEngines
 					.getDefaultProcessEngine()
 					.getRuntimeService()
 					.createProcessInstanceQuery()
 					.variableValueEquals("nominativoRUP",
-							ExplorerApp.get().getLoggedInUser().getId()).list();
-			for (ProcessInstance processInstanceRup : processListInstancesRup) {
+							ExplorerApp.get().getLoggedInUser().getId()).list());
+			for (ProcessInstance processInstanceRup : processInstancesRup) {
 				if (!this.checkProcessInstanceDuplicate(processGenericInstances,
 						processInstanceRup)) {
 					processGenericInstances.add(historyService

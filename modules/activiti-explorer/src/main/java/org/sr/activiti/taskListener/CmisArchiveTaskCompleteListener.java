@@ -18,6 +18,8 @@ import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.sr.activiti.bean.ApplicationConf;
 import org.sr.activiti.explorer.delegates.cmis.CmisUtil;
 
 /**
@@ -31,11 +33,11 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 	private Session session;
 	private String parentFolderName;
 	private static final long serialVersionUID = 1L;
+	private AnnotationConfigApplicationContext context =
+     	     new AnnotationConfigApplicationContext(ApplicationConf.class);
 	public static final String IS_ARCHIVED = "isArchived";
 	public static final String IS_ATTACHED = "isAttached";
 	public static final String ALFRESCO_PAGE_LINKS = "alfrescoPageLinks";
-	private static final String ALFRESCO_CMIS_URL = "http://alfrescotest.consorzio21.it:8080/alfresco/service/cmis";
-	private static final String ALFRESCO_ADMIN_PASSWORD = "tubonero.99";
 	List<Attachment> attachmentList = new ArrayList<Attachment>();
 
 	public void notify(DelegateTask delegateTask) {
@@ -52,15 +54,15 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 		mimeTypesMap.put("application/vnd.ms-word", "application/msword");
 		mimeTypesMap.put("application/x-zip-compressed", "application/zip");
 		tagsMap.put("determinazione",
-				"workspace://SpacesStore/ca1571e7-edee-4ad6-824d-da065c693f60");
+				getParameter("alfresco.tag.determinazione"));
 		tagsMap.put("contratto",
-				"workspace://SpacesStore/ddc47ca2-29ac-41a8-825d-7429192b968c");
+				getParameter("alfresco.tag.contratto"));
 		tagsMap.put("letterainvito",
-				"workspace://SpacesStore/34dc803d-b51c-46ab-8e5d-279cf1490412");
+				getParameter("alfresco.tag.letterainvito"));
 		tagsMap.put("fattura",
-				"workspace://SpacesStore/78312eab-8034-4454-b153-b157ed672ccb");
+				getParameter("alfresco.tag.fattura"));
 		tagsMap.put("generico",
-				"workspace://SpacesStore/8cdde542-5078-4305-b5a6-76576ba7b6e6");
+				getParameter("alfresco.tag.generico"));
 		
 		
 		ArrayList<String> alfrescoPageLinks = new ArrayList<String>();
@@ -184,8 +186,8 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 	}
 
 	public void createCmisSession() {
-		session = CmisUtil.createCmisSession("admin", ALFRESCO_ADMIN_PASSWORD,
-				ALFRESCO_CMIS_URL);
+		session = CmisUtil.createCmisSession(getParameter("alfresco.user"), getParameter("alfresco.password"),
+				getParameter("alfresco.cmis.url"));
 	}
 
 	public Document saveDocumentToFolder(byte[] documentStreamByteArray,
@@ -206,4 +208,9 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 		}
 	}
 
+	private String getParameter(String key){
+		
+       	return context.getEnvironment().getProperty(key);
+	}
+	
 }
