@@ -85,15 +85,15 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
       initProcessDefinitions();
     }
     
-    if (createDemoModels) {
-      LOGGER.info("Initializing demo models");
-      initModelData();
-    }
+//    if (createDemoModels) {
+//      LOGGER.info("Initializing demo models");
+//      initModelData();
+//    }
     
-    if (generateReportData) {
-      LOGGER.info("Initializing demo report data");
-      generateReportData();
-    }
+//    if (generateReportData) {
+//      LOGGER.info("Initializing demo report data");
+//      generateReportData();
+//    }
     
     initDemoSources();
     initDemoPrograms();
@@ -388,7 +388,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     // new  SR default users
     createUser("gpisanu", "Giorgio", "Pisanu", "pisanu", "labopensource+DIR-direttore@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("dir", "dirigenti", "user"),
+            Arrays.asList("dir", "dirigenti", "admin"),
             Arrays.asList("birthDate", "", "jobTitle", "Dirigente Area Servizi alle Imprese", "location", "",
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("sbaghino", "Sebastiano", "Baghino", "baghino", "labopensource+PST-responsabile@gmail.com", 
@@ -443,12 +443,12 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("agugliotta", "Alessandra", "Gugliotta", "gugliotta", "labopensource+CGE-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("cge", "responsabili", "user"),
+            Arrays.asList("cge", "responsabili", "admin"),
             Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("eangioni", "Elena", "Angioni", "angioni", "labopensource+DOC-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("doc", "responsabili", "user"),
+            Arrays.asList("doc", "responsabili", "admin"),
             Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("aatzeni", "Alessandra", "Atzeni", "atzeni", "labopensource+DIR-responsabile@gmail.com", 
@@ -516,10 +516,13 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     if (deploymentList == null || deploymentList.size() == 0) {
       repositoryService.createDeployment()
         .name(deploymentName)
-        .addClasspathResource("org/activiti/explorer/demo/process/ABS.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/determinazione-DG.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/determinazione-DG-noProposta.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/pagamento-ABS.bpmn")
+        .addClasspathResource("org/activiti/explorer/demo/process/ABS.bpmn")
+        .addClasspathResource("org/activiti/explorer/demo/process/pubblicazione.bpmn")
+        .addClasspathResource("org/activiti/explorer/demo/process/documentazione-aiuti.bpmn")
+        .addClasspathResource("org/activiti/explorer/demo/process/valutazione-aiuti.bpmn")   
         .addClasspathResource("org/activiti/explorer/demo/process/aiuti.bpmn")
         .addClasspathResource("org/activiti/explorer/demo/process/collaborazioni.bpmn")
         .deploy();

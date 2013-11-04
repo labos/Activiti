@@ -76,7 +76,7 @@ public class MyProcessInstancesListQuery extends AbstractLazyLoadingQuery {
 					.getDefaultProcessEngine()
 					.getRuntimeService()
 					.createProcessInstanceQuery()
-					.variableValueEquals("nominativoRUP",
+					.variableValueEquals("rup",
 							ExplorerApp.get().getLoggedInUser().getId()).list());
 			for (ProcessInstance processInstanceRup : processInstancesRup) {
 				if (!this.checkProcessInstanceDuplicate(processGenericInstances,

@@ -51,6 +51,7 @@ public class docGenerate implements JavaDelegate {
 	private Expression data_determinazione;
 	private Expression numero_determinazione;
 	private Expression oggetto_determinazione;
+	private Expression nome_rup;
 	
 	
 	public void execute(DelegateExecution execution) throws IOException, JAXBException {
@@ -58,6 +59,7 @@ public class docGenerate implements JavaDelegate {
 		Long numDet = (Long) numero_determinazione.getValue(execution);
 		Date dataDet = (Date) data_determinazione.getValue(execution);
 		String oggettoDet = (String) oggetto_determinazione.getValue(execution);
+		String rup = (String) nome_rup.getValue(execution);
 	  
 		Session session = null;
 		CmisObject object = null;
@@ -91,6 +93,7 @@ public class docGenerate implements JavaDelegate {
 			mappings.put("numero_determinazione", numDet.toString());
 			mappings.put("data_determinazione", dataDet.toString());
 			mappings.put("oggetto_determinazione", oggettoDet);
+			mappings.put("nome_rup", rup);
 			
 			//documentPart.variableReplace(mappings);   from v3.0.0
 			
@@ -104,7 +107,8 @@ public class docGenerate implements JavaDelegate {
 			template.save(outputFile);
 		
 			execution.getEngineServices().getTaskService().createAttachment(
-					"docx", null, execution.getProcessInstanceId(), outputFile.getName(), null, new FileInputStream(outputFile)
+					"application/vnd.openxmlformats-officedocument.wordprocessingml.document;docx", 
+					null, execution.getProcessInstanceId(), outputFile.getName(), null, new FileInputStream(outputFile)
 					);
 		}
 		catch (IOException ex){

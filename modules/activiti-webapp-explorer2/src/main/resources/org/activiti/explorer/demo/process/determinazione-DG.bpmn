@@ -124,7 +124,7 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <activiti:formProperty id="ro_numero_determinazione" name="Numero Determinazione" type="textmessage" default="${numero_determinazione}"></activiti:formProperty>
         <activiti:taskListener event="complete" class="org.sr.activiti.taskListener.CmisArchiveTaskCompleteListener">
           <activiti:field name="parentFolder">
-            <activiti:expression>${processIdNuovoProgetto}</activiti:expression>
+            <activiti:expression>${idParentProcess}</activiti:expression>
           </activiti:field>
           <activiti:field name="suffix">
             <activiti:expression>determinazione_${numero_determinazione}_${dateFormatUtil.formatSimpleDate(data_determinazione)}</activiti:expression>
@@ -138,7 +138,7 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow32" sourceRef="usertask3" targetRef="usertask6"></sequenceFlow>
+    <sequenceFlow id="flow32" sourceRef="usertask3" targetRef="servicetask6"></sequenceFlow>
     <sequenceFlow id="flow37" name="Approvato" sourceRef="exclusivegateway5" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firmatoDG=='true'}]]></conditionExpression>
     </sequenceFlow>
@@ -153,6 +153,20 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
     <sequenceFlow id="flow45" name="Non Allegata" sourceRef="exclusivegateway6" targetRef="usertask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
+    <serviceTask id="servicetask6" name="Creazione determinazione" activiti:class="org.sr.activiti.explorer.delegates.docGenerate">
+      <extensionElements>
+        <activiti:field name="data_determinazione">
+          <activiti:expression>${data_determinazione}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="numero_determinazione">
+          <activiti:expression>${numero_determinazione}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="oggetto_determinazione">
+          <activiti:expression>${detSubject}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow46" sourceRef="servicetask6" targetRef="usertask6"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_determinazione-DG">
     <bpmndi:BPMNPlane bpmnElement="determinazione-DG" id="BPMNPlane_determinazione-DG">
@@ -213,6 +227,9 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="1176.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="55.0" width="105.0" x="575.0" y="32.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="45.0" y="177.0"></omgdi:waypoint>
         <omgdi:waypoint x="170.0" y="177.0"></omgdi:waypoint>
@@ -229,28 +246,28 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="392.0" y="277.0"></omgdi:waypoint>
         <omgdi:waypoint x="222.0" y="218.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="59.0" x="-59.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-59.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="392.0" y="277.0"></omgdi:waypoint>
         <omgdi:waypoint x="392.0" y="205.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="38.0" x="-40.0" y="-4.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="38.0" x="-40.0" y="-4.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="966.0" y="177.0"></omgdi:waypoint>
         <omgdi:waypoint x="1026.0" y="177.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="46.0" x="-30.0" y="5.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="46.0" x="-30.0" y="5.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
         <omgdi:waypoint x="946.0" y="157.0"></omgdi:waypoint>
         <omgdi:waypoint x="946.0" y="100.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="68.0" x="9.0" y="1.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="68.0" x="9.0" y="1.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
@@ -289,15 +306,15 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="669.0" y="139.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
-        <omgdi:waypoint x="585.0" y="177.0"></omgdi:waypoint>
-        <omgdi:waypoint x="617.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="150.0"></omgdi:waypoint>
+        <omgdi:waypoint x="627.0" y="87.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
         <omgdi:waypoint x="412.0" y="70.0"></omgdi:waypoint>
         <omgdi:waypoint x="532.0" y="70.0"></omgdi:waypoint>
         <omgdi:waypoint x="532.0" y="150.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="49.0" x="-92.0" y="4.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="49.0" x="-92.0" y="4.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
@@ -317,7 +334,7 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="689.0" y="297.0"></omgdi:waypoint>
         <omgdi:waypoint x="796.0" y="297.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="38.0" x="-21.0" y="-14.0"></omgdc:Bounds>
+          <omgdc:Bounds height="39.0" width="38.0" x="-21.0" y="-14.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
@@ -325,8 +342,12 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="582.0" y="296.0"></omgdi:waypoint>
         <omgdi:waypoint x="669.0" y="217.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="61.0" x="-1.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="60.0" x="-1.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="627.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="669.0" y="139.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

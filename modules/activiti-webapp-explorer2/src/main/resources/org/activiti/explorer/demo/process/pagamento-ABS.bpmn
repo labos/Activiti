@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="idPagamentoABS" name="Pagamento ABS" isExecutable="true" activiti:candidateStarterGroups="pst">
+  <process id="pagamento-abs" name="Pagamento ABS" isExecutable="true" activiti:candidateStarterGroups="pst">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <userTask id="usertask28" name="Inserimento fatture gara ${cig} fornitore ${nome_fornitore}" activiti:assignee="${payAssignee}">
       <extensionElements>
@@ -153,8 +153,8 @@
     </sequenceFlow>
     <sequenceFlow id="flow189" sourceRef="exclusivegateway23" targetRef="usertask37"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_idPagamentoABS">
-    <bpmndi:BPMNPlane bpmnElement="idPagamentoABS" id="BPMNPlane_idPagamentoABS">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_pagamento-abs">
+    <bpmndi:BPMNPlane bpmnElement="pagamento-abs" id="BPMNPlane_pagamento-abs">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="164.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

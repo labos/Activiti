@@ -20,11 +20,11 @@
     <sequenceFlow id="flow178" sourceRef="servicetask22" targetRef="servicetask23"></sequenceFlow>
     <callActivity id="callactivity2" name="Determinazione di avvio progetto" calledElement="determinazione-DG-noProposta">
       <extensionElements>
-        <activiti:in source="nominativoRUP" target="detAssignee"></activiti:in>
+        <activiti:in source="rup" target="detAssignee"></activiti:in>
         <activiti:in sourceExpression="avvio progetto su ${project.name}" target="detSubject"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
-        <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
-        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
+        <activiti:in source="rup" target="rup"></activiti:in>
+        <activiti:in source="idParentProcess" target="idParentProcess"></activiti:in>
       </extensionElements>
     </callActivity>
     <userTask id="usertask61" name="Scelta Progetto e RUP. Proposta di determinazione" activiti:assignee="${initiator}">
@@ -33,7 +33,7 @@
         <activiti:formProperty id="project" name="Nuovo progetto" type="project" variable="project" required="true">
           <activiti:value id="project" name="Project"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="idNominativoRUP" name="Nominativo RUP" type="user" variable="nominativoRUP" required="true"></activiti:formProperty>
+        <activiti:formProperty id="rup" name="Nominativo RUP" type="user" variable="rup" required="true"></activiti:formProperty>
         <activiti:formProperty id="importoABS" name="Importo ABS" type="double" variable="importoABS" default="0">
           <activiti:value id="importoABS" name="Importo ABS"></activiti:value>
         </activiti:formProperty>
@@ -109,7 +109,7 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
     <sequenceFlow id="flow208" name="Membro" sourceRef="exclusivegateway2" targetRef="usertask67">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${initiatorJobTitle!='Responsabile'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask68" name="Avvio procedura" activiti:assignee="${nominativoRUP}">
+    <userTask id="usertask68" name="Avvio procedura" activiti:assignee="${rup}">
       <documentation>Selezionare il tipo di procedura da avviare sul progetto ${project.name}.</documentation>
       <extensionElements>
         <activiti:formProperty id="procedura" name="Scegli la procedura da avviare o termina il progetto:" type="enum" variable="procedura" required="true">
@@ -121,32 +121,32 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow209" sourceRef="callactivity2" targetRef="servicetask25"></sequenceFlow>
-    <callActivity id="callactivity3" name="ABS" calledElement="idProcessoABS">
+    <callActivity id="callactivity3" name="ABS" calledElement="abs">
       <extensionElements>
         <activiti:in source="subject" target="subject"></activiti:in>
-        <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
+        <activiti:in source="rup" target="rup"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
         <activiti:in source="project" target="project"></activiti:in>
         <activiti:in source="estimatedAmount" target="estimatedAmount"></activiti:in>
-        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
+        <activiti:in source="idParentProcess" target="idParentProcess"></activiti:in>
       </extensionElements>
     </callActivity>
     <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow213" sourceRef="parallelgateway2" targetRef="usertask68"></sequenceFlow>
-    <callActivity id="callactivity4" name="Aiuti" calledElement="idProcessoAiuti">
+    <callActivity id="callactivity4" name="Aiuti" calledElement="aiuti">
       <extensionElements>
         <activiti:in source="subject" target="subject"></activiti:in>
-        <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
+        <activiti:in source="rup" target="rup"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
-        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
+        <activiti:in source="idParentProcess" target="idParentProcess"></activiti:in>
       </extensionElements>
     </callActivity>
-    <callActivity id="callactivity5" name="Collaborazioni" calledElement="idProcessoCollaborazioni">
+    <callActivity id="callactivity5" name="Collaborazioni" calledElement="collaborazioni">
       <extensionElements>
         <activiti:in source="subject" target="subject"></activiti:in>
-        <activiti:in source="nominativoRUP" target="nominativoRUP"></activiti:in>
+        <activiti:in source="rup" target="rup"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
-        <activiti:in source="processIdNuovoProgetto" target="processIdNuovoProgetto"></activiti:in>
+        <activiti:in source="idParentProcess" target="idParentProcess"></activiti:in>
       </extensionElements>
     </callActivity>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
@@ -297,14 +297,14 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <omgdi:waypoint x="897.0" y="159.0"></omgdi:waypoint>
         <omgdi:waypoint x="930.0" y="159.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="44.0" x="-35.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="47.0" x="-35.0" y="-17.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow200" id="BPMNEdge_flow200">
         <omgdi:waypoint x="820.0" y="179.0"></omgdi:waypoint>
         <omgdi:waypoint x="818.0" y="230.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="66.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="67.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow201" id="BPMNEdge_flow201">
@@ -331,7 +331,7 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <omgdi:waypoint x="510.0" y="94.0"></omgdi:waypoint>
         <omgdi:waypoint x="672.0" y="132.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="64.0" x="-2.0" y="-13.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="65.0" x="-2.0" y="-13.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow208" id="BPMNEdge_flow208">
@@ -386,7 +386,7 @@ Questa è la motivazione: ${motivRifiutoSPF}.</activiti:expression>
         <omgdi:waypoint x="420.0" y="74.0"></omgdi:waypoint>
         <omgdi:waypoint x="490.0" y="74.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="39.0" width="38.0" x="-20.0" y="-18.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="-20.0" y="-18.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow225" id="BPMNEdge_flow225">
