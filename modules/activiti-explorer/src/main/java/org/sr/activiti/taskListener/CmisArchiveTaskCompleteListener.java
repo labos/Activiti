@@ -107,14 +107,6 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 				archiveFolder = CmisUtil.getFolderAndCreate(session,
 						this.parentFolderName, "Procedure");
 
-				// get all attachments
-				List<Attachment> attachmentList = delegateTask
-						.getExecution()
-						.getEngineServices()
-						.getTaskService()
-						.getProcessInstanceAttachments(
-								delegateTask.getExecution()
-										.getProcessInstanceId());
 
 				System.out.println("*** parent folder:"
 						+ this.parentFolderName);

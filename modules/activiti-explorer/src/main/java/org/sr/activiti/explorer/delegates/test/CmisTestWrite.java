@@ -27,8 +27,6 @@ import org.junit.Test;
 public class CmisTestWrite {
 	private AnnotationConfigApplicationContext context =
     	     new AnnotationConfigApplicationContext(ApplicationConf.class);
-	private static final String ALFRESCO_CMIS_URL = "http://alfrescotest.consorzio21.it:8080/alfresco/service/cmis";
-
 	@Test
 	public void writeFile() throws Exception {
 		Session session = CmisUtil.createCmisSession(getParameter("alfresco.user"), getParameter("alfresco.password"),

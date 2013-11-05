@@ -34,6 +34,8 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.Document;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.sr.activiti.bean.ApplicationConf;
 import org.sr.activiti.explorer.delegates.cmis.CmisUtil;
 
 /**
@@ -52,6 +54,8 @@ public class docGenerate implements JavaDelegate {
 	private Expression numero_determinazione;
 	private Expression oggetto_determinazione;
 	private Expression nome_rup;
+	private AnnotationConfigApplicationContext context =
+    	     new AnnotationConfigApplicationContext(ApplicationConf.class);
 	
 	
 	public void execute(DelegateExecution execution) throws IOException, JAXBException {
@@ -83,7 +87,7 @@ public class docGenerate implements JavaDelegate {
 			org.apache.chemistry.opencmis.client.api.Document document = (org.apache.chemistry.opencmis.client.api.Document)object;
 			stream = (InputStream) document.getContentStream().getStream(); 
 		
-			String outputFilePath = "/home/guido/determinazione-DG.docx";
+			String outputFilePath = "/home/utente/determinazione-DG.docx";
 			File outputFile = new java.io.File(outputFilePath);
 	  
 			WordprocessingMLPackage template = WordprocessingMLPackage.load(stream);
@@ -106,10 +110,7 @@ public class docGenerate implements JavaDelegate {
 			
 			template.save(outputFile);
 		
-			execution.getEngineServices().getTaskService().createAttachment(
-					"application/vnd.openxmlformats-officedocument.wordprocessingml.document;docx", 
-					null, execution.getProcessInstanceId(), outputFile.getName(), null, new FileInputStream(outputFile)
-					);
+			execution.getEngineServices().getTaskService().createAttachment("application/vnd.openxmlformats-officedocument.wordprocessingml.document;docx", null, execution.getProcessInstanceId(), outputFile.getName(), null, new FileInputStream(outputFile), "determinazione");
 		}
 		catch (IOException ex){
 			ExplorerApp.get().getNotificationManager().showErrorNotification(
@@ -126,5 +127,10 @@ public class docGenerate implements JavaDelegate {
 				stream.close();
 			}
 		}
-	}	
+	}
+	
+	private String getParameter(String key){
+		
+       	return context.getEnvironment().getProperty(key);
+	}
 }

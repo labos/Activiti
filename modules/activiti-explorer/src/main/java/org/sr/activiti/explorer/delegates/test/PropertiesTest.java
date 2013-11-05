@@ -49,7 +49,7 @@ public class PropertiesTest {
        	ctx.refresh();
        	env = ctx.getEnvironment();
        	ApplicationConf myBean = ctx.getBean(ApplicationConf.class);
-		System.out.println("Da spring property1:" + ctx.getEnvironment().getProperty("alfresco.port"));
+		System.out.println("Da spring property1:" + ctx.getEnvironment().getProperty("alfresco.cmis.url"));
 		//System.out.println("Da spring property:" + myBean.getProperty());
 		
 		

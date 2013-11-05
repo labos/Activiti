@@ -7,8 +7,8 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @PropertySource("classpath:alfresco.properties")
 public class ApplicationConf {
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer getProperties() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
+	   @Bean  
+	   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {  
+	   return new PropertySourcesPlaceholderConfigurer();  
+	   }  
 }
