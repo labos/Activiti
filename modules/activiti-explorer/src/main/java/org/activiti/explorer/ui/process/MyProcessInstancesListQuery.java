@@ -42,8 +42,7 @@ public class MyProcessInstancesListQuery extends AbstractLazyLoadingQuery {
 
 	protected Map<String, ProcessDefinition> cachedProcessDefinitions;
 
-	public MyProcessInstancesListQuery(HistoryService historyService,
-			RepositoryService repositoryService) {
+	public MyProcessInstancesListQuery(HistoryService historyService, RepositoryService repositoryService) {
 		this.historyService = historyService;
 		this.repositoryService = repositoryService;
 		cachedProcessDefinitions = new HashMap<String, ProcessDefinition>();
@@ -51,8 +50,7 @@ public class MyProcessInstancesListQuery extends AbstractLazyLoadingQuery {
 
 	public List<Item> loadItems(int start, int count) {
 
-		List<HistoricProcessInstance> processInstances = new ArrayList<HistoricProcessInstance>(
-				this.getAllInvolvedProcesses());
+		List<HistoricProcessInstance> processInstances = new ArrayList<HistoricProcessInstance>(this.getAllInvolvedProcesses());
 
 		List<Item> items = new ArrayList<Item>();
 		for (HistoricProcessInstance processInstance : processInstances) {
@@ -76,15 +74,12 @@ public class MyProcessInstancesListQuery extends AbstractLazyLoadingQuery {
 					.getDefaultProcessEngine()
 					.getRuntimeService()
 					.createProcessInstanceQuery()
-					.variableValueEquals("rup",
-							ExplorerApp.get().getLoggedInUser().getId()).list());
+					.variableValueEquals("rup",	ExplorerApp.get().getLoggedInUser().getId()).list());
 			for (ProcessInstance processInstanceRup : processInstancesRup) {
-				if (!this.checkProcessInstanceDuplicate(processGenericInstances,
-						processInstanceRup)) {
+				if (!this.checkProcessInstanceDuplicate(processGenericInstances, processInstanceRup)) {
 					processGenericInstances.add(historyService
 							.createHistoricProcessInstanceQuery()
-							.processInstanceId(
-									processInstanceRup.getProcessInstanceId())
+							.processInstanceId(processInstanceRup.getProcessInstanceId())
 							.singleResult());
 				}
 
@@ -94,22 +89,20 @@ public class MyProcessInstancesListQuery extends AbstractLazyLoadingQuery {
 			return processInstances;
 	}
 
-	private boolean checkProcessInstanceDuplicate(
-			HashSet<HistoricProcessInstance> processInstances,
-			ProcessInstance process) {
+	private boolean checkProcessInstanceDuplicate(HashSet<HistoricProcessInstance> processInstances, ProcessInstance process) {
 
 		for (HistoricProcessInstance aProcessInstance : processInstances) {
 
-			if (aProcessInstance.getProcessDefinitionId().equals(
-					process.getProcessDefinitionId())) {
+			if (aProcessInstance.getId().equals(process.getId())) {
 				return true;
 			}
 		}
 		return false;
 
 	}
-  public Item loadSingleResult(String id) {
-    HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
+	
+	public Item loadSingleResult(String id) {
+		HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
       .startedBy(ExplorerApp.get().getLoggedInUser().getId())
       .unfinished()
       .processInstanceId(id).singleResult();
