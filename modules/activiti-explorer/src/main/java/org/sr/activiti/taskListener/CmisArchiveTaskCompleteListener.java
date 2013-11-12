@@ -10,6 +10,7 @@ import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.TaskListener;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.util.IoUtil;
 import org.activiti.engine.task.Attachment;
 import org.activiti.explorer.ExplorerApp;
@@ -63,11 +64,28 @@ public class CmisArchiveTaskCompleteListener implements TaskListener {
 				getParameter("alfresco.tag.fattura"));
 		tagsMap.put("generico",
 				getParameter("alfresco.tag.generico"));
-		
-		
+
 		ArrayList<String> alfrescoPageLinks = new ArrayList<String>();
+		// retrieve attachments of current task
 		attachmentList = delegateTask.getExecution().getEngineServices()
 				.getTaskService().getTaskAttachments(delegateTask.getId());
+		// retrieve attachments from the history in case of email task failure
+		// or archiving issues
+		List<HistoricTaskInstance> historicTasks = delegateTask.getExecution()
+				.getEngineServices().getHistoryService()
+				.createHistoricTaskInstanceQuery()
+				.processInstanceId(delegateTask.getProcessInstanceId())
+				.taskDefinitionKey(delegateTask.getTaskDefinitionKey())
+				.finished().list();
+
+		for (HistoricTaskInstance aTask : historicTasks) {
+			List<Attachment> attachments = delegateTask.getExecution()
+					.getEngineServices().getTaskService()
+					.getTaskAttachments(aTask.getId());
+			if (!attachments.isEmpty()) {
+				attachmentList.addAll(attachments);
+			}
+		}
 		// set minAttachments to archive
 		if (minAttachmentsNum.getValue(delegateTask.getExecution()) != null) {
 			numAttachments = Integer.parseInt((String) minAttachmentsNum
