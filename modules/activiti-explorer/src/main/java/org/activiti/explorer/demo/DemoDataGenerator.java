@@ -388,7 +388,7 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     // new  SR default users
     createUser("gpisanu", "Giorgio", "Pisanu", "pisanu", "labopensource+DIR-direttore@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("dir", "dirigenti", "admin"),
+            Arrays.asList("dir", "dirigenti", "user", "admin"),
             Arrays.asList("birthDate", "", "jobTitle", "Dirigente Area Servizi alle Imprese", "location", "",
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("sbaghino", "Sebastiano", "Baghino", "baghino", "labopensource+PST-responsabile@gmail.com", 
@@ -443,12 +443,12 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("agugliotta", "Alessandra", "Gugliotta", "gugliotta", "labopensource+CGE-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("cge", "responsabili", "admin"),
+            Arrays.asList("cge", "responsabili", "user", "admin"),
             Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("eangioni", "Elena", "Angioni", "angioni", "labopensource+DOC-responsabile@gmail.com", 
             "org/activiti/explorer/images/user-blue-icon.png",
-            Arrays.asList("doc", "responsabili", "admin"),
+            Arrays.asList("doc", "responsabili", "user", "admin"),
             Arrays.asList("birthDate", "", "jobTitle", "Responsabile", "location", "",
                     "phone", "", "twitterName", "", "skype", ""));
     createUser("aatzeni", "Alessandra", "Atzeni", "atzeni", "labopensource+DIR-responsabile@gmail.com", 

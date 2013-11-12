@@ -34,14 +34,24 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.sr.activiti.bean.ApplicationConf;
 import org.sr.activiti.explorer.delegates.cmis.CmisUtil;
 
 /**
  * @author Lab Open Source
  */
+@Configuration
+@PropertySource("delegates.properties")
 public class docGenerate implements JavaDelegate {
+	
+	@Autowired
+    private Environment env;
   
 	private static final String ALFRESCO_CMIS_URL =
 				"http://alfrescotest.consorzio21.it:8080/alfresco/service/cmis";
@@ -54,9 +64,9 @@ public class docGenerate implements JavaDelegate {
 	private Expression numero_determinazione;
 	private Expression oggetto_determinazione;
 	private Expression nome_rup;
-	private AnnotationConfigApplicationContext context =
-    	     new AnnotationConfigApplicationContext(ApplicationConf.class);
-	
+//	private AnnotationConfigApplicationContext context =
+//    	     new AnnotationConfigApplicationContext(ApplicationConf.class);
+//	
 	
 	public void execute(DelegateExecution execution) throws IOException, JAXBException {
 	  
@@ -87,7 +97,7 @@ public class docGenerate implements JavaDelegate {
 			org.apache.chemistry.opencmis.client.api.Document document = (org.apache.chemistry.opencmis.client.api.Document)object;
 			stream = (InputStream) document.getContentStream().getStream(); 
 		
-			String outputFilePath = "/home/utente/determinazione-DG.docx";
+			String outputFilePath = env.getProperty("docx4j.save.path");
 			File outputFile = new java.io.File(outputFilePath);
 	  
 			WordprocessingMLPackage template = WordprocessingMLPackage.load(stream);
@@ -114,13 +124,13 @@ public class docGenerate implements JavaDelegate {
 		}
 		catch (IOException ex){
 			ExplorerApp.get().getNotificationManager().showErrorNotification(
-					"Problema nel salvare il documento generato", 
-			        "Riprova o contatta l'amministratore");
+					"document.save.error",
+					"Problema nel salvare il documento generato, riprova o contatta l'amministratore");
 		}
 		catch (Docx4JException ex){
 			ExplorerApp.get().getNotificationManager().showErrorNotification(
-					"Problema nel generare il documento", 
-			        "Riprova o contatta l'amministratore");
+					"document.generate.error",
+					"Problema nel generare il documento, riprova o contatta l'amministratore");
 		}
 		finally{
 			if (stream != null) {
@@ -129,8 +139,8 @@ public class docGenerate implements JavaDelegate {
 		}
 	}
 	
-	private String getParameter(String key){
-		
-       	return context.getEnvironment().getProperty(key);
-	}
+//	private String getParameter(String key){
+//		
+//       	return context.getEnvironment().getProperty(key);
+//	}
 }

@@ -172,8 +172,7 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow47" sourceRef="usertask3" targetRef="servicetask6"></sequenceFlow>
-    <sequenceFlow id="flow48" sourceRef="servicetask6" targetRef="usertask6"></sequenceFlow>
+    <sequenceFlow id="flow47" sourceRef="usertask3" targetRef="usertask6"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_determinazione-DG-noProposta">
     <bpmndi:BPMNPlane bpmnElement="determinazione-DG-noProposta" id="BPMNPlane_determinazione-DG-noProposta">
@@ -343,12 +342,8 @@ Il motivo è il seguente: ${motivazioneDG}.</activiti:expression>
         <omgdi:waypoint x="678.0" y="217.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
-        <omgdi:waypoint x="532.0" y="150.0"></omgdi:waypoint>
-        <omgdi:waypoint x="636.0" y="98.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
-        <omgdi:waypoint x="636.0" y="98.0"></omgdi:waypoint>
-        <omgdi:waypoint x="678.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="585.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="626.0" y="178.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
