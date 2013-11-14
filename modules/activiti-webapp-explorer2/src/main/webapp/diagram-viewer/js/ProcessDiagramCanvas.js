@@ -1619,7 +1619,7 @@ ProcessDiagramCanvas.prototype = {
     this.addHandlers(set, x, y, width, height, "task");
 	},
 
-	_drawCollapsedTask: function(name, x, y, width, height, thickBorder) {
+	drawCollapsedTask: function(name, x, y, width, height, thickBorder) {
 		// The collapsed marker is now visualized separately
 		this._drawTask(name, x, y, width, height, thickBorder);
 	},
