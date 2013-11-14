@@ -221,11 +221,6 @@
     <sequenceFlow id="flow295" sourceRef="parallelgateway9" targetRef="usertask70"></sequenceFlow>
     <sequenceFlow id="flow296" sourceRef="parallelgateway9" targetRef="callactivity9"></sequenceFlow>
   </process>
-  <process id="process_pool1" name="process_pool1" isExecutable="true">
-    <laneSet id="laneSet_process_pool1">
-      <lane id="lane1"></lane>
-    </laneSet>
-  </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_collaborazioni">
     <bpmndi:BPMNPlane bpmnElement="collaborazioni" id="BPMNPlane_collaborazioni">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">

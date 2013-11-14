@@ -36,7 +36,7 @@
     </callActivity>
     <userTask id="usertask60" name="Oggetto, tipologia, fonte ed importo" activiti:assignee="${rup}">
       <extensionElements>
-        <activiti:formProperty id="subject" name="Oggetto Procedura ABS" type="string" variable="subject" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subject" name="Oggetto Procedura Aiuti" type="string" variable="subject" required="true"></activiti:formProperty>
         <activiti:formProperty id="importo" name="Imponibile" type="double" variable="importo" default="0" required="true"></activiti:formProperty>
         <activiti:formProperty id="vat" name="IVA (%)" type="double" variable="actualVAT" required="true"></activiti:formProperty>
         <activiti:formProperty id="projectSource" name="Fonte" type="projectSourceItem" variable="projectSource" default="${project.id}" required="true"></activiti:formProperty>
@@ -465,7 +465,7 @@
         <omgdi:waypoint x="1938.0" y="57.0"></omgdi:waypoint>
         <omgdi:waypoint x="1832.0" y="95.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="59.0" x="-10.0" y="2.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="59.0" x="-10.0" y="14.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow279" id="BPMNEdge_flow279">
