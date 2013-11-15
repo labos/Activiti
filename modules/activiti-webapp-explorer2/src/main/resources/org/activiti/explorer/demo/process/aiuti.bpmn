@@ -3,14 +3,24 @@
   <process id="aiuti" name="Aiuti" isExecutable="true" activiti:candidateStarterGroups="user">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <userTask id="usertask10" name="Predisposizione avviso pubblico e modulistica per la selezione dei beneficiari" activiti:assignee="${rup}">
-      <documentation>ALLEGARE TUTTA I DOCUMENTI NECESSARI RELATIVI ALL'AVVISO E ALLA MODULISTICA DI SELEZIONE</documentation>
+      <documentation>ALLEGARE TUTTA I DOCUMENTI NECESSARI RELATIVI ALL'AVVISO E ALLA MODULISTICA DI SELEZIONE.
+OGGETTO DELLA PROCEDURA DI AIUTO: ${subject}
+PROGETTO: ${project.name}
+TIPOLOGIA: ${tipologia_bando}</documentation>
       <extensionElements>
         <activiti:formProperty id="idCig" name="CIG" type="string" variable="cig"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask11" name="Trasmissione del bando e della modulistica ai fini del parere di coerenza e regolarità programmatica" activiti:assignee="${rup}"></userTask>
+    <userTask id="usertask11" name="Trasmissione del bando e della modulistica ai fini del parere di coerenza e regolarità programmatica" activiti:assignee="${rup}">
+      <documentation>OGGETTO DELLA PROCEDURA DI AIUTO: ${subject}
+PROGETTO: ${project.name}
+TIPOLOGIA: ${tipologia_bando}</documentation>
+    </userTask>
     <userTask id="usertask14" name="Inoltro e protocollo in uscita" activiti:async="true" activiti:assignee="acorda" activiti:candidateGroups="sag">
-      <documentation>COMPLETARE IL TASK SOLO DOPO AVER ALLEGATO LE SCANSIONI DELLE LETTERE FIRMATE, AVERLE SPEDITE E PROTOCOLLATE IN USCITA.</documentation>
+      <documentation>COMPLETARE IL TASK SOLO DOPO AVER ALLEGATO LE SCANSIONI DELLE LETTERE FIRMATE, AVERLE SPEDITE E PROTOCOLLATE IN USCITA.
+OGGETTO DELLA PROCEDURA DI AIUTO: ${subject}
+PROGETTO: ${project.name}
+TIPOLOGIA: ${tipologia_bando}</documentation>
     </userTask>
     <serviceTask id="servicetask5" name="Check allegato" activiti:class="org.sr.activiti.explorer.delegates.AttachmentCheck">
       <extensionElements>
@@ -25,12 +35,15 @@
     <sequenceFlow id="flow61" name="Non allegato" sourceRef="exclusivegateway7" targetRef="usertask11">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
-    <callActivity id="callactivity3" name="Approvazione dell'avviso" calledElement="determinazione-DG">
+    <callActivity id="callactivity3" name="Determinazione di approvazione avviso di nomina Commissione Tecnica di Valutazione" calledElement="determinazione-DG">
       <extensionElements>
         <activiti:in source="rup" target="detAssignee"></activiti:in>
         <activiti:in sourceExpression="nomina Commissione di Gara" target="detSubject"></activiti:in>
         <activiti:in source="emailInitiator" target="emailInitiator"></activiti:in>
         <activiti:in source="rup" target="rup"></activiti:in>
+        <activiti:in sourceExpression="${project.name}" target="nome_progetto"></activiti:in>
+        <activiti:in source="subject" target="subject"></activiti:in>
+        <activiti:in source="tipologia_bando" target="tipologia_bando"></activiti:in>
         <activiti:in source="idParentProcess" target="idParentProcess"></activiti:in>
       </extensionElements>
     </callActivity>
@@ -77,6 +90,9 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isAttached}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask64" name="Controllo rispetto normativa e vincoli di comunicazione" activiti:assignee="smaxia">
+      <documentation>OGGETTO DELLA PROCEDURA DI AIUTO: ${subject}
+PROGETTO: ${project.name}
+TIPOLOGIA: ${tipologia_bando}</documentation>
       <extensionElements>
         <activiti:formProperty id="approvazione-AGI" name="Approva?" type="enum" variable="approvazione-AGI" default="true" required="true">
           <activiti:value id="true" name="Sì"></activiti:value>
@@ -200,9 +216,12 @@
     <sequenceFlow id="flow290" sourceRef="exclusivegateway34" targetRef="endevent5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nuovo_beneficiario_data-fissa=='false'}]]></conditionExpression>
     </sequenceFlow>
-    <callActivity id="callactivity12" name="Pubblicazione avviso pubblico" calledElement="pubblicazione">
+    <callActivity id="callactivity12" name="Pubblicazione avviso pubblico e modulistica" calledElement="pubblicazione">
       <extensionElements>
         <activiti:in source="rup" target="rup"></activiti:in>
+        <activiti:in sourceExpression="${project.name}" target="nome_progetto"></activiti:in>
+        <activiti:in source="subject" target="subject"></activiti:in>
+        <activiti:in source="tipologia_bando" target="tipologia_bando"></activiti:in>
         <activiti:in source="idParentProcess" target="idParentProcess"></activiti:in>
       </extensionElements>
     </callActivity>
@@ -242,7 +261,7 @@
         <omgdc:Bounds height="40.0" width="40.0" x="660.0" y="286.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity3" id="BPMNShape_callactivity3">
-        <omgdc:Bounds height="84.0" width="122.0" x="760.0" y="147.0"></omgdc:Bounds>
+        <omgdc:Bounds height="125.0" width="122.0" x="760.0" y="125.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask60" id="BPMNShape_usertask60">
         <omgdc:Bounds height="71.0" width="105.0" x="92.0" y="152.0"></omgdc:Bounds>
@@ -332,7 +351,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="2207.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="callactivity12" id="BPMNShape_callactivity12">
-        <omgdc:Bounds height="83.0" width="105.0" x="960.0" y="146.0"></omgdc:Bounds>
+        <omgdc:Bounds height="89.0" width="105.0" x="970.0" y="143.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway35" id="BPMNShape_exclusivegateway35">
         <omgdc:Bounds height="40.0" width="40.0" x="1160.0" y="167.0"></omgdc:Bounds>
@@ -386,7 +405,7 @@
         <omgdi:waypoint x="333.0" y="306.0"></omgdi:waypoint>
         <omgdi:waypoint x="376.0" y="306.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="39.0" x="-17.0" y="9.0"></omgdc:Bounds>
+          <omgdc:Bounds height="13.0" width="39.0" x="-19.0" y="5.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow250" id="BPMNEdge_flow250">
@@ -402,11 +421,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow252" id="BPMNEdge_flow252">
         <omgdi:waypoint x="820.0" y="279.0"></omgdi:waypoint>
-        <omgdi:waypoint x="821.0" y="231.0"></omgdi:waypoint>
+        <omgdi:waypoint x="821.0" y="250.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow254" id="BPMNEdge_flow254">
-        <omgdi:waypoint x="882.0" y="189.0"></omgdi:waypoint>
-        <omgdi:waypoint x="960.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="882.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="970.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow255" id="BPMNEdge_flow255">
         <omgdi:waypoint x="1425.0" y="122.0"></omgdi:waypoint>
@@ -545,7 +564,7 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow293" id="BPMNEdge_flow293">
-        <omgdi:waypoint x="1065.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1075.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="1160.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow294" id="BPMNEdge_flow294">
